@@ -404,6 +404,9 @@ section { padding: 5rem 2rem; }
 }
 .funding-logo-item img { height: 40px; width: auto; object-fit: contain; filter: brightness(1); }
 [data-theme="dark"] .funding-logo-item img { filter: brightness(0) invert(1); }
+.funding-featured-wrap { flex: 0 0 100%; display: flex; justify-content: center; margin-bottom: 2rem; }
+.funding-featured-wrap img { max-height: 110px; width: auto; object-fit: contain; }
+[data-theme="dark"] .funding-featured-wrap img { filter: brightness(0) invert(1); }
 
 /* ── CTA banner ──────────────────────────────────────────────────────────── */
 #cta {

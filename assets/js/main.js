@@ -297,7 +297,21 @@ async function loadFunding(lang = 'pt') {
     const org = await fetchDS('project/organization.json');
     if (!Array.isArray(org.funding)) return;
 
-    container.innerHTML = org.funding.map(f => `
+    const featured = org.funding.filter(f => f.featured && f.logo);
+    const others   = org.funding.filter(f => !f.featured);
+
+    let html = '';
+
+    if (featured.length) {
+      html += featured.map(f => `
+        <div class="funding-featured-wrap">
+          <a href="${f.url || '#'}" target="_blank" rel="noopener" aria-label="${f.name}">
+            <img src="${f.logo}" alt="${f.name}" loading="lazy">
+          </a>
+        </div>`).join('');
+    }
+
+    html += others.map(f => `
       <div class="funding-logo-item">
         ${f.logo
           ? `<img src="${f.logo}" alt="${f.name}" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
@@ -305,6 +319,8 @@ async function loadFunding(lang = 'pt') {
           : `<span class="logo-text">${f.name}</span>`
         }
       </div>`).join('');
+
+    container.innerHTML = html;
   } catch (e) {
     console.warn('[ClimaSUS] Could not load funding:', e.message);
   }
