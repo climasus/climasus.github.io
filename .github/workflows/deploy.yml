@@ -1,0 +1,42 @@
+name: Deploy Portal to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Fetch i18n from design-system
+        run: |
+          mkdir -p assets/i18n
+          for lang in pt en es; do
+            curl -fsSL \
+              "https://climasus.github.io/design-system/data/i18n/${lang}.json" \
+              -o "assets/i18n/${lang}.json" || echo "WARN: could not fetch ${lang}.json"
+          done
+
+      - name: Fetch org and repo data from design-system
+        run: |
+          mkdir -p assets/data/team assets/data/project
+          curl -fsSL \
+            "https://climasus.github.io/design-system/data/team/members.json" \
+            -o "assets/data/team/members.json" || echo "WARN: members.json"
+          curl -fsSL \
+            "https://climasus.github.io/design-system/data/project/repositories.json" \
+            -o "assets/data/project/repositories.json" || echo "WARN: repositories.json"
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./
+          exclude_assets: '.github,*.md'
