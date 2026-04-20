@@ -89,6 +89,8 @@ export async function setLang(lang) {
   localStorage.setItem('climasus-lang', lang);
   const t = await loadTranslations(lang);
   applyTranslations(t);
+  // Notify dynamic sections to re-render with new lang
+  document.dispatchEvent(new CustomEvent('climasus:langchange', { detail: { lang } }));
 }
 
 export function t(key, fallback = '') {
