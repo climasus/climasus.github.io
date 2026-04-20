@@ -121,6 +121,10 @@ async function loadTeam(lang = 'pt') {
           </div>
           <h3 class="team-name">${m.name}</h3>
           <p class="team-role">${m['role_' + lang] || m.role}</p>
+          ${m.institution_logo
+            ? `<div class="team-inst-logo"><img src="${m.institution_logo}" alt="${m.institution}" loading="lazy"></div>`
+            : ''
+          }
           <p class="team-institution">${m.institution}</p>
           <div class="team-links">
             ${m.github   ? `<a href="${m.github}"   target="_blank" rel="noopener" aria-label="GitHub">GH</a>`    : ''}

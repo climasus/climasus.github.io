@@ -373,6 +373,15 @@ section { padding: 5rem 2rem; }
 }
 .team-name { font-family: var(--font-display); font-weight: 700; font-size: .9rem; color: var(--text); margin-bottom: .25rem; }
 .team-role { font-size: .75rem; color: var(--primary-dark); font-weight: 600; margin-bottom: .25rem; }
+.team-inst-logo {
+    height: 48px; display: flex; align-items: center; justify-content: center;
+    margin: .5rem auto .25rem;
+}
+.team-inst-logo img {
+    max-height: 48px; max-width: 120px; width: auto;
+    object-fit: contain;
+}
+[data-theme="dark"] .team-inst-logo img { filter: brightness(0) invert(1); }
 .team-institution { font-size: .7rem; color: var(--text-3); line-height: 1.4; margin-bottom: .75rem; }
 .team-links { display: flex; justify-content: center; gap: .5rem; }
 .team-links a {
