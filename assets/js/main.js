@@ -6,7 +6,20 @@
 import { initTheme, toggleTheme } from './theme.js';
 import { initI18n, setLang, t } from './i18n.js';
 
-const DS_BASE = 'https://climasus.github.io/design-system/data';
+const DS_BASE   = 'https://climasus.github.io/design-system/data';
+const LOCAL_BASE = './assets/data'; // data copied by deploy.yml — preferred, no CORS
+
+/** Fetch a data file: try local copy first (no CORS), fall back to remote CDN. */
+async function fetchDS(path) {
+  try {
+    const r = await fetch(`${LOCAL_BASE}/${path}`);
+    if (r.ok) return r.json();
+  } catch (_) { /* local not ready, fall back */ }
+  return fetch(`${DS_BASE}/${path}`).then(r => {
+    if (!r.ok) throw new Error(`HTTP ${r.status}: ${path}`);
+    return r.json();
+  });
+}
 
 // ── Bootstrap ──────────────────────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', async () => {
@@ -102,7 +115,7 @@ async function loadTeam(lang = 'pt') {
   if (!container) return;
 
   try {
-    const members = await fetch(`${DS_BASE}/team/members.json`).then(r => r.json());
+    const members = await fetchDS('team/members.json');
 
     container.innerHTML = members
       .filter(m => m.active)
@@ -145,7 +158,7 @@ async function loadRepos(lang = 'pt') {
   if (!container) return;
 
   try {
-    const repos = await fetch(`${DS_BASE}/project/repositories.json`).then(r => r.json());
+    const repos = await fetchDS('project/repositories.json');
 
     const visible = repos
       .filter(r => r.portal_visible === true)
@@ -187,7 +200,7 @@ async function loadArchitecture(lang = 'pt') {
   if (!container) return;
 
   try {
-    const data = await fetch(`${DS_BASE}/project/architecture.json`).then(r => r.json());
+    const data = await fetchDS('project/architecture.json');
     const layers = [...data.layers].sort((a, b) => b.level - a.level); // top layer first
 
     container.innerHTML = layers.map(l => {
@@ -221,7 +234,7 @@ async function loadRoadmap(lang = 'pt') {
   const statusClass = { released: 'badge-released', in_progress: 'badge-in-progress', planned: 'badge-planned' };
 
   try {
-    const items = await fetch(`${DS_BASE}/project/roadmap.json`).then(r => r.json());
+    const items = await fetchDS('project/roadmap.json');
     const statusKey = {
       released:    `roadmap.status.released`,
       in_progress: `roadmap.status.in_progress`,
@@ -257,7 +270,7 @@ async function loadRoadmap(lang = 'pt') {
 // ── Load footer links from design-system ──────────────────────────────────
 async function loadFooter(lang = 'pt') {
   try {
-    const data = await fetch(`${DS_BASE}/docs/footer.json`).then(r => r.json());
+    const data = await fetchDS('docs/footer.json');
 
     const nav = document.getElementById('footer-links');
     if (nav) {
@@ -281,7 +294,7 @@ async function loadFunding(lang = 'pt') {
   if (!container) return;
 
   try {
-    const org = await fetch(`${DS_BASE}/project/organization.json`).then(r => r.json());
+    const org = await fetchDS('project/organization.json');
     if (!Array.isArray(org.funding)) return;
 
     container.innerHTML = org.funding.map(f => `
