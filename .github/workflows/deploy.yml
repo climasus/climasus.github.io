@@ -21,18 +21,29 @@ jobs:
           for lang in pt en es; do
             curl -fsSL \
               "https://climasus.github.io/design-system/data/i18n/${lang}.json" \
-              -o "assets/i18n/${lang}.json" || echo "WARN: could not fetch ${lang}.json"
+              -o "assets/i18n/${lang}.json" || exit 1
           done
 
-      - name: Fetch org and repo data from design-system
+      - name: Fetch data and assets from design-system
         run: |
-          mkdir -p assets/data/team assets/data/project
+          mkdir -p assets/data/team assets/data/project assets/icons
+
+          # Team
           curl -fsSL \
             "https://climasus.github.io/design-system/data/team/members.json" \
-            -o "assets/data/team/members.json" || echo "WARN: members.json"
+            -o "assets/data/team/members.json" || exit 1
+
+          # Project data
+          for file in repositories architecture roadmap organization; do
+            curl -fsSL \
+              "https://climasus.github.io/design-system/data/project/${file}.json" \
+              -o "assets/data/project/${file}.json" || exit 1
+          done
+
+          # Favicon
           curl -fsSL \
-            "https://climasus.github.io/design-system/data/project/repositories.json" \
-            -o "assets/data/project/repositories.json" || echo "WARN: repositories.json"
+            "https://climasus.github.io/design-system/assets/icons/favicon-16x16.png" \
+            -o "assets/icons/favicon-16x16.png" || true
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
