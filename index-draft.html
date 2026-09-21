@@ -1,0 +1,1948 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>climaSUS — Ciência do clima, do ambiente e da saúde pública brasileira</title>
+<link rel="icon" href="favicon.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,500&family=IBM+Plex+Sans:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --ink: #14322A;          /* deep forest green */
+    --ink-2: #1F4A3D;
+    --ink-3: #2A5C4D;
+    --paper: #F4EFE3;        /* warm cream */
+    --paper-2: #E6DEC8;
+    --paper-3: #FAF6EC;
+    --rule: rgba(20,50,42,0.18);
+    --rule-strong: rgba(20,50,42,0.4);
+    --muted: #6B7A6B;
+    --accent: #B85A1F;       /* canopy / amber */
+    --accent-2: #5C8A3A;     /* moss */
+    --gold: #C9A036;
+    --teal: #1F6B5E;
+  }
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: "IBM Plex Sans", system-ui, sans-serif;
+    color: var(--ink);
+    background: var(--paper);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  a { color: inherit; text-decoration: none; }
+  img { display: block; max-width: 100%; }
+
+  /* ============ TOPBAR ============ */
+  .topbar {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--ink);
+    color: var(--paper);
+    border-bottom: 1px solid rgba(244,239,227,0.1);
+  }
+  .topbar-utility {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 40px;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 12px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(244,239,227,0.65);
+    border-bottom: 1px solid rgba(244,239,227,0.08);
+  }
+  .topbar-utility .util-left { display: flex; gap: 28px; }
+  .topbar-utility .util-right { display: flex; gap: 24px; align-items: center; }
+  .topbar-utility a:hover { color: var(--paper); }
+  .topbar-utility .alert-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(184,90,31,0.18);
+    color: #E6A87A;
+    padding: 4px 10px;
+    border: 1px solid rgba(184,90,31,0.5);
+  }
+  .topbar-utility .alert-pill .dot {
+    width: 7px; height: 7px; border-radius: 50%;
+    background: #E6A87A;
+    animation: pulse 1.8s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+
+  .topbar-main {
+    display: flex;
+    align-items: center;
+    padding: 18px 40px;
+    gap: 56px;
+  }
+  .brand {
+    display: flex;
+    align-items: baseline;
+    gap: 14px;
+    flex-shrink: 0;
+  }
+  .brand-wordmark {
+    font-family: "Newsreader", serif;
+    font-weight: 500;
+    font-size: 32px;
+    letter-spacing: -0.01em;
+    line-height: 1;
+    color: var(--paper);
+  }
+  .brand-wordmark .alt {
+    font-style: italic;
+    color: #E6A87A;
+    font-weight: 400;
+  }
+  .brand-tag {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: rgba(244,239,227,0.5);
+    padding-left: 14px;
+    border-left: 1px solid rgba(244,239,227,0.2);
+    line-height: 1.4;
+  }
+  .nav-main {
+    display: flex;
+    gap: 32px;
+    flex: 1;
+  }
+  .nav-main a {
+    font-size: 15px;
+    font-weight: 500;
+    color: rgba(244,239,227,0.85);
+    position: relative;
+    padding: 6px 0;
+    transition: color 0.15s;
+  }
+  .nav-main a:hover {
+    color: #E6A87A;
+  }
+  .nav-main a.active::after {
+    content: "";
+    position: absolute;
+    left: 0; right: 0; bottom: -2px;
+    height: 2px;
+    background: var(--accent);
+  }
+  .nav-actions {
+    display: flex;
+    gap: 14px;
+    align-items: center;
+  }
+  .search-btn {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 14px;
+    border: 1px solid rgba(244,239,227,0.25);
+    background: transparent;
+    color: rgba(244,239,227,0.85);
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 13px;
+    letter-spacing: 0.04em;
+  }
+  .search-btn:hover { background: rgba(244,239,227,0.08); color: var(--paper); }
+  .cta-btn {
+    padding: 10px 18px;
+    background: var(--accent);
+    color: var(--paper);
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    font-family: inherit;
+    border: none;
+    cursor: pointer;
+  }
+  .cta-btn:hover { background: #C9692C; }
+
+  /* ============ HERO ============ */
+  .hero {
+    position: relative;
+    min-height: 720px;
+    background: #0a1f17;
+    color: var(--paper);
+    overflow: hidden;
+    isolation: isolate;
+  }
+  .hero-canvas {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+  }
+  /* Stylized thermal/forest background */
+  .hero-canvas .layer-1 {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 60% 50% at 70% 30%, rgba(184,90,31,0.55), transparent 60%),
+      radial-gradient(ellipse 50% 60% at 20% 70%, rgba(31,107,94,0.5), transparent 65%),
+      radial-gradient(ellipse 80% 40% at 50% 100%, rgba(20,50,42,1), rgba(20,50,42,0.4));
+  }
+  .hero-canvas .layer-grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(244,239,227,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(244,239,227,0.04) 1px, transparent 1px);
+    background-size: 64px 64px;
+    mask-image: radial-gradient(ellipse 70% 70% at 50% 50%, black 30%, transparent 80%);
+  }
+  .hero-canvas svg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+  .hero-vignette {
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(180deg, rgba(10,31,23,0.65) 0%, transparent 30%, transparent 60%, rgba(10,31,23,0.85) 100%),
+      linear-gradient(90deg, rgba(10,31,23,0.85) 0%, transparent 50%);
+    z-index: 1;
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    padding: 80px 40px 100px;
+    max-width: 1480px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: 80px;
+    align-items: end;
+    min-height: 720px;
+  }
+  .hero-left .eyebrow {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.22em;
+    color: #E6A87A;
+    display: inline-flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 32px;
+  }
+  .hero-left .eyebrow .bar {
+    display: inline-block;
+    width: 32px; height: 1px;
+    background: #E6A87A;
+  }
+  .hero-headline {
+    font-family: "Newsreader", serif;
+    font-weight: 500;
+    font-size: 96px;
+    line-height: 0.95;
+    letter-spacing: -0.025em;
+    margin: 0 0 36px;
+    color: var(--paper);
+    max-width: 880px;
+  }
+  .hero-headline .it {
+    font-style: italic;
+    color: #E6A87A;
+    font-weight: 400;
+  }
+  .hero-deck {
+    font-size: 20px;
+    line-height: 1.5;
+    max-width: 600px;
+    color: rgba(244,239,227,0.85);
+    margin: 0 0 40px;
+    font-weight: 300;
+  }
+  .hero-cta-row {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+  }
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px 28px;
+    background: var(--paper);
+    color: var(--ink);
+    font-size: 15px;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    transition: background 0.15s;
+  }
+  .btn-primary:hover { background: #fff; }
+  .btn-primary .arrow { transition: transform 0.2s; }
+  .btn-primary:hover .arrow { transform: translateX(4px); }
+  .btn-ghost {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px 28px;
+    border: 1px solid rgba(244,239,227,0.4);
+    color: var(--paper);
+    font-size: 15px;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    transition: background 0.15s;
+  }
+  .btn-ghost:hover { background: rgba(244,239,227,0.08); }
+
+  .hero-right {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    align-self: end;
+  }
+  .live-card {
+    border: 1px solid rgba(244,239,227,0.18);
+    background: rgba(10,31,23,0.5);
+    backdrop-filter: blur(8px);
+    padding: 24px;
+  }
+  .live-card .live-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: rgba(244,239,227,0.6);
+    margin-bottom: 18px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid rgba(244,239,227,0.12);
+  }
+  .live-card .live-head .live-indicator {
+    display: inline-flex; align-items: center; gap: 8px;
+    color: #E6A87A;
+  }
+  .live-card .live-head .live-indicator .dot {
+    width: 6px; height: 6px; background: #E6A87A; border-radius: 50%;
+    animation: pulse 1.6s ease-in-out infinite;
+  }
+  .live-list { display: flex; flex-direction: column; gap: 14px; }
+  .live-item {
+    display: grid;
+    grid-template-columns: 60px 1fr auto;
+    gap: 16px;
+    align-items: center;
+    padding: 6px 0;
+  }
+  .live-item .lvl {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    padding: 4px 8px;
+    text-transform: uppercase;
+    text-align: center;
+    color: var(--paper);
+  }
+  .lvl.n1 { background: #5C8A3A; }
+  .lvl.n2 { background: #C9A036; }
+  .lvl.n3 { background: #B85A1F; }
+  .lvl.n4 { background: #5A1F0E; }
+  .live-item .loc {
+    font-size: 14px;
+    color: var(--paper);
+    line-height: 1.3;
+  }
+  .live-item .loc .sys {
+    display: block;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    color: rgba(244,239,227,0.5);
+    text-transform: uppercase;
+    margin-top: 2px;
+  }
+  .live-item .ts {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 11px;
+    color: rgba(244,239,227,0.5);
+  }
+  .live-card .live-foot {
+    margin-top: 18px;
+    padding-top: 14px;
+    border-top: 1px solid rgba(244,239,227,0.12);
+    display: flex;
+    justify-content: space-between;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(244,239,227,0.65);
+  }
+  .live-card .live-foot a:hover { color: #E6A87A; }
+
+  .hero-meta-row {
+    position: relative;
+    z-index: 2;
+    border-top: 1px solid rgba(244,239,227,0.12);
+    background: rgba(10,31,23,0.7);
+    padding: 18px 40px;
+  }
+  .hero-meta-inner {
+    max-width: 1480px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 12px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: rgba(244,239,227,0.55);
+  }
+  .hero-meta-inner .scroll-hint {
+    display: inline-flex; align-items: center; gap: 12px;
+  }
+
+  /* ============ SECTION HEADER ============ */
+  .section-head {
+    max-width: 1480px;
+    margin: 0 auto;
+    padding: 88px 40px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 80px;
+  }
+  .section-eyebrow {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 13px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--accent);
+    display: inline-flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 16px;
+  }
+  .section-eyebrow .bar {
+    display: inline-block; width: 28px; height: 1px;
+    background: var(--accent);
+  }
+  .section-title {
+    font-family: "Newsreader", serif;
+    font-weight: 500;
+    font-size: 60px;
+    line-height: 1;
+    letter-spacing: -0.02em;
+    margin: 0;
+    color: var(--ink);
+    max-width: 760px;
+  }
+  .section-title .it { font-style: italic; color: var(--accent); font-weight: 400; }
+  .section-lede {
+    font-family: "Newsreader", serif;
+    font-style: italic;
+    font-size: 22px;
+    line-height: 1.4;
+    color: var(--ink-2);
+    max-width: 460px;
+    text-align: right;
+    margin: 0;
+  }
+
+  /* ============ SISTEMAS ============ */
+  .sistemas-wrap { padding: 0 40px 100px; max-width: 1480px; margin: 0 auto; }
+  .sistemas-grid {
+    display: grid;
+    grid-template-columns: 1.6fr 1fr 1fr;
+    gap: 24px;
+  }
+  .sistema-card {
+    position: relative;
+    overflow: hidden;
+    color: var(--paper);
+    min-height: 520px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 32px;
+    transition: transform 0.3s ease;
+  }
+  .sistema-card:hover { transform: translateY(-4px); }
+  .sistema-card .bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+  }
+  .sistema-card .inner { position: relative; z-index: 1; display: contents; }
+
+  .sistema-card.featured { min-height: 560px; }
+  .sistema-card.featured .bg {
+    background:
+      linear-gradient(135deg, rgba(20,50,42,0.4), rgba(20,50,42,0.95)),
+      radial-gradient(ellipse 80% 60% at 30% 20%, #C9692C, transparent 70%),
+      radial-gradient(ellipse 80% 80% at 80% 90%, #5A1F0E, transparent 70%),
+      #B85A1F;
+  }
+  .sistema-card.sys-ar .bg {
+    background:
+      linear-gradient(160deg, rgba(20,50,42,0.4), rgba(20,50,42,0.95)),
+      radial-gradient(ellipse 100% 70% at 50% 0%, #2A5C4D, transparent 70%),
+      #14322A;
+  }
+  .sistema-card.sys-seca .bg {
+    background:
+      linear-gradient(165deg, rgba(20,50,42,0.4), rgba(20,50,42,0.9)),
+      radial-gradient(ellipse 90% 80% at 20% 80%, #C9A036, transparent 60%),
+      #5A4520;
+  }
+
+  .sistema-tag {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: rgba(244,239,227,0.65);
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .sistema-tag .dot {
+    width: 7px; height: 7px; border-radius: 50%;
+  }
+  .sistema-tag.calor .dot { background: #E6A87A; }
+  .sistema-tag.ar .dot { background: #5C8A3A; }
+  .sistema-tag.seca .dot { background: #E6C570; }
+
+  .sistema-name {
+    font-family: "Newsreader", serif;
+    font-weight: 500;
+    font-size: 64px;
+    line-height: 0.95;
+    letter-spacing: -0.025em;
+    margin: 18px 0 0;
+    color: var(--paper);
+  }
+  .sistema-name .it { font-style: italic; font-weight: 400; }
+  .sistema-card.featured .sistema-name { font-size: 88px; }
+  .sistema-card.featured .sistema-name .it { color: #E6A87A; }
+  .sistema-card.sys-ar .sistema-name .it { color: #8FBE5C; }
+  .sistema-card.sys-seca .sistema-name .it { color: #E6C570; }
+
+  .sistema-desc {
+    font-size: 16px;
+    line-height: 1.5;
+    color: rgba(244,239,227,0.85);
+    max-width: 460px;
+    margin: 18px 0 0;
+  }
+  .sistema-card.featured .sistema-desc {
+    font-size: 19px;
+    max-width: 540px;
+  }
+  .sistema-foot {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 24px;
+    border-top: 1px solid rgba(244,239,227,0.2);
+    margin-top: 24px;
+  }
+  .sistema-status {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: rgba(244,239,227,0.7);
+  }
+  .sistema-status .status-dot {
+    display: inline-block;
+    width: 6px; height: 6px; border-radius: 50%;
+    background: #8FBE5C;
+    margin-right: 8px;
+    animation: pulse 2s ease-in-out infinite;
+  }
+  .sistema-arrow {
+    font-family: "Newsreader", serif;
+    font-style: italic;
+    font-size: 22px;
+    color: var(--paper);
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: transform 0.2s;
+  }
+  .sistema-card:hover .sistema-arrow { transform: translateX(6px); }
+
+  /* decorative pattern in featured */
+  .sistema-card.featured .pattern-overlay {
+    position: absolute;
+    top: -40px; right: -40px;
+    width: 360px; height: 360px;
+    z-index: 0;
+    opacity: 0.35;
+    pointer-events: none;
+  }
+
+  /* ============ ECOSSISTEMA / COMPONENTES ============ */
+  .ecossistema {
+    background: var(--ink);
+    color: var(--paper);
+    padding: 0;
+  }
+  .ecossistema .section-head { padding-top: 100px; padding-bottom: 56px; }
+  .ecossistema .section-eyebrow { color: #E6A87A; }
+  .ecossistema .section-eyebrow .bar { background: #E6A87A; }
+  .ecossistema .section-title { color: var(--paper); }
+  .ecossistema .section-title .it { color: #E6A87A; }
+  .ecossistema .section-lede { color: rgba(244,239,227,0.75); }
+
+  .eco-grid-wrap {
+    max-width: 1480px; margin: 0 auto; padding: 0 40px 120px;
+  }
+  .eco-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 0;
+    border-top: 1px solid rgba(244,239,227,0.2);
+  }
+  .eco-item {
+    padding: 36px 28px 28px;
+    border-right: 1px solid rgba(244,239,227,0.12);
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    min-height: 380px;
+    transition: background 0.2s;
+    position: relative;
+  }
+  .eco-item:last-child { border-right: none; }
+  .eco-item:hover {
+    background: rgba(244,239,227,0.04);
+  }
+  .eco-item .num {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 12px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: rgba(244,239,227,0.5);
+  }
+  .eco-item .icon {
+    width: 56px; height: 56px;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--paper);
+    margin: 8px 0;
+  }
+  .eco-item .name {
+    font-family: "Newsreader", serif;
+    font-weight: 500;
+    font-size: 36px;
+    line-height: 1;
+    letter-spacing: -0.015em;
+    margin: 0;
+  }
+  .eco-item .name .it { font-style: italic; color: #E6A87A; font-weight: 400; }
+  .eco-item .desc {
+    font-size: 14px;
+    line-height: 1.5;
+    color: rgba(244,239,227,0.75);
+    margin: 0;
+    flex: 1;
+  }
+  .eco-item .tag {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #8FBE5C;
+    padding-top: 16px;
+    border-top: 1px solid rgba(244,239,227,0.12);
+  }
+  .eco-item.featured { background: rgba(184,90,31,0.12); }
+  .eco-item.featured .tag { color: #E6A87A; }
+
+  /* ============ MULTIMÍDIA / FEATURED STORY ============ */
+  .feature-story {
+    background: var(--paper);
+    padding: 100px 40px;
+  }
+  .feature-grid {
+    max-width: 1480px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 60px;
+    align-items: center;
+  }
+  .feature-img {
+    position: relative;
+    aspect-ratio: 4/3;
+    background:
+      linear-gradient(135deg, rgba(20,50,42,0.4), transparent),
+      radial-gradient(ellipse 60% 50% at 30% 40%, rgba(184,90,31,0.8), transparent 70%),
+      radial-gradient(ellipse 80% 80% at 70% 70%, rgba(31,107,94,0.6), transparent),
+      #14322A;
+    overflow: hidden;
+  }
+  .feature-img .data-overlay {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(244,239,227,0.08) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(244,239,227,0.08) 1px, transparent 1px);
+    background-size: 32px 32px;
+  }
+  .feature-img svg {
+    position: absolute;
+    inset: 0;
+    width: 100%; height: 100%;
+  }
+  .feature-img .caption {
+    position: absolute;
+    bottom: 16px; left: 20px; right: 20px;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: rgba(244,239,227,0.7);
+    display: flex; justify-content: space-between;
+  }
+  .feature-text .eyebrow {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 13px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 22px;
+  }
+  .feature-text h2 {
+    font-family: "Newsreader", serif;
+    font-weight: 500;
+    font-size: 56px;
+    line-height: 1.02;
+    letter-spacing: -0.02em;
+    margin: 0 0 28px;
+  }
+  .feature-text h2 .it { font-style: italic; color: var(--accent); font-weight: 400; }
+  .feature-text p {
+    font-size: 19px;
+    line-height: 1.55;
+    color: var(--ink-2);
+    margin: 0 0 18px;
+    max-width: 560px;
+  }
+  .feature-text .meta-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin: 36px 0;
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+    padding: 24px 0;
+  }
+  .feature-text .meta-list .key {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 4px;
+  }
+  .feature-text .meta-list .val {
+    font-family: "Newsreader", serif;
+    font-size: 22px;
+    color: var(--ink);
+  }
+  .feature-text .meta-list .val .em { color: var(--accent); font-style: italic; }
+  .read-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 13px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink);
+    padding: 14px 0;
+    border-bottom: 2px solid var(--ink);
+    margin-top: 8px;
+  }
+  .read-link:hover { color: var(--accent); border-color: var(--accent); }
+
+  /* ============ NEWS / ARTICLES GRID ============ */
+  .news-section { background: var(--paper-3); padding: 0 0 120px; }
+  .news-section .section-head { padding-top: 100px; }
+  .news-grid {
+    max-width: 1480px;
+    margin: 0 auto;
+    padding: 0 40px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+  }
+  .news-card {
+    background: var(--paper);
+    border: 1px solid var(--rule);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+  }
+  .news-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 32px rgba(20,50,42,0.12);
+  }
+  .news-img {
+    aspect-ratio: 16/10;
+    position: relative;
+    overflow: hidden;
+    background: var(--paper-2);
+  }
+  .news-img .label {
+    position: absolute;
+    top: 14px; left: 14px;
+    background: rgba(20,50,42,0.85);
+    color: var(--paper);
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    padding: 5px 10px;
+  }
+  .news-img.t1 { background: linear-gradient(135deg, #14322A, #2A5C4D); }
+  .news-img.t2 { background: linear-gradient(155deg, #5A1F0E, #B85A1F); }
+  .news-img.t3 { background: linear-gradient(135deg, #1F6B5E, #5C8A3A); }
+  .news-img.t4 { background: linear-gradient(125deg, #2A5C4D, #C9A036); }
+  .news-img svg {
+    position: absolute;
+    inset: 0;
+    width: 100%; height: 100%;
+  }
+  .news-body {
+    padding: 22px 22px 26px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    flex: 1;
+  }
+  .news-cat {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+  .news-title {
+    font-family: "Newsreader", serif;
+    font-weight: 500;
+    font-size: 26px;
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+    margin: 0;
+    color: var(--ink);
+  }
+  .news-title .it { font-style: italic; color: var(--accent); font-weight: 400; }
+  .news-excerpt {
+    font-size: 14px;
+    line-height: 1.55;
+    color: var(--ink-2);
+    margin: 0;
+    flex: 1;
+  }
+  .news-date {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+    padding-top: 14px;
+    border-top: 1px solid var(--rule);
+  }
+
+  /* ============ INTEGRATION BAND ============ */
+  .integration {
+    background: var(--ink);
+    color: var(--paper);
+    padding: 120px 40px;
+    position: relative;
+    overflow: hidden;
+  }
+  .integration::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 60% 60% at 50% 50%, rgba(184,90,31,0.18), transparent 70%);
+    pointer-events: none;
+  }
+  .integration-inner {
+    max-width: 1480px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+    position: relative;
+  }
+  .integration h2 {
+    font-family: "Newsreader", serif;
+    font-weight: 500;
+    font-size: 72px;
+    line-height: 1;
+    letter-spacing: -0.025em;
+    margin: 24px 0 32px;
+    color: var(--paper);
+  }
+  .integration h2 .it { font-style: italic; color: #E6A87A; font-weight: 400; }
+  .integration p {
+    font-family: "Newsreader", serif;
+    font-style: italic;
+    font-size: 26px;
+    line-height: 1.4;
+    color: rgba(244,239,227,0.85);
+    margin: 0 0 36px;
+    max-width: 540px;
+  }
+  .integration .stat-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 24px;
+    border-top: 1px solid rgba(244,239,227,0.2);
+    padding-top: 32px;
+  }
+  .integration .stat .num {
+    font-family: "Newsreader", serif;
+    font-style: italic;
+    font-weight: 400;
+    font-size: 64px;
+    line-height: 1;
+    color: #E6A87A;
+    letter-spacing: -0.02em;
+  }
+  .integration .stat .lbl {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 12px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: rgba(244,239,227,0.65);
+    margin-top: 12px;
+  }
+
+  /* Integration diagram */
+  .integration-viz {
+    position: relative;
+    aspect-ratio: 1;
+    max-width: 620px;
+    margin: 0 auto;
+  }
+  .integration-viz svg { width: 100%; height: 100%; }
+
+  /* ============ PUBLICATIONS / RESEARCH ============ */
+  .research { background: var(--paper); padding: 0 0 120px; }
+  .research .section-head { padding-top: 100px; }
+  .research-wrap { max-width: 1480px; margin: 0 auto; padding: 0 40px; }
+  .pub-list {
+    border-top: 1px solid var(--ink);
+  }
+  .pub-row {
+    display: grid;
+    grid-template-columns: 80px 200px 1fr 220px 80px;
+    gap: 32px;
+    align-items: center;
+    padding: 28px 0;
+    border-bottom: 1px solid var(--rule);
+    transition: background 0.2s;
+    cursor: pointer;
+  }
+  .pub-row:hover { background: rgba(20,50,42,0.03); }
+  .pub-row .pub-num {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 13px;
+    letter-spacing: 0.14em;
+    color: var(--muted);
+  }
+  .pub-row .pub-type {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+  .pub-row .pub-title {
+    font-family: "Newsreader", serif;
+    font-size: 24px;
+    line-height: 1.25;
+    color: var(--ink);
+    margin: 0;
+  }
+  .pub-row .pub-title .em { font-style: italic; color: var(--accent); }
+  .pub-row .pub-meta {
+    font-size: 14px;
+    color: var(--muted);
+    line-height: 1.4;
+  }
+  .pub-row .pub-arrow {
+    font-family: "Newsreader", serif;
+    font-style: italic;
+    font-size: 22px;
+    color: var(--ink);
+    text-align: right;
+    transition: transform 0.2s;
+  }
+  .pub-row:hover .pub-arrow { transform: translateX(6px); color: var(--accent); }
+
+  /* ============ CTA OPEN SOURCE ============ */
+  .opensource-band {
+    background: var(--paper-2);
+    padding: 100px 40px;
+    position: relative;
+    overflow: hidden;
+  }
+  .opensource-inner {
+    max-width: 1480px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+  }
+  .opensource-inner h2 {
+    font-family: "Newsreader", serif;
+    font-weight: 500;
+    font-size: 60px;
+    line-height: 1.02;
+    letter-spacing: -0.02em;
+    margin: 16px 0 24px;
+  }
+  .opensource-inner h2 .it { font-style: italic; color: var(--accent); font-weight: 400; }
+  .opensource-inner p {
+    font-size: 19px;
+    line-height: 1.55;
+    color: var(--ink-2);
+    margin: 0 0 32px;
+    max-width: 520px;
+  }
+  .opensource-buttons { display: flex; gap: 14px; flex-wrap: wrap; }
+  .os-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 22px;
+    background: var(--ink);
+    color: var(--paper);
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    transition: background 0.15s;
+  }
+  .os-btn:hover { background: var(--ink-2); }
+  .os-btn.alt { background: transparent; color: var(--ink); border: 1px solid var(--ink); }
+  .os-btn.alt:hover { background: var(--ink); color: var(--paper); }
+
+  .opensource-code {
+    background: var(--ink);
+    color: var(--paper);
+    padding: 32px 28px;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 14px;
+    line-height: 1.7;
+    border: 1px solid rgba(20,50,42,0.2);
+    position: relative;
+  }
+  .opensource-code::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 36px;
+    background: rgba(0,0,0,0.25);
+    border-bottom: 1px solid rgba(244,239,227,0.1);
+  }
+  .opensource-code .dots {
+    position: absolute;
+    top: 13px; left: 18px;
+    display: flex; gap: 6px;
+  }
+  .opensource-code .dots span {
+    width: 10px; height: 10px; border-radius: 50%;
+    background: rgba(244,239,227,0.25);
+  }
+  .opensource-code .label {
+    position: absolute;
+    top: 12px; right: 18px;
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: rgba(244,239,227,0.4);
+  }
+  .opensource-code .code-body {
+    margin-top: 32px;
+  }
+  .opensource-code .comment { color: rgba(244,239,227,0.4); }
+  .opensource-code .keyword { color: #E6A87A; }
+  .opensource-code .str { color: #8FBE5C; }
+  .opensource-code .fn { color: #E6C570; }
+
+  /* ============ FOOTER ============ */
+  footer {
+    background: #0a1f17;
+    color: rgba(244,239,227,0.7);
+    padding: 80px 40px 40px;
+  }
+  .footer-inner { max-width: 1480px; margin: 0 auto; }
+  .footer-top {
+    display: grid;
+    grid-template-columns: 1.6fr 1fr 1fr 1fr 1fr;
+    gap: 56px;
+    padding-bottom: 56px;
+    border-bottom: 1px solid rgba(244,239,227,0.12);
+  }
+  .footer-brand .brand-wordmark { font-size: 48px; }
+  .footer-brand p {
+    margin: 20px 0 24px;
+    font-size: 15px;
+    line-height: 1.55;
+    color: rgba(244,239,227,0.7);
+    max-width: 380px;
+  }
+  .footer-brand .partners {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-top: 20px;
+  }
+  .footer-brand .partner-pill {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    padding: 6px 10px;
+    border: 1px solid rgba(244,239,227,0.2);
+    color: rgba(244,239,227,0.6);
+  }
+  .footer-col h4 {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #E6A87A;
+    margin: 0 0 20px;
+    font-weight: 500;
+  }
+  .footer-col ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 12px; }
+  .footer-col a {
+    font-size: 14px;
+    color: rgba(244,239,227,0.7);
+    transition: color 0.15s;
+  }
+  .footer-col a:hover { color: var(--paper); }
+
+  .footer-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 36px;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: rgba(244,239,227,0.4);
+  }
+  .footer-bottom .links { display: flex; gap: 28px; }
+
+  /* small screens — basic collapse */
+  @media (max-width: 1100px) {
+    .hero-content { grid-template-columns: 1fr; gap: 40px; min-height: auto; padding: 60px 24px 80px; }
+    .hero-headline { font-size: 64px; }
+    .sistemas-grid { grid-template-columns: 1fr; }
+    .eco-grid { grid-template-columns: 1fr 1fr; }
+    .news-grid { grid-template-columns: 1fr 1fr; }
+    .feature-grid, .integration-inner, .opensource-inner { grid-template-columns: 1fr; gap: 40px; }
+    .section-head { flex-direction: column; align-items: flex-start; gap: 24px; }
+    .section-title { font-size: 44px; }
+    .nav-main { display: none; }
+    .footer-top { grid-template-columns: 1fr 1fr; }
+    .pub-row { grid-template-columns: 1fr; gap: 8px; padding: 20px 0; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ============ TOPBAR ============ -->
+<header class="topbar">
+  <div class="topbar-utility">
+    <div class="util-left">
+      <a href="#">UFRN</a>
+      <a href="#">Ministério da Saúde</a>
+      <a href="#">Fiocruz</a>
+      <a href="#">INMET</a>
+    </div>
+    <div class="util-right">
+      <span class="alert-pill"><span class="dot"></span> 3 alertas ativos na Amazônia</span>
+      <a href="#">PT</a>
+      <a href="#" style="color:rgba(244,239,227,0.35);">EN</a>
+      <a href="#" style="color:rgba(244,239,227,0.35);">ES</a>
+    </div>
+  </div>
+
+  <div class="topbar-main">
+    <a class="brand" href="/">
+      <span class="brand-wordmark">clima<span class="alt">SUS</span></span>
+      <span class="brand-tag">Clima · Ambiente<br/>Saúde Pública</span>
+    </a>
+    <nav class="nav-main">
+      <a href="#" class="active">Início</a>
+      <a href="#sistemas">Sistemas de alerta</a>
+      <a href="#ecossistema">Plataforma</a>
+      <a href="#pesquisa">Pesquisa</a>
+      <a href="#noticias">Notícias</a>
+      <a href="#">climasusEduca</a>
+      <a href="#">Sobre</a>
+    </nav>
+    <div class="nav-actions">
+      <button class="search-btn" aria-label="Buscar">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+        Buscar
+      </button>
+      <a href="#" class="cta-btn">Acessar painel</a>
+    </div>
+  </div>
+</header>
+
+<!-- ============ HERO ============ -->
+<section class="hero">
+  <div class="hero-canvas">
+    <div class="layer-1"></div>
+    <div class="layer-grid"></div>
+    <!-- Stylized "heat plume" lines -->
+    <svg viewBox="0 0 1920 800" preserveAspectRatio="xMidYMid slice">
+      <defs>
+        <linearGradient id="line-grad" x1="0" x2="1" y1="0" y2="0">
+          <stop offset="0%" stop-color="rgba(230,168,122,0)"/>
+          <stop offset="50%" stop-color="rgba(230,168,122,0.55)"/>
+          <stop offset="100%" stop-color="rgba(230,168,122,0)"/>
+        </linearGradient>
+      </defs>
+      <g fill="none" stroke="url(#line-grad)" stroke-width="1.2">
+        <path d="M 0 320 Q 480 280 960 340 T 1920 360"/>
+        <path d="M 0 360 Q 480 320 960 380 T 1920 400"/>
+        <path d="M 0 400 Q 480 360 960 420 T 1920 440"/>
+        <path d="M 0 440 Q 480 400 960 460 T 1920 480"/>
+        <path d="M 0 480 Q 480 440 960 500 T 1920 520"/>
+        <path d="M 0 520 Q 480 480 960 540 T 1920 560"/>
+      </g>
+      <!-- Data points -->
+      <g fill="rgba(230,168,122,0.9)">
+        <circle cx="280" cy="318" r="3"/>
+        <circle cx="620" cy="340" r="4"/>
+        <circle cx="940" cy="380" r="6"/>
+        <circle cx="1260" cy="360" r="4"/>
+        <circle cx="1580" cy="400" r="3"/>
+      </g>
+      <g fill="rgba(143,190,92,0.7)">
+        <circle cx="180" cy="540" r="3"/>
+        <circle cx="520" cy="520" r="3"/>
+        <circle cx="1080" cy="560" r="4"/>
+        <circle cx="1420" cy="540" r="3"/>
+      </g>
+    </svg>
+  </div>
+  <div class="hero-vignette"></div>
+
+  <div class="hero-content">
+    <div class="hero-left">
+      <div class="eyebrow">
+        <span class="bar"></span>
+        Em destaque · 17 de maio, 2026
+      </div>
+      <h1 class="hero-headline">
+        Quando o <span class="it">calor</span> antecipa o adoecimento na Amazônia.
+      </h1>
+      <p class="hero-deck">
+        O SACS‑Amazônia detectou o segundo dia consecutivo de estresse térmico extremo na região do Médio Solimões — protocolos de Defesa Civil e da Atenção Básica já foram acionados em 14 municípios.
+      </p>
+      <div class="hero-cta-row">
+        <a href="#" class="btn-primary">
+          Ver o boletim do dia
+          <span class="arrow">→</span>
+        </a>
+        <a href="#sistemas" class="btn-ghost">
+          Como funciona
+        </a>
+      </div>
+    </div>
+
+    <div class="hero-right">
+      <div class="live-card">
+        <div class="live-head">
+          <span>Painel ao vivo</span>
+          <span class="live-indicator"><span class="dot"></span> atualizado há 12 s</span>
+        </div>
+        <div class="live-list">
+          <div class="live-item">
+            <span class="lvl n3">N3</span>
+            <span class="loc">
+              Tefé, AM
+              <span class="sys">SACS · Calor extremo</span>
+            </span>
+            <span class="ts">14:42</span>
+          </div>
+          <div class="live-item">
+            <span class="lvl n2">N2</span>
+            <span class="loc">
+              Manacapuru, AM
+              <span class="sys">SACS · Calor</span>
+            </span>
+            <span class="ts">14:38</span>
+          </div>
+          <div class="live-item">
+            <span class="lvl n2">N2</span>
+            <span class="loc">
+              Porto Velho, RO
+              <span class="sys">SAQS · PM 2.5</span>
+            </span>
+            <span class="ts">14:21</span>
+          </div>
+          <div class="live-item">
+            <span class="lvl n1">N1</span>
+            <span class="loc">
+              Boa Vista, RR
+              <span class="sys">SASS · Estiagem</span>
+            </span>
+            <span class="ts">13:50</span>
+          </div>
+        </div>
+        <div class="live-foot">
+          <span>Total: 3 ativos</span>
+          <a href="#">Mapa completo →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-meta-row">
+    <div class="hero-meta-inner">
+      <span>climaSUS · plataforma de alerta multi‑perigo</span>
+      <span class="scroll-hint">Explore <span style="font-family:Newsreader; font-style:italic;">↓</span></span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SISTEMAS ============ -->
+<section id="sistemas">
+  <div class="section-head">
+    <div>
+      <div class="section-eyebrow"><span class="bar"></span>§ 01 · Sistemas de alerta</div>
+      <h2 class="section-title">Três perigos. <br/>Três sistemas <span class="it">científicos</span>.</h2>
+    </div>
+    <p class="section-lede">
+      Para cada risco climático sobre a saúde — calor, ar e seca — um sistema próprio, em código aberto, calibrado para o contexto brasileiro.
+    </p>
+  </div>
+
+  <div class="sistemas-wrap">
+    <div class="sistemas-grid">
+
+      <a href="#" class="sistema-card featured">
+        <div class="bg"></div>
+        <svg class="pattern-overlay" viewBox="0 0 360 360" fill="none">
+          <g stroke="rgba(244,239,227,0.5)" stroke-width="1" fill="none">
+            <circle cx="180" cy="180" r="40"/>
+            <circle cx="180" cy="180" r="80"/>
+            <circle cx="180" cy="180" r="120"/>
+            <circle cx="180" cy="180" r="160"/>
+          </g>
+          <circle cx="180" cy="180" r="14" fill="rgba(244,239,227,0.9)"/>
+        </svg>
+        <div>
+          <span class="sistema-tag calor"><span class="dot"></span>Sistema 01 / 03 · Em operação</span>
+          <h3 class="sistema-name">SACS<span class="it">‑Amazônia</span></h3>
+          <p class="sistema-desc">
+            Sistema de Monitoramento e Alerta de Calor e Risco à Saúde para a Amazônia Brasileira. Limiar percentílico por município, integrado a SIM, SIH e INMET — alinhado às diretrizes HHWS da OMS e da OMM.
+          </p>
+        </div>
+        <div class="sistema-foot">
+          <span class="sistema-status"><span class="status-dot"></span>Operacional · v0.1‑dev</span>
+          <span class="sistema-arrow">Acessar painel →</span>
+        </div>
+      </a>
+
+      <a href="#" class="sistema-card sys-ar">
+        <div class="bg"></div>
+        <div>
+          <span class="sistema-tag ar"><span class="dot"></span>Sistema 02 / 03 · Piloto</span>
+          <h3 class="sistema-name">SAQS<span class="it">‑Amazônia</span></h3>
+          <p class="sistema-desc">
+            Vigilância hiperlocal da qualidade do ar com redes densas de sensores IoT. Alertas bairro‑a‑bairro de PM 2.5 e gases tóxicos durante incêndios florestais, via algoritmo NowCast.
+          </p>
+        </div>
+        <div class="sistema-foot">
+          <span class="sistema-status"><span class="status-dot" style="background:#C9A036;"></span>Piloto · 4 municípios</span>
+          <span class="sistema-arrow">Saiba mais →</span>
+        </div>
+      </a>
+
+      <a href="#" class="sistema-card sys-seca">
+        <div class="bg"></div>
+        <div>
+          <span class="sistema-tag seca"><span class="dot"></span>Sistema 03 / 03 · Desenvolvimento</span>
+          <h3 class="sistema-name">SASS<span class="it">‑Amazônia</span></h3>
+          <p class="sistema-desc">
+            Monitoramento de secas protraídas com previsões S2S — semanas a meses de antecedência. Integra segurança alimentar, doenças hídricas e saneamento.
+          </p>
+        </div>
+        <div class="sistema-foot">
+          <span class="sistema-status"><span class="status-dot" style="background:#E6C570;"></span>Em desenvolvimento</span>
+          <span class="sistema-arrow">Saiba mais →</span>
+        </div>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============ FEATURE STORY ============ -->
+<section class="feature-story">
+  <div class="feature-grid">
+    <div class="feature-img">
+      <div class="data-overlay"></div>
+      <!-- isothermal contour stylization -->
+      <svg viewBox="0 0 640 480" preserveAspectRatio="xMidYMid slice">
+        <g fill="none" stroke-width="1.5">
+          <path d="M 60 380 Q 180 340 320 350 T 580 360" stroke="rgba(143,190,92,0.6)"/>
+          <path d="M 60 340 Q 180 280 320 290 T 580 320" stroke="rgba(201,160,54,0.7)"/>
+          <path d="M 60 300 Q 180 220 320 230 T 580 280" stroke="rgba(230,168,122,0.85)"/>
+          <path d="M 60 260 Q 180 160 320 170 T 580 240" stroke="rgba(184,90,31,0.9)"/>
+          <path d="M 80 220 Q 200 120 320 130 T 560 200" stroke="rgba(90,31,14,0.95)"/>
+        </g>
+        <!-- station markers -->
+        <g fill="rgba(244,239,227,0.9)">
+          <circle cx="120" cy="370" r="3"/>
+          <circle cx="220" cy="310" r="3"/>
+          <circle cx="320" cy="240" r="5"/>
+          <circle cx="420" cy="290" r="3"/>
+          <circle cx="520" cy="330" r="3"/>
+        </g>
+        <text x="328" y="232" fill="rgba(244,239,227,0.9)" font-family="IBM Plex Mono" font-size="10" letter-spacing="1.5">TEFÉ — 42.8°C</text>
+      </svg>
+      <div class="caption">
+        <span>FIG. 04 · MAPA TÉRMICO · MÉDIO SOLIMÕES</span>
+        <span>17.05.2026 · 14H BRT</span>
+      </div>
+    </div>
+
+    <div class="feature-text">
+      <div class="eyebrow">Estudo de caso · publicado em 12 mai</div>
+      <h2>O <span class="it">limiar tropical</span> que mudou o protocolo de calor no SUS.</h2>
+      <p>
+        Aplicar limiares de zonas temperadas no contexto amazônico subestima sistematicamente o risco. O SACS adotou o percentil 90 da climatologia local, município a município — e a resposta passou a ser ativada, em média, 36 horas antes do pico de mortalidade.
+      </p>
+      <div class="meta-list">
+        <div>
+          <div class="key">Antecipação média</div>
+          <div class="val"><span class="em">36h</span> antes do pico</div>
+        </div>
+        <div>
+          <div class="key">Municípios cobertos</div>
+          <div class="val"><span class="em">772</span> · Amazônia Legal</div>
+        </div>
+        <div>
+          <div class="key">Sensibilidade</div>
+          <div class="val"><span class="em">0,84</span></div>
+        </div>
+        <div>
+          <div class="key">Janela climatológica</div>
+          <div class="val"><span class="em">1991–2020</span></div>
+        </div>
+      </div>
+      <a href="#" class="read-link">Ler o artigo completo  →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ECOSSISTEMA ============ -->
+<section id="ecossistema" class="ecossistema">
+  <div class="section-head">
+    <div>
+      <div class="section-eyebrow"><span class="bar"></span>§ 02 · Ecossistema</div>
+      <h2 class="section-title">Cinco componentes, <br/>uma arquitetura <span class="it">aberta</span>.</h2>
+    </div>
+    <p class="section-lede">
+      Tudo é código aberto e reprodutível — desenhado para integração com a vigilância em saúde no SUS.
+    </p>
+  </div>
+
+  <div class="eco-grid-wrap">
+    <div class="eco-grid">
+      <a href="#" class="eco-item">
+        <span class="num">01 · Biblioteca R</span>
+        <div class="icon">
+          <svg width="42" height="42" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.4">
+            <circle cx="24" cy="24" r="20"/>
+            <path d="M14 32 V18 H26 a6 6 0 0 1 0 12 H18 L28 32"/>
+          </svg>
+        </div>
+        <h3 class="name">climasus<span class="it">4r</span></h3>
+        <p class="desc">Integração, análise e modelagem de dados de clima, ambiente e saúde em R.</p>
+        <span class="tag">Pesquisa · Vigilância</span>
+      </a>
+
+      <a href="#" class="eco-item">
+        <span class="num">02 · Biblioteca Python</span>
+        <div class="icon">
+          <svg width="42" height="42" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.4">
+            <rect x="14" y="6" width="20" height="20" rx="6"/>
+            <rect x="14" y="22" width="20" height="20" rx="6"/>
+            <circle cx="19" cy="12" r="1.2" fill="currentColor"/>
+            <circle cx="29" cy="36" r="1.2" fill="currentColor"/>
+          </svg>
+        </div>
+        <h3 class="name">climasus<span class="it">4py</span></h3>
+        <p class="desc">Mesmo arcabouço científico em Python, para pipelines e aprendizado de máquina.</p>
+        <span class="tag">Modelagem · ML</span>
+      </a>
+
+      <a href="#" class="eco-item">
+        <span class="num">03 · Plataforma interativa</span>
+        <div class="icon">
+          <svg width="42" height="42" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.4">
+            <rect x="6" y="10" width="36" height="26" rx="2"/>
+            <path d="M6 16 H42"/>
+            <circle cx="10" cy="13" r="0.8" fill="currentColor"/>
+            <circle cx="13" cy="13" r="0.8" fill="currentColor"/>
+            <path d="M12 28 L18 22 L24 26 L32 18 L40 22" stroke="#E6A87A"/>
+          </svg>
+        </div>
+        <h3 class="name">climasus<span class="it">+</span></h3>
+        <p class="desc">Plataforma ponto‑e‑clique que traz as funções de climasus4r e climasus4py para gestores e técnicos do SUS, sem programação.</p>
+        <span class="tag">Gestores · SUS</span>
+      </a>
+
+      <a href="#" class="eco-item">
+        <span class="num">04 · Capacitação</span>
+        <div class="icon">
+          <svg width="42" height="42" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.4">
+            <path d="M4 18 L24 8 L44 18 L24 28 Z"/>
+            <path d="M12 22 V34 Q24 40 36 34 V22"/>
+            <path d="M44 18 V30"/>
+          </svg>
+        </div>
+        <h3 class="name">climasus<span class="it">Educa</span></h3>
+        <p class="desc">Formação de gestores, técnicos do SUS e pesquisadores em clima e saúde — capilaridade institucional.</p>
+        <span class="tag">Formação · Rede</span>
+      </a>
+
+      <a href="#" class="eco-item featured">
+        <span class="num">05 · Plataforma operacional</span>
+        <div class="icon">
+          <svg width="42" height="42" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.4">
+            <path d="M24 4 L42 38 H6 Z"/>
+            <path d="M24 18 V28"/>
+            <circle cx="24" cy="33" r="1.4" fill="#E6A87A" stroke="#E6A87A"/>
+          </svg>
+        </div>
+        <h3 class="name">climasus<span class="it">Alerta</span></h3>
+        <p class="desc">Plataforma operacional de alertas precoces multi‑perigo, onde os sistemas SACS, SAQS e SASS são executados.</p>
+        <span class="tag">Em destaque · Operacional</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ INTEGRATION BAND ============ -->
+<section class="integration">
+  <div class="integration-inner">
+    <div>
+      <div class="section-eyebrow" style="color:#E6A87A;">
+        <span class="bar" style="background:#E6A87A;"></span>§ 03 · Inteligência integrada
+      </div>
+      <h2>Sistemas <br/>independentes, <br/><span class="it">inteligência integrada</span>.</h2>
+      <p>
+        Eventos climáticos extremos não acontecem isoladamente — e os alertas também não devem acontecer.
+      </p>
+      <div class="stat-row">
+        <div class="stat">
+          <div class="num">3</div>
+          <div class="lbl">Sistemas conectados</div>
+        </div>
+        <div class="stat">
+          <div class="num">15</div>
+          <div class="lbl">Índices bioclimáticos</div>
+        </div>
+        <div class="stat">
+          <div class="num">30s</div>
+          <div class="lbl">Latência de detecção</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="integration-viz">
+      <svg viewBox="0 0 620 620">
+        <defs>
+          <radialGradient id="core-glow">
+            <stop offset="0%" stop-color="rgba(230,168,122,0.5)"/>
+            <stop offset="60%" stop-color="rgba(230,168,122,0)"/>
+          </radialGradient>
+          <marker id="arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+            <path d="M0,0 L10,5 L0,10 z" fill="rgba(230,168,122,0.6)"/>
+          </marker>
+        </defs>
+
+        <!-- glow -->
+        <circle cx="310" cy="310" r="260" fill="url(#core-glow)"/>
+
+        <!-- core -->
+        <circle cx="310" cy="310" r="92" fill="#0a1f17" stroke="#E6A87A" stroke-width="1.5"/>
+        <text x="310" y="298" text-anchor="middle" font-family="IBM Plex Mono" font-size="11" letter-spacing="2" fill="rgba(244,239,227,0.6)">MOTOR INTEGRADO</text>
+        <text x="310" y="320" text-anchor="middle" font-family="Newsreader" font-style="italic" font-size="22" fill="#E6A87A">climasus</text>
+        <text x="310" y="342" text-anchor="middle" font-family="IBM Plex Mono" font-size="10" letter-spacing="2" fill="rgba(244,239,227,0.5)">BANCO COMPARTILHADO</text>
+
+        <!-- orbit -->
+        <circle cx="310" cy="310" r="220" fill="none" stroke="rgba(244,239,227,0.18)" stroke-width="1" stroke-dasharray="2 6"/>
+
+        <!-- node: SACS (top) -->
+        <g>
+          <circle cx="310" cy="90" r="56" fill="#14322A" stroke="#E6A87A" stroke-width="1.5"/>
+          <text x="310" y="86" text-anchor="middle" font-family="IBM Plex Mono" font-size="13" letter-spacing="2" fill="#E6A87A">SACS</text>
+          <text x="310" y="106" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" letter-spacing="1.5" fill="rgba(244,239,227,0.6)">CALOR</text>
+        </g>
+
+        <!-- node: SAQS (bottom-left) -->
+        <g>
+          <circle cx="119" cy="420" r="56" fill="#14322A" stroke="#8FBE5C" stroke-width="1.5"/>
+          <text x="119" y="416" text-anchor="middle" font-family="IBM Plex Mono" font-size="13" letter-spacing="2" fill="#8FBE5C">SAQS</text>
+          <text x="119" y="436" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" letter-spacing="1.5" fill="rgba(244,239,227,0.6)">AR</text>
+        </g>
+
+        <!-- node: SASS (bottom-right) -->
+        <g>
+          <circle cx="501" cy="420" r="56" fill="#14322A" stroke="#E6C570" stroke-width="1.5"/>
+          <text x="501" y="416" text-anchor="middle" font-family="IBM Plex Mono" font-size="13" letter-spacing="2" fill="#E6C570">SASS</text>
+          <text x="501" y="436" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" letter-spacing="1.5" fill="rgba(244,239,227,0.6)">SECA</text>
+        </g>
+
+        <!-- spokes to core -->
+        <g stroke="rgba(244,239,227,0.25)" stroke-width="1">
+          <line x1="310" y1="146" x2="310" y2="218"/>
+          <line x1="159" y1="392" x2="240" y2="356"/>
+          <line x1="461" y1="392" x2="380" y2="356"/>
+        </g>
+
+        <!-- bidirectional arrows between nodes -->
+        <g fill="none" stroke="rgba(230,168,122,0.55)" stroke-width="1.2" marker-end="url(#arr)">
+          <path d="M 280 130 Q 180 230 145 372"/>
+          <path d="M 340 130 Q 440 230 475 372"/>
+          <path d="M 165 410 Q 310 460 455 410"/>
+        </g>
+        <g fill="none" stroke="rgba(230,168,122,0.55)" stroke-width="1.2" marker-end="url(#arr)" opacity="0.7">
+          <path d="M 160 380 Q 220 250 290 145"/>
+          <path d="M 460 380 Q 400 250 330 145"/>
+          <path d="M 455 432 Q 310 480 165 432"/>
+        </g>
+
+        <!-- relationship labels -->
+        <g font-family="IBM Plex Mono" font-size="10" letter-spacing="1.2" fill="rgba(244,239,227,0.55)" text-anchor="middle">
+          <text x="155" y="240" transform="rotate(-58 155 240)">calor → seca</text>
+          <text x="465" y="240" transform="rotate(58 465 240)">seca → queimadas</text>
+          <text x="310" y="478">queimadas → qualidade do ar</text>
+          <text x="310" y="498" fill="rgba(230,168,122,0.7)">calor + poluição → risco hospitalar</text>
+        </g>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- ============ NEWS / NOTICIAS ============ -->
+<section id="noticias" class="news-section">
+  <div class="section-head">
+    <div>
+      <div class="section-eyebrow"><span class="bar"></span>§ 04 · Notícias e atualizações</div>
+      <h2 class="section-title">Da estação de coleta <br/>à <span class="it">tomada de decisão</span>.</h2>
+    </div>
+    <p class="section-lede">
+      Boletins, estudos de caso, capacitações e atualizações operacionais da rede climaSUS.
+    </p>
+  </div>
+
+  <div class="news-grid">
+
+    <a href="#" class="news-card">
+      <div class="news-img t1">
+        <span class="label">Operação</span>
+        <svg viewBox="0 0 400 250" preserveAspectRatio="xMidYMid slice">
+          <g fill="none" stroke="rgba(244,239,227,0.4)" stroke-width="0.8">
+            <path d="M0 180 Q100 160 200 175 T 400 170"/>
+            <path d="M0 200 Q100 180 200 195 T 400 190"/>
+            <path d="M0 220 Q100 200 200 215 T 400 210"/>
+          </g>
+          <circle cx="120" cy="120" r="40" fill="rgba(230,168,122,0.18)" stroke="rgba(230,168,122,0.7)"/>
+          <circle cx="120" cy="120" r="6" fill="#E6A87A"/>
+          <text x="120" y="180" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="rgba(244,239,227,0.7)" letter-spacing="1.5">SACS · AM</text>
+        </svg>
+      </div>
+      <div class="news-body">
+        <span class="news-cat">Boletim</span>
+        <h3 class="news-title">SACS detecta segundo dia de <span class="it">estresse térmico</span> no Médio Solimões</h3>
+        <p class="news-excerpt">Quatorze municípios entram em nível N2 com ativação automática de protocolos da Atenção Básica.</p>
+        <span class="news-date">17 mai · 2 min de leitura</span>
+      </div>
+    </a>
+
+    <a href="#" class="news-card">
+      <div class="news-img t2">
+        <span class="label">Pesquisa</span>
+        <svg viewBox="0 0 400 250" preserveAspectRatio="xMidYMid slice">
+          <g stroke="rgba(244,239,227,0.6)" stroke-width="1" fill="none">
+            <path d="M40 200 L 80 160 L 120 180 L 160 130 L 200 150 L 240 100 L 280 110 L 320 70 L 360 90"/>
+          </g>
+          <g fill="rgba(244,239,227,0.9)">
+            <circle cx="80" cy="160" r="3"/>
+            <circle cx="160" cy="130" r="3"/>
+            <circle cx="240" cy="100" r="4"/>
+            <circle cx="320" cy="70" r="3"/>
+          </g>
+          <text x="200" y="40" text-anchor="middle" font-family="IBM Plex Mono" font-size="10" fill="rgba(244,239,227,0.7)" letter-spacing="2">EXCESSO DE MORTALIDADE · 2020–2025</text>
+        </svg>
+      </div>
+      <div class="news-body">
+        <span class="news-cat">Artigo</span>
+        <h3 class="news-title">Limiar percentílico tropical reduz subestimação em <span class="it">38%</span> em zonas úmidas</h3>
+        <p class="news-excerpt">Estudo publicado em parceria com a Fiocruz analisa cinco anos de dados do SIM e do SIH na Amazônia Legal.</p>
+        <span class="news-date">12 mai · Cad. Saúde Pública</span>
+      </div>
+    </a>
+
+    <a href="#" class="news-card">
+      <div class="news-img t3">
+        <span class="label">SAQS · Piloto</span>
+        <svg viewBox="0 0 400 250" preserveAspectRatio="xMidYMid slice">
+          <g>
+            <circle cx="80" cy="80" r="6" fill="#8FBE5C"/>
+            <circle cx="130" cy="120" r="8" fill="#C9A036"/>
+            <circle cx="180" cy="90" r="10" fill="#B85A1F"/>
+            <circle cx="230" cy="130" r="12" fill="#B85A1F"/>
+            <circle cx="280" cy="100" r="9" fill="#C9A036"/>
+            <circle cx="330" cy="140" r="6" fill="#8FBE5C"/>
+            <circle cx="100" cy="180" r="6" fill="#8FBE5C"/>
+            <circle cx="200" cy="200" r="8" fill="#C9A036"/>
+            <circle cx="300" cy="190" r="6" fill="#8FBE5C"/>
+          </g>
+          <text x="200" y="40" text-anchor="middle" font-family="IBM Plex Mono" font-size="10" fill="rgba(244,239,227,0.7)" letter-spacing="2">SENSORES IoT · PORTO VELHO</text>
+        </svg>
+      </div>
+      <div class="news-body">
+        <span class="news-cat">Operação</span>
+        <h3 class="news-title">SAQS expande rede de <span class="it">sensores IoT</span> para 4 municípios da Amazônia Ocidental</h3>
+        <p class="news-excerpt">A vigilância hiperlocal de PM 2.5 chega a Porto Velho, Rio Branco, Cruzeiro do Sul e Sena Madureira.</p>
+        <span class="news-date">8 mai · Comunicado</span>
+      </div>
+    </a>
+
+    <a href="#" class="news-card">
+      <div class="news-img t4">
+        <span class="label">climasusEduca</span>
+        <svg viewBox="0 0 400 250" preserveAspectRatio="xMidYMid slice">
+          <g fill="none" stroke="rgba(244,239,227,0.55)" stroke-width="1">
+            <path d="M40 200 Q 120 180 200 195 T 360 200"/>
+            <path d="M40 180 Q 120 160 200 175 T 360 180"/>
+          </g>
+          <g fill="rgba(244,239,227,0.85)">
+            <rect x="180" y="80" width="40" height="30" fill="none" stroke="rgba(244,239,227,0.8)"/>
+            <path d="M180 80 L 200 65 L 220 80" stroke="rgba(244,239,227,0.8)" fill="none"/>
+            <circle cx="120" cy="160" r="4"/>
+            <circle cx="280" cy="160" r="4"/>
+            <circle cx="200" cy="140" r="4"/>
+          </g>
+          <text x="200" y="40" text-anchor="middle" font-family="IBM Plex Mono" font-size="10" fill="rgba(244,239,227,0.7)" letter-spacing="2">REDE DE 240 GESTORES</text>
+        </svg>
+      </div>
+      <div class="news-body">
+        <span class="news-cat">Formação</span>
+        <h3 class="news-title">Inscrições abertas — <span class="it">Clima &amp; SUS</span>, ciclo formativo 2026</h3>
+        <p class="news-excerpt">Curso de 80h para técnicos da vigilância em saúde de estados e municípios da Amazônia Legal.</p>
+        <span class="news-date">5 mai · Inscrições</span>
+      </div>
+    </a>
+
+  </div>
+</section>
+
+<!-- ============ RESEARCH / PUBLICATIONS ============ -->
+<section id="pesquisa" class="research">
+  <div class="section-head">
+    <div>
+      <div class="section-eyebrow"><span class="bar"></span>§ 05 · Pesquisa</div>
+      <h2 class="section-title">Publicações <br/>e produção <span class="it">científica</span>.</h2>
+    </div>
+    <p class="section-lede">
+      Artigos revisados por pares, dados públicos e metodologias documentadas — toda a base científica que sustenta a operação.
+    </p>
+  </div>
+
+  <div class="research-wrap">
+    <div class="pub-list">
+      <a class="pub-row" href="#">
+        <span class="pub-num">No. 014</span>
+        <span class="pub-type">Artigo · Peer review</span>
+        <h4 class="pub-title">Heat‑Health Warning Systems no contexto tropical úmido: calibração local para a <span class="em">Amazônia Brasileira</span></h4>
+        <span class="pub-meta">Cad. Saúde Pública<br/>v. 42, n. 5 · 2026</span>
+        <span class="pub-arrow">→</span>
+      </a>
+      <a class="pub-row" href="#">
+        <span class="pub-num">No. 013</span>
+        <span class="pub-type">Dados abertos</span>
+        <h4 class="pub-title">Climatologia 1991–2020 dos índices bioclimáticos para 5 565 municípios brasileiros</h4>
+        <span class="pub-meta">Repositório Zenodo<br/>v 1.2 · 2026</span>
+        <span class="pub-arrow">→</span>
+      </a>
+      <a class="pub-row" href="#">
+        <span class="pub-num">No. 012</span>
+        <span class="pub-type">Pré‑print</span>
+        <h4 class="pub-title">Redes densas de sensores de baixo custo para vigilância de <span class="em">PM 2.5</span> em incêndios florestais</h4>
+        <span class="pub-meta">medRxiv · 2026<br/>doi: 10.1101/…</span>
+        <span class="pub-arrow">→</span>
+      </a>
+      <a class="pub-row" href="#">
+        <span class="pub-num">No. 011</span>
+        <span class="pub-type">Relatório técnico</span>
+        <h4 class="pub-title">Protocolo de resposta da Atenção Básica a alertas de calor extremo — versão 0.3</h4>
+        <span class="pub-meta">SUS · DECIT<br/>Mar. 2026</span>
+        <span class="pub-arrow">→</span>
+      </a>
+      <a class="pub-row" href="#">
+        <span class="pub-num">No. 010</span>
+        <span class="pub-type">Artigo · Peer review</span>
+        <h4 class="pub-title">Defasagem entre pico térmico e excesso de mortalidade em populações <span class="em">ribeirinhas</span></h4>
+        <span class="pub-meta">The Lancet Reg. Health<br/>Americas · Fev. 2026</span>
+        <span class="pub-arrow">→</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ OPEN SOURCE ============ -->
+<section class="opensource-band">
+  <div class="opensource-inner">
+    <div>
+      <div class="section-eyebrow" style="margin-bottom:0;"><span class="bar"></span>§ 06 · Código aberto</div>
+      <h2>Pegue, leia, <span class="it">contribua</span>.</h2>
+      <p>
+        Toda a base científica do climaSUS está em GitHub público, com documentação em português, exemplos reprodutíveis e issues abertas para pesquisa colaborativa.
+      </p>
+      <div class="opensource-buttons">
+        <a href="#" class="os-btn">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5a11.5 11.5 0 0 0-3.6 22.4c.6.1.8-.3.8-.6v-2c-3.2.7-3.9-1.4-3.9-1.4-.5-1.3-1.3-1.7-1.3-1.7-1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.8-1.6-2.6-.3-5.3-1.3-5.3-5.8 0-1.3.5-2.4 1.2-3.2-.1-.3-.5-1.5.1-3.2 0 0 1-.3 3.3 1.2a11 11 0 0 1 6 0c2.3-1.5 3.3-1.2 3.3-1.2.6 1.7.2 2.9.1 3.2.8.8 1.2 1.9 1.2 3.2 0 4.5-2.7 5.5-5.3 5.8.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A11.5 11.5 0 0 0 12 .5z"/></svg>
+          Ver no GitHub
+        </a>
+        <a href="#" class="os-btn alt">Documentação</a>
+        <a href="#" class="os-btn alt">Citar climaSUS</a>
+      </div>
+    </div>
+
+    <div class="opensource-code">
+      <div class="dots"><span></span><span></span><span></span></div>
+      <span class="label">R · exemplo</span>
+      <div class="code-body">
+        <div><span class="comment"># Instalar e carregar a biblioteca</span></div>
+        <div><span class="keyword">install.packages</span>(<span class="str">"climasus4r"</span>)</div>
+        <div><span class="keyword">library</span>(climasus4r)</div>
+        <div>&nbsp;</div>
+        <div><span class="comment"># Calcular limiar local para Tefé, AM</span></div>
+        <div>tefe &lt;- <span class="fn">load_inmet_station</span>(<span class="str">"A123"</span>,</div>
+        <div>&nbsp;&nbsp;period = <span class="str">"1991-2020"</span>)</div>
+        <div>&nbsp;</div>
+        <div>limiar &lt;- <span class="fn">heat_threshold</span>(tefe,</div>
+        <div>&nbsp;&nbsp;index = <span class="str">"heat_index"</span>,</div>
+        <div>&nbsp;&nbsp;percentile = <span class="str">0.90</span>)</div>
+        <div>&nbsp;</div>
+        <div><span class="comment">#&gt; HI₉₀ = <span style="color:#E6A87A;">41.8°C</span></span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <span class="brand-wordmark">clima<span class="alt">SUS</span></span>
+        <p>Ecossistema brasileiro de código aberto que conecta ciência atmosférica, dados ambientais e saúde pública. Desenvolvido por uma rede de pesquisadores e gestores comprometidos com o SUS.</p>
+        <div class="partners">
+          <span class="partner-pill">UFRN</span>
+          <span class="partner-pill">Fiocruz</span>
+          <span class="partner-pill">INMET</span>
+          <span class="partner-pill">CEMADEN</span>
+          <span class="partner-pill">DATASUS</span>
+        </div>
+      </div>
+
+      <div class="footer-col">
+        <h4>Sistemas</h4>
+        <ul>
+          <li><a href="#">SACS‑Amazônia</a></li>
+          <li><a href="#">SAQS‑Amazônia</a></li>
+          <li><a href="#">SASS‑Amazônia</a></li>
+          <li><a href="#">Mapa de alertas</a></li>
+          <li><a href="#">Painel ao vivo</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Plataforma</h4>
+        <ul>
+          <li><a href="#">climasus4r</a></li>
+          <li><a href="#">climasus4py</a></li>
+          <li><a href="#">climasus+</a></li>
+          <li><a href="#">climasusEduca</a></li>
+          <li><a href="#">climasusAlerta</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Pesquisa</h4>
+        <ul>
+          <li><a href="#">Publicações</a></li>
+          <li><a href="#">Dados abertos</a></li>
+          <li><a href="#">Relatórios técnicos</a></li>
+          <li><a href="#">Metodologia</a></li>
+          <li><a href="#">GitHub</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Conecte‑se</h4>
+        <ul>
+          <li><a href="#">Newsletter</a></li>
+          <li><a href="#">Contato</a></li>
+          <li><a href="#">Imprensa</a></li>
+          <li><a href="#">Parcerias</a></li>
+          <li><a href="#">Vagas</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <span>© 2026 climaSUS · Universidade Federal do Rio Grande do Norte</span>
+      <span class="links">
+        <a href="#">Política de privacidade</a>
+        <a href="#">Termos</a>
+        <a href="#">Acessibilidade</a>
+        <a href="#">Licença · CC BY 4.0</a>
+      </span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

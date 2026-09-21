@@ -1,336 +1,1091 @@
-<!DOCTYPE html>
-<html lang="pt-BR" data-theme="light">
+<!doctype html>
+<html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ClimaSUS — Ecossistema de Dados de Saúde e Clima</title>
-
-  <link rel="icon" type="image/png" href="./assets/icons/favicon-16x16.png">
-
-  <meta name="description" content="Ecossistema de ferramentas para integrar, processar e analisar dados de saúde, clima e ambiente no Brasil.">
-  <meta property="og:title" content="ClimaSUS — Ecossistema de Dados de Saúde e Clima">
-  <meta property="og:description" content="Pacotes R e Python para análise epidemiológica climática integrada ao SUS.">
-  <meta property="og:url" content="https://climasus.github.io/">
-
-  <!-- Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-
-  <!-- Styles -->
-  <link rel="stylesheet" href="./assets/css/main.css">
-
-  <!-- GSAP animations -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>climaSUS — Ciência do clima e saúde pública</title>
+<link rel="icon" href="favicon.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,500&family=IBM+Plex+Sans:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="site-app.css">
+<link rel="stylesheet" href="site-aurora.css">
+<script>document.documentElement.className += ' preload';</script>
 </head>
 <body>
 
-  <!-- Particle canvas -->
-  <canvas id="particles-canvas" aria-hidden="true"></canvas>
+<template id="__bundler_thumbnail" data-bg-color="#F7FBF8">
+  <svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <radialGradient id="auroraOrb" cx="38%" cy="32%" r="72%">
+        <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.96"/>
+        <stop offset="34%" stop-color="#6AE6F2" stop-opacity="0.42"/>
+        <stop offset="62%" stop-color="#42D392" stop-opacity="0.34"/>
+        <stop offset="100%" stop-color="#FFB84D" stop-opacity="0.25"/>
+      </radialGradient>
+      <linearGradient id="logoGrad" x1="300" x2="900" y1="0" y2="0">
+        <stop offset="0%" stop-color="#0E7A5F"/>
+        <stop offset="50%" stop-color="#1D9BF0"/>
+        <stop offset="100%" stop-color="#FF6B4A"/>
+      </linearGradient>
+    </defs>
+    <rect width="1200" height="800" fill="#F7FBF8"/>
+    <circle cx="220" cy="135" r="260" fill="#6AE6F2" opacity="0.30"/>
+    <circle cx="1000" cy="130" r="260" fill="#42D392" opacity="0.24"/>
+    <circle cx="590" cy="710" r="310" fill="#FFB84D" opacity="0.20"/>
+    <ellipse cx="600" cy="395" rx="330" ry="285" fill="url(#auroraOrb)"/>
+    <text x="600" y="430" text-anchor="middle" font-family="Georgia, serif" font-size="132" font-weight="700" letter-spacing="-7" fill="#052E2B">clima<tspan fill="url(#logoGrad)" font-style="italic">SUS</tspan></text>
+    <text x="600" y="500" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="25" font-weight="500" fill="#5E7772" letter-spacing="2">CLIMA · SAÚDE · DADOS ABERTOS</text>
+  </svg>
+</template>
 
-  <!-- ══ NAVBAR ══════════════════════════════════════════════════════════ -->
-  <nav class="navbar" id="navbar" role="navigation" aria-label="Main navigation">
-    <div class="nav-container">
-      <a href="/" class="nav-brand" aria-label="ClimaSUS home">
-        <img src="./assets/logos/climasuslogo.png"
-             onerror="this.style.display='none'"
-             alt="ClimaSUS logo">
-        <span>Clima<span style="color:var(--primary-dark)">SUS</span></span>
-      </a>
+<div class="top-progress" data-top-progress></div>
 
-      <ul class="nav-links" id="nav-links" role="list">
-        <li><a href="#about"        data-i18n="nav.ecosystem"></a></li>
-        <li><a href="#packages"     data-i18n="nav.packages"></a></li>
-        <li><a href="#architecture" data-i18n="nav.architecture">Arquitetura</a></li>
-        <li><a href="#roadmap"      data-i18n="nav.roadmap">Roadmap</a></li>
-        <li><a href="#team"         data-i18n="nav.team"></a></li>
-        <li><a href="#contact"      data-i18n="nav.contact"></a></li>
-      </ul>
+<!-- ============ NAV ============ -->
+<nav class="nav" data-nav>
+  <a class="nav__brand" href="#top"><img class="nav__mark" src="logo-climasus.png" alt="">clima<span class="alt">SUS</span></a>
+  <div class="nav__links">
+    <a href="#ecossistema">Ecossistema</a>
+    <a href="#alerta">Alertas</a>
+    <a href="#ciencia">Ciência aberta</a>
+    <a href="#db">DB</a>
+    <a href="#plataforma">Plataforma</a>
+    <a href="#gestor">Gestor</a>
+    <a href="#equipe">Equipe</a>
+  </div>
+  <div class="nav__orgs">
+    <img src="logo-inct-conexao.png" alt="INCT-CONEXAO" class="orb orb--tall">
+    <img src="uploads/CNPq_v2017_rgb.png" alt="CNPq">
+    <img src="uploads/logo-fiocruz-rondonia.png" alt="Fiocruz Rondônia">
+    <img src="uploads/logo-ufjf.png" alt="UFJF" class="orb--tall">
+  </div>
+</nav>
 
-      <div class="nav-actions">
-        <div class="lang-switcher" role="group" aria-label="Language selector">
-          <button data-lang-option="pt" class="active" aria-pressed="true">PT</button>
-          <button data-lang-option="en" aria-pressed="false">EN</button>
-          <button data-lang-option="es" aria-pressed="false">ES</button>
-        </div>
-        <button class="theme-toggle" data-theme-toggle aria-label="Toggle theme">
-          <span class="theme-icon">🌙</span>
-        </button>
-        <a href="https://climasus.github.io/climasus4r/" target="_blank" rel="noopener"
-           class="btn-cta" data-i18n="nav.get_started">Get Started</a>
-      </div>
+<!-- ============ HERO ============ -->
+<header class="hero" id="top" data-hero>
+  <div class="hero__bg">
+    <span class="blob b1" data-hero-layer data-depth="26"></span>
+    <span class="blob b2" data-hero-layer data-depth="-18"></span>
+    <span class="blob b3" data-hero-layer data-depth="14"></span>
+    <svg class="heromark" viewBox="0 0 1200 600" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+      <defs>
+        <linearGradient id="hmInk" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%" stop-color="#0E3E52"></stop><stop offset="45%" stop-color="#14526B"></stop><stop offset="70%" stop-color="#1D8FA8"></stop><stop offset="100%" stop-color="#0E3E52"></stop>
+          <animateTransform attributeName="gradientTransform" type="translate" values="-1 0; 1 0; -1 0" dur="16s" repeatCount="indefinite"></animateTransform>
+        </linearGradient>
+        <linearGradient id="hmGreen" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%" stop-color="#1E8C72"></stop><stop offset="40%" stop-color="#2AA687"></stop><stop offset="72%" stop-color="#5FD9C0"></stop><stop offset="100%" stop-color="#1E8C72"></stop>
+          <animateTransform attributeName="gradientTransform" type="translate" values="1 0; -1 0; 1 0" dur="13s" repeatCount="indefinite"></animateTransform>
+        </linearGradient>
+        <filter id="hmGlow" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="14" result="b"></feGaussianBlur><feMerge><feMergeNode in="b"></feMergeNode><feMergeNode in="SourceGraphic"></feMergeNode></feMerge></filter>
+        <filter id="hmSoft" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="26"></feGaussianBlur></filter>
+      </defs>
+      <g class="hm-flow hm-flow--haze" filter="url(#hmSoft)"><path pathLength="100" d="M-600 300 C-500 210 -400 210 -300 300 C-200 390 -100 390 0 300 C100 210 200 210 300 300 C400 390 500 390 600 300 C700 210 800 210 900 300 C1000 390 1100 390 1200 300 C1300 210 1400 210 1500 300 C1600 390 1700 390 1800 300"></path></g>
+      <g class="hm-flow hm-flow--ink"><path pathLength="100" d="M-600 250 C-500 170 -400 170 -300 250 C-200 330 -100 330 0 250 C100 170 200 170 300 250 C400 330 500 330 600 250 C700 170 800 170 900 250 C1000 330 1100 330 1200 250 C1300 170 1400 170 1500 250 C1600 330 1700 330 1800 250"></path></g>
+      <g class="hm-flow hm-flow--thin"><path pathLength="100" d="M-600 312 C-500 252 -400 252 -300 312 C-200 372 -100 372 0 312 C100 252 200 252 300 312 C400 372 500 372 600 312 C700 252 800 252 900 312 C1000 372 1100 372 1200 312 C1300 252 1400 252 1500 312 C1600 372 1700 372 1800 312"></path></g>
+      <g class="hm-flow hm-flow--green"><path pathLength="100" d="M-600 380 C-500 300 -400 300 -300 380 C-200 460 -100 460 0 380 C100 300 200 300 300 380 C400 460 500 460 600 380 C700 300 800 300 900 380 C1000 460 1100 460 1200 380 C1300 300 1400 300 1500 380 C1600 460 1700 460 1800 380"></path></g>
+      <circle class="hm-dot" r="34" filter="url(#hmGlow)"></circle>
+    </svg>
+    <span class="grid"></span>
+    <span class="grain"></span>
+  </div>
+  <div class="hero__vignette"></div>
+
+  <div class="hero__content" data-hero-content>
+    <span class="eyebrow hero__eyebrow">PLATAFORMA DE CLIMA, AMBIENTE E SAÚDE ÚNICA SUSTENTÁVEL • BRASIL</span>
+    <h1 class="hero__title" style="text-align: center; font-size: 200px; height: 239px; padding: 20px 0px 41px">
+      <span class="ch" style="animation-delay:.05s">c</span><span class="ch" style="animation-delay:.10s">l</span><span class="ch" style="animation-delay:.15s">i</span><span class="ch" style="animation-delay:.20s">m</span><span class="ch" style="animation-delay:.25s">a</span><span class="ch alt" style="animation-delay: .32s; font-weight: 500; padding: 20px 23px 0px">S</span><span class="ch alt" style="animation-delay: .38s; font-weight: 500; font-size: 200px; padding: 20px 23px 0px">U</span><span class="ch alt" style="animation-delay: .44s; padding: 20px 23px 0px">S</span>
+    </h1>
+    <p class="hero__sub">
+      Ciência do clima, dados ambientais e saúde pública — em código aberto, para antecipar os impactos do clima sobre quem mais precisa.
+    </p>
+    <div class="hero__cta">
+      <a href="#ecossistema" class="btn btn--primary">Conhecer o ecossistema <span class="arrow">→</span></a>
     </div>
-  </nav>
+  </div>
 
-  <!-- ══ HERO ════════════════════════════════════════════════════════════ -->
-  <section class="hero" id="hero" aria-labelledby="hero-title">
-    <div class="hero-container">
-      <!-- Left: text -->
-      <div class="hero-text">
-        <div class="hero-badge">
-          <span class="badge-dot" style="width:8px;height:8px;background:var(--primary-dark);border-radius:50%;display:inline-block;"></span>
-          <span data-i18n="hero.badge">Open &amp; Reproducible Science</span>
-        </div>
+  <div class="hero__scroll">
+    <span class="mouse"></span>
+    Role para explorar
+  </div>
+</header>
 
-        <h1 class="hero-title" id="hero-title">
-          <span data-i18n="hero.title_line1">Climate Science</span><br>
-          <span class="gradient-text" data-i18n="hero.title_line2">Integrated with SUS</span>
-        </h1>
+<!-- ============ ECOSSISTEMA ============ -->
+<section class="section section--cream" id="ecossistema">
+  <div class="section-head" data-reveal>
+    <span class="eyebrow"><span class="bar"></span>O ecossistema</span>
+    <h2 class="section-title">Seis produtos, <span class="it">uma arquitetura aberta</span>.</h2>
+    <p class="section-lede">Da biblioteca científica ao alerta no rádio comunitário — cada componente preenche uma camada da mesma infraestrutura.</p>
+  </div>
 
-        <p class="hero-subtitle" data-i18n="hero.subtitle">
-          Ecosystem of tools for integrating, processing, and analyzing health, climate, and environment data in Brazil.
-        </p>
-
-        <div class="hero-ctas">
-          <a href="https://climasus.github.io/climasus4r/" target="_blank" rel="noopener"
-             class="btn-primary">
-            <span data-i18n="hero.cta_primary">Get Started</span>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
-                 stroke="currentColor" stroke-width="2.5" aria-hidden="true">
-              <path d="M5 12h14M12 5l7 7-7 7"/>
-            </svg>
-          </a>
-          <a href="https://github.com/climasus" target="_blank" rel="noopener"
-             class="btn-outline">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-              <path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/>
-            </svg>
-            <span data-i18n="hero.cta_secondary">View on GitHub</span>
-          </a>
-        </div>
-
-        <!-- Stats -->
-        <div class="hero-stats" id="hero-stats">
-          <div class="stat-card">
-            <div class="stat-number" data-count-to="3">3</div>
-            <div class="stat-label" data-i18n="hero.stats.packages">Packages</div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-number" data-count-to="50">50</div>
-            <div class="stat-label" data-i18n="hero.stats.disease_groups">Disease groups</div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-number" data-count-to="6">6</div>
-            <div class="stat-label" data-i18n="hero.stats.sus_systems">Sistemas SUS</div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-number" data-count-to="3">3</div>
-            <div class="stat-label" data-i18n="hero.stats.languages">Languages</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Right: code preview (dual-language snippet) -->
-      <div class="hero-visual" aria-hidden="true">
-        <div class="hero-code">
-          <div class="code-header">
-            <span class="dot dot-red"></span>
-            <span class="dot dot-yellow"></span>
-            <span class="dot dot-green"></span>
-            <span class="code-filename">script.R / script.py</span>
-          </div>
-          <pre><code><span class="code-comment"># R — ClimaSUS ecosystem</span>
-<span class="code-kw">library</span>(climasus4r)
-
-<span class="code-comment"># Import SUS mortality data</span>
-df &lt;- <span class="code-fn">sus_data_import</span>(
-  uf     = <span class="code-str">"AM"</span>,
-  year   = <span class="code-kw">2023</span>,
-  system = <span class="code-str">"SIM-DO"</span>)
-
-<span class="code-comment"># Python — same ecosystem</span>
-<span class="code-kw">from</span> climasus4py <span class="code-kw">import</span> sus
-
-df = <span class="code-fn">sus.import_data</span>(
-  uf=<span class="code-str">"AM"</span>, year=<span class="code-kw">2023</span>,
-  system=<span class="code-str">"SIM-DO"</span>)</code></pre>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ══ ABOUT ═══════════════════════════════════════════════════════════ -->
-  <section id="about" aria-labelledby="about-title">
-    <div class="section-container">
-      <span class="section-label" data-i18n="about.section_label">About the project</span>
-      <h2 class="section-title" id="about-title" data-i18n="about.title">What is ClimaSUS?</h2>
-      <div class="about-grid">
+  <div class="wrap">
+    <div class="eco-grid">
+      <article class="eco-card lib-r" data-reveal style="--i:0">
         <div>
-          <p class="about-text" data-i18n-html="about.body">
-            ClimaSUS is a scientific software ecosystem for obtaining, integrating, standardizing and
-            analyzing health, climate and environmental data in Brazil.
-          </p>
+          <div class="eco-card__num">01 · Biblioteca R</div>
+          <h3 class="eco-card__name"><img class="eco-card__logo" src="uploads/logo.png" alt="">climasus<span class="alt">4r</span></h3>
+          <p class="eco-card__desc">Pipeline completo de análise clima‑saúde em R: importação do DATASUS, integração climática, DLNM, meta‑análise e síntese estratégica.</p>
         </div>
-        <div class="about-features">
-          <div class="feature-item">
-            <span class="feature-icon">🗄️</span>
-            <div>
-              <div class="feature-title" data-i18n="about.feature1.title">DATASUS</div>
-              <div class="feature-desc" data-i18n="about.feature1.desc">SIM-DO, SIH, SIA, SINAN, SI-PNI, SINASC</div>
+        <div class="eco-card__tag">DADOS · ANÁLISE · PESQUISA</div>
+      </article>
+
+      <article class="eco-card lib-py" data-reveal style="--i:1">
+        <div>
+          <div class="eco-card__num">02 · Biblioteca Python</div>
+          <h3 class="eco-card__name"><img class="eco-card__logo" src="uploads/climasus4py_logo_main.png" alt="">climasus<span class="alt">4py</span></h3>
+          <p class="eco-card__desc">Mesmo arcabouço científico em Python, voltado a pipelines de dados e aprendizado de máquina.</p>
+        </div>
+        <div class="eco-card__tag">Modelagem · ML</div>
+      </article>
+
+      <article class="eco-card plus" data-reveal style="--i:2">
+        <div>
+          <div class="eco-card__num">03 · Plataforma</div>
+          <h3 class="eco-card__name">climasus<span class="alt">+ Studio</span></h3>
+          <p class="eco-card__desc">As mesmas funções científicas em ponto‑e‑clique, para gestores e técnicos do SUS sem programação.</p>
+        </div>
+        <div class="eco-card__tag">Gestores · SUS</div>
+      </article>
+
+      <article class="eco-card db" data-reveal style="--i:0">
+        <div>
+          <div class="eco-card__num">04 · Banco de dados</div>
+          <h3 class="eco-card__name">climasus<span class="alt">DB</span></h3>
+          <p class="eco-card__desc">A plataforma de dados integrados de clima, saúde e ambiente do Brasil — já processados pelas bibliotecas e prontos para análise.</p>
+        </div>
+        <div class="eco-card__tag">Data commons · Nuvem</div>
+      </article>
+
+      <article class="eco-card educa" data-reveal style="--i:0">
+        <div>
+          <div class="eco-card__num">05 · Capacitação</div>
+          <h3 class="eco-card__name">climasus<span class="alt">Educa</span></h3>
+          <p class="eco-card__desc">Formação de gestores, técnicos e pesquisadores em clima e saúde — porque tecnologia sem capilaridade institucional não vira política pública.</p>
+        </div>
+        <div class="eco-card__tag">Formação · Rede</div>
+      </article>
+
+      <article class="eco-card alerta" data-reveal style="--i:1">
+        <div>
+          <div class="eco-card__num">06 · Plataforma operacional</div>
+          <h3 class="eco-card__name">climasus<span class="alt">Alerta</span></h3>
+          <p class="eco-card__desc">Onde os sistemas de alerta precoce multi‑perigo são executados: calor, cheias, qualidade do ar e secas, cada um com seus canais.</p>
+        </div>
+        <div class="eco-card__tag">SACS · SACES · SAQS · SASS</div>
+        <a class="eco-app" href="https://climasus-gestor.vercel.app/" target="_blank" rel="noopener">
+          <div class="phone">
+            <div class="phone__scr">
+              <span class="phone__notch"></span>
+              <div class="phone__bar"><span class="phone__dot"></span><span class="phone__ttl">SACS · Alerta</span></div>
+              <div class="phone__body">
+                <div class="phone__alert">
+                  <div class="phone__lvl">Nível 3 · Calor</div>
+                  <div class="phone__temp">38,4°</div>
+                  <div class="phone__loc">Porto Velho · RO</div>
+                </div>
+                <div class="phone__row"><i style="background:#E5482A"></i><span>Risco alto para idosos</span></div>
+                <div class="phone__row"><i style="background:#FFB84D"></i><span>Ativar pontos de hidratação</span></div>
+                <div class="phone__cta">Ver ações</div>
+              </div>
             </div>
           </div>
-          <div class="feature-item">
-            <span class="feature-icon">🌡️</span>
-            <div>
-              <div class="feature-title" data-i18n="about.feature2.title">Dados climáticos</div>
-              <div class="feature-desc" data-i18n="about.feature2.desc">INMET, FIORES, INCT-CONEXÃO, satélite</div>
-            </div>
+          <div class="eco-app__copy">
+            <span class="eco-app__flag">App · Novo</span>
+            <span class="eco-app__name">climaSUS <span class="alt">Gestor</span></span>
+            <span class="eco-app__desc">Leva o alerta ao celular do gestor de saúde, com o risco detalhado e a ação recomendada.</span>
+            <span class="eco-app__link">Abrir o app →</span>
           </div>
-          <div class="feature-item">
-            <span class="feature-icon">🗺️</span>
-            <div>
-              <div class="feature-title" data-i18n="about.feature3.title">Análise espacial</div>
-              <div class="feature-desc" data-i18n="about.feature3.desc">Malhas IBGE, modelos bayesianos, LISA</div>
+        </a>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FEATURE — climasus4r / 4py (ciência aberta) ============ -->
+<section class="feature section--cream" id="ciencia">
+  <div class="feature__inner">
+    <div class="feature__text" data-reveal="left">
+      <span class="eyebrow feature__eyebrow"><span class="bar"></span>climasus4r · climasus4py</span>
+      <h2 class="feature__title">Da importação <span class="it">à decisão</span>, em uma só linha.</h2>
+      <div class="feature__body">
+        <p>As bibliotecas científicas são o motor de todo o ecossistema. Importam dados brutos do SUS, integram clima e território, e chegam à modelagem causal — tudo reprodutível e em código aberto.</p>
+      </div>
+      <ul class="feature__list">
+        <li><span class="k">Pipeline</span><span>Import → clean → standardize → filter → derive → aggregate</span></li>
+        <li><span class="k">Clima</span><span>INMET, normais 1991–2020, anomalias e ondas de calor</span></li>
+        <li><span class="k">Modelagem</span><span>DLNM, meta‑análise, fração atribuível, carga e vulnerabilidade</span></li>
+        <li><span class="k">Backends</span><span>Tibble · Arrow/Parquet · DuckDB — metadados que sobrevivem</span></li>
+      </ul>
+      <div class="dl">
+        <span class="dl__label">Documentação</span>
+        <div class="dl__row dl__row--docs">
+          <a class="dl__btn" href="https://bymaxanjos.github.io/climasus4r/"><span class="dl__os">climasus4r</span><span class="dl__meta">Site do pacote · instalação</span></a>
+          <a class="dl__btn" href="https://bymaxanjos.github.io/climasus4r/pt/articles/tutorials.html"><span class="dl__os">Tutoriais</span><span class="dl__meta">Passo a passo em português</span></a>
+          <a class="dl__btn" href="https://climasus.github.io/climasus4py/"><span class="dl__os">climasus4py</span><span class="dl__meta">Documentação Python</span></a>
+        </div>
+      </div>
+    </div>
+    <div class="feature__media" data-reveal="right">
+      <div class="codewin">
+        <div class="codewin__bar">
+          <span class="d"></span><span class="d"></span><span class="d"></span>
+          <span class="t">R · climasus4r</span>
+        </div>
+        <img class="codewin__shot" src="uploads/climasus4r_pipeline.gif" alt="Pipeline climasus4r: código de importação e agregação do DATASUS gerando a curva epidêmica de eventos notificados">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FEATURE — climasus+ (plataforma) ============ -->
+<section class="feature" id="plataforma">
+  <div class="feature__inner feature--reverse">
+    <div class="feature__media" data-reveal="left">
+      <div class="platwin">
+        <div class="platwin__bar">
+          <span class="dot" style="background:#C2410C"></span>
+          <span class="dot" style="background:#B8860B"></span>
+          <span class="dot" style="background:#2F7D4F"></span>
+          <span class="platwin__chip">climasus+ Studio · painel</span>
+        </div>
+        <img class="platwin__shot" src="uploads/climasus-studio-demo.gif" alt="Demonstração do climasus+ Studio: montagem de um pipeline de análise em ponto-e-clique">
+      </div>
+    </div>
+    <div class="feature__text" data-reveal="right">
+      <span class="eyebrow feature__eyebrow"><span class="bar"></span>climasus+ Studio</span>
+      <h2 class="feature__title">Toda a ciência, <span class="it">sem uma linha de código</span>.</h2>
+      <div class="feature__body">
+        <p>A plataforma interativa traz as funções das bibliotecas para gestores e técnicos do SUS em ponto‑e‑clique: mapas, séries temporais, relatórios — sobre o mesmo motor científico.</p>
+      </div>
+      <ul class="feature__list">
+        <li><span class="k">Acesso</span><span>Integração Gov.br e DATASUS · SSO institucional</span></li>
+        <li><span class="k">Saída</span><span>Mapas, séries, relatórios PDF prontos para gestão</span></li>
+        <li><span class="k">Multilíngue</span><span>Português · English · Español em toda a interface</span></li>
+      </ul>
+      <div class="dl">
+        <span class="dl__label">Baixar o app · beta v1.1.0</span>
+        <div class="dl__row">
+          <a class="dl__btn" href="https://github.com/ByMaxAnjos/climasus-plus/releases/download/v1.1.0-beta.1/climasus%2B.Studio_1.1.0-beta.1_aarch64.dmg"><span class="dl__os">macOS</span><span class="dl__meta">Apple Silicon · .dmg</span></a>
+          <a class="dl__btn" href="https://github.com/ByMaxAnjos/climasus-plus/releases/download/v1.1.0-beta.1/climasus%2B.Studio_1.1.0-beta.1_x64-setup.exe"><span class="dl__os">Windows</span><span class="dl__meta">x64 · .exe</span></a>
+          <a class="dl__btn" href="https://github.com/ByMaxAnjos/climasus-plus/releases/download/v1.1.0-beta.1/climasus%2B.Studio_1.1.0-beta.1_amd64.deb"><span class="dl__os">Linux</span><span class="dl__meta">x64 · .deb</span></a>
+        </div>
+        <span class="dl__note">Também em <a href="https://github.com/ByMaxAnjos/climasus-plus/releases/download/v1.1.0-beta.1/climasus%2B.Studio_1.1.0-beta.1_amd64.AppImage">AppImage</a> · todas as versões no <a href="https://github.com/ByMaxAnjos/climasus-plus/releases">GitHub</a>. Beta não assinada: na primeira abertura, autorize a execução no seu sistema.</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FEATURE — climasusDados (data commons) ============ -->
+<section class="feature" id="db">
+  <div class="feature__inner feature--reverse">
+    <div class="feature__media" data-reveal="left">
+      <div class="datawin">
+        <img class="datawin__shot" src="uploads/climasusdb_explorar_amazonia_porto_velho.gif" alt="climasusDB · tela de exploração de dados com mapa da Amazônia e série temporal">
+      </div>
+    </div>
+    <div class="feature__text" data-reveal="right">
+      <span class="eyebrow feature__eyebrow"><span class="bar"></span>climasusDB</span>
+      <h2 class="feature__title">Dados de clima, saúde e ambiente, <span class="it">prontos para análise</span>.</h2>
+      <div class="feature__body">
+        <p>O data commons do ecossistema: reúne, harmoniza e publica numa única grade — município (IBGE) × tempo — os dados que hoje vivem espalhados em dezenas de fontes. Tudo já processado pelas bibliotecas climasus4r e climasus4py, versionado e pronto para pesquisadores, gestores e o público.</p>
+      </div>
+      <ul class="feature__list">
+        <li><span class="k">Universos</span><span>Saúde (DATASUS) · Clima (INMET · ERA5 · INPE) · Ambiente (MapBiomas · queimadas · ANA)</span></li>
+        <li><span class="k">Grade comum</span><span>Município IBGE × dia/semana · harmonizado e versionado com DOI</span></li>
+        <li><span class="k">Nuvem</span><span>Formatos cloud‑optimized — Parquet · Zarr · COG — descobertos via catálogo STAC</span></li>
+        <li><span class="k">Acesso</span><span>API + clientes R/Python · Hub de computação na nuvem · portal público com download CSV</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FEATURE — climasusEduca ============ -->
+<section class="feature section--cream">
+  <div class="feature__inner">
+    <div class="feature__text" data-reveal="left">
+      <span class="eyebrow feature__eyebrow"><span class="bar"></span>climasusEduca</span>
+      <h2 class="feature__title">Capilaridade é <span class="it">o que vira política</span>.</h2>
+      <div class="feature__body">
+        <p>O climaSUS EDUCA forma profissionais de saúde, gestores e pesquisadores para usar — e sustentar — o ecossistema em todas as escalas do SUS. Além de produzir materiais informativos acessíveis e de qualidade para a população.</p>
+      </div>
+      <ul class="feature__list">
+        <li><span class="k">Formação</span><span>Oficinas e cursos práticos sobre clima, ambiente e saúde</span></li>
+        <li><span class="k">Materiais</span><span>Guias, notas técnicas e conteúdos abertos em linguagem acessível</span></li>
+        <li><span class="k">Rede</span><span>Apoio a gestores, UBS e comunidades no uso dos alertas</span></li>
+      </ul>
+    </div>
+    <div class="feature__media" data-reveal="right">
+      <div class="educawin">
+        <svg viewBox="0 0 520 420" width="100%" height="100%" preserveAspectRatio="xMidYMid slice">
+          <g fill="none" stroke="rgba(244,239,227,0.34)" stroke-width="1.4">
+            <circle cx="260" cy="210" r="60"/>
+            <circle cx="260" cy="210" r="118"/>
+            <circle cx="260" cy="210" r="176"/>
+          </g>
+          <g class="edu-orbit edu-orbit--in" fill="rgba(244,239,227,0.9)">
+            <circle cx="260" cy="150" r="4"/><circle cx="320" cy="210" r="4"/><circle cx="260" cy="270" r="4"/><circle cx="200" cy="210" r="4"/>
+          </g>
+          <g class="edu-orbit edu-orbit--out" fill="rgba(244,239,227,0.6)">
+            <circle cx="384" cy="126" r="3.5"/><circle cx="136" cy="294" r="3.5"/><circle cx="384" cy="294" r="3.5"/><circle cx="136" cy="126" r="3.5"/>
+          </g>
+          <circle class="edu-core" cx="260" cy="210" r="15" fill="#fff"/>
+        </svg>
+        <div class="edunet">
+          <a class="edunet__node edunet__node--ig" href="https://www.instagram.com/climasus.educa?igsi=MzRlODBiNWFlZA==" target="_blank" rel="noopener" style="--d:0s">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1.1" fill="currentColor" stroke="none"/></svg>
+            <span class="edunet__label">Instagram<em>@climasus.educa</em></span>
+          </a>
+          <a class="edunet__node edunet__node--li" href="https://www.linkedin.com/company/climasus/" target="_blank" rel="noopener" style="--d:.5s">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9h4v12H3zM9 9h3.8v1.7h.05c.53-.95 1.83-1.95 3.77-1.95 4.03 0 4.78 2.5 4.78 5.75V21h-4v-5.3c0-1.27-.02-2.9-1.77-2.9-1.78 0-2.05 1.37-2.05 2.8V21H9z"/></svg>
+            <span class="edunet__label">LinkedIn<em>/company/climasus</em></span>
+          </a>
+          <a class="edunet__node edunet__node--yt" href="https://www.instagram.com/climasus.institucional?igsi=MzRlODBiNWFlZA==" target="_blank" rel="noopener" style="--d:1s">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1"/></svg>
+            <span class="edunet__label">Instagram<em>@climasus.institucional</em></span>
+          </a>
+          <span class="edunet__node edunet__node--pc is-soon" style="--d:1.5s">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><rect x="9" y="2.5" width="6" height="11" rx="3"/><path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21M8.5 21h7"/></svg>
+            <span class="edunet__label">Podcast<em>em breve</em></span>
+          </span>
+        </div>
+        <a class="edunet__caption" href="https://linktr.ee/projeto.climasus?utm_source=linktree_profile_share" target="_blank" rel="noopener">Rede climaSUS EDUCA · siga os canais →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PINNED COLOR-SCRUB — 3 SISTEMAS ============ -->
+<section class="scrub" id="alerta"
+         data-scrub
+         data-stops="#F0572F,#0FA08D,#D98A1E,#1C82C4"
+         data-ink="#ffffff,#ffffff,#ffffff,#ffffff">
+  <div class="scrub__stage" data-scrub-stage>
+    <div class="scrub__head">
+      <div class="scrub__kicker">climasusAlerta · quatro sistemas</div>
+      <h2 class="scrub__title">Um perigo, um sistema, uma cor.</h2>
+    </div>
+
+    <div class="scrub__viewport">
+      <div class="scrub__track" data-scrub-track>
+
+        <!-- SACS -->
+        <article class="scrub-card active" data-scrub-card>
+          <div class="scrub-card__text">
+            <div class="scrub-card__code">Sistema 01 · em operação</div>
+            <h3 class="scrub-card__name">SACS<span class="it">·Amazônia</span></h3>
+            <p class="scrub-card__tag">Calor extremo &amp; saúde</p>
+            <p class="scrub-card__desc">Heat‑Health Warning System tropicalizado, com limiar percentílico P90 calibrado município a município — alinhado às diretrizes da OMS e da OMM.</p>
+            <div class="scrub-card__attrs">
+              <div class="row"><span class="k">Fonte</span><span class="v">INMET · horária</span></div>
+              <div class="row"><span class="k">Níveis</span><span class="v">N1 → N4</span></div>
+              <div class="row"><span class="k">Canais</span><span class="v">Gestores · UBS · Defesa Civil · App · Mídia</span></div>
             </div>
+            <a class="scrub-card__link" href="https://sacs.climasus.app.br" target="_blank" rel="noopener">Consultar o painel ao vivo <span class="arrow">→</span></a>
           </div>
-          <div class="feature-item">
-            <span class="feature-icon">📈</span>
-            <div>
-              <div class="feature-title" data-i18n="about.feature4.title">Modelos preditivos</div>
-              <div class="feature-desc" data-i18n="about.feature4.desc">DLNM, fração atribuível, bioprognose</div>
+          <div class="scrub-card__visual">
+            <svg viewBox="0 0 320 400" fill="none">
+              <g stroke="rgba(255,255,255,0.85)" stroke-width="2" fill="none">
+                <path d="M30 320 Q90 300 160 312 T300 318"/>
+                <path d="M30 280 Q90 250 160 264 T300 286"/>
+                <path d="M30 240 Q90 190 160 206 T300 250"/>
+                <path d="M40 200 Q100 130 160 148 T290 210"/>
+              </g>
+              <g fill="#fff">
+                <circle cx="90" cy="252" r="4"/><circle cx="160" cy="206" r="6"/><circle cx="230" cy="240" r="4"/>
+              </g>
+              <text x="160" y="200" text-anchor="middle" font-family="IBM Plex Mono" font-size="13" fill="#fff" letter-spacing="2">42.8°C</text>
+            </svg>
+          </div>
+        </article>
+
+        <!-- SAQS -->
+        <article class="scrub-card" data-scrub-card>
+          <div class="scrub-card__text">
+            <div class="scrub-card__code">Sistema 02 · piloto</div>
+            <h3 class="scrub-card__name">SAQS<span class="it">·Amazônia</span></h3>
+            <p class="scrub-card__tag">Qualidade do ar · PM 2.5</p>
+            <p class="scrub-card__desc">Vigilância hiperlocal com redes densas de sensores IoT de baixo custo. Alertas bairro‑a‑bairro durante incêndios florestais, via algoritmo NowCast.</p>
+            <div class="scrub-card__attrs">
+              <div class="row"><span class="k">Sensores</span><span class="v">240 · 12 cidades</span></div>
+              <div class="row"><span class="k">Método</span><span class="v">NowCast</span></div>
+              <div class="row"><span class="k">Canais</span><span class="v">Vigilância · Escolas · UBS · App · Mídia</span></div>
             </div>
+            <span class="scrub-card__soon">Painel em breve</span>
           </div>
+          <div class="scrub-card__visual">
+            <svg viewBox="0 0 320 400" fill="none">
+              <g>
+                <circle cx="70" cy="120" r="6" fill="rgba(255,255,255,0.6)"/>
+                <circle cx="120" cy="160" r="9" fill="rgba(255,255,255,0.8)"/>
+                <circle cx="175" cy="120" r="13" fill="#fff"/>
+                <circle cx="230" cy="170" r="10" fill="rgba(255,255,255,0.8)"/>
+                <circle cx="90" cy="220" r="7" fill="rgba(255,255,255,0.6)"/>
+                <circle cx="160" cy="250" r="11" fill="#fff"/>
+                <circle cx="235" cy="245" r="7" fill="rgba(255,255,255,0.55)"/>
+                <circle cx="120" cy="310" r="6" fill="rgba(255,255,255,0.5)"/>
+                <circle cx="200" cy="315" r="8" fill="rgba(255,255,255,0.7)"/>
+              </g>
+              <text x="160" y="375" text-anchor="middle" font-family="IBM Plex Mono" font-size="12" fill="#fff" letter-spacing="2">REDE HIPERLOCAL</text>
+            </svg>
+          </div>
+        </article>
+
+        <!-- SASS -->
+        <article class="scrub-card" data-scrub-card>
+          <div class="scrub-card__text">
+            <div class="scrub-card__code">Sistema 03 · em desenvolvimento</div>
+            <h3 class="scrub-card__name">SASS<span class="it">·Amazônia</span></h3>
+            <p class="scrub-card__tag">Secas · escala S2S</p>
+            <p class="scrub-card__desc">Perigos de início lento, com previsões sub‑sazonais e sazonais — semanas a meses de antecedência. Integra segurança alimentar, doenças hídricas e saneamento.</p>
+            <div class="scrub-card__attrs">
+              <div class="row"><span class="k">Horizonte</span><span class="v">Semanas → meses</span></div>
+              <div class="row"><span class="k">Índices</span><span class="v">SPI · SPEI · vazão</span></div>
+              <div class="row"><span class="k">Canais</span><span class="v">Gestores · Comunidades · Defesa Civil · UBS · Mídia</span></div>
+            </div>
+            <span class="scrub-card__soon">Painel em breve</span>
+          </div>
+          <div class="scrub-card__visual">
+            <svg viewBox="0 0 320 400" fill="none">
+              <line x1="100" y1="60" x2="100" y2="340" stroke="rgba(255,255,255,0.5)" stroke-width="2"/>
+              <circle cx="100" cy="90" r="7" fill="#fff"/>
+              <text x="122" y="95" font-family="Newsreader" font-style="italic" font-size="20" fill="#fff">hoje</text>
+              <circle cx="100" cy="180" r="6" fill="rgba(255,255,255,0.85)"/>
+              <text x="122" y="185" font-family="Newsreader" font-size="18" fill="#fff">semanas</text>
+              <circle cx="100" cy="280" r="9" fill="#fff"/>
+              <text x="122" y="285" font-family="Newsreader" font-size="18" fill="#fff">meses</text>
+              <text x="160" y="375" text-anchor="middle" font-family="IBM Plex Mono" font-size="12" fill="#fff" letter-spacing="2">HORIZONTE S2S</text>
+            </svg>
+          </div>
+        </article>
+
+        <!-- SACES -->
+        <article class="scrub-card" data-scrub-card>
+          <div class="scrub-card__text">
+            <div class="scrub-card__code">Sistema 04 · em concepção</div>
+            <h3 class="scrub-card__name">SACES<span class="it">·Amazônia</span></h3>
+            <p class="scrub-card__tag">Cheias &amp; enchentes</p>
+            <p class="scrub-card__desc">Monitoramento e alerta de cheias fluviais — cotas dos rios da bacia amazônica e previsão hidrológica para antecipar desastres e impactos à saúde: doenças de veiculação hídrica e deslocamento de populações.</p>
+            <div class="scrub-card__attrs">
+              <div class="row"><span class="k">Fonte</span><span class="v">ANA · CPRM · cotas fluviais</span></div>
+              <div class="row"><span class="k">Horizonte</span><span class="v">Dias → semanas</span></div>
+              <div class="row"><span class="k">Canais</span><span class="v">Defesa Civil · Comunidades · UBS · App · Mídia</span></div>
+            </div>
+            <span class="scrub-card__soon">Painel em breve</span>
+          </div>
+          <div class="scrub-card__visual">
+            <svg viewBox="0 0 320 400" fill="none">
+              <g stroke="rgba(255,255,255,0.35)" stroke-width="1.4">
+                <line x1="60" y1="110" x2="260" y2="110"/>
+                <line x1="60" y1="160" x2="260" y2="160"/>
+                <line x1="60" y1="210" x2="260" y2="210"/>
+                <line x1="60" y1="260" x2="260" y2="260"/>
+              </g>
+              <path d="M40 250 Q90 234 140 250 T240 250 T320 250 L320 400 L40 400 Z" fill="rgba(255,255,255,0.18)"/>
+              <path d="M40 210 Q90 194 140 210 T240 210 T320 210 L320 400 L40 400 Z" fill="rgba(255,255,255,0.32)"/>
+              <path d="M40 168 Q90 152 140 168 T240 168 T320 168 L320 400 L40 400 Z" fill="rgba(255,255,255,0.5)"/>
+              <g stroke="#fff" stroke-width="2">
+                <line x1="272" y1="96" x2="272" y2="300"/>
+                <line x1="266" y1="110" x2="278" y2="110"/>
+                <line x1="266" y1="160" x2="278" y2="160"/>
+                <line x1="266" y1="210" x2="278" y2="210"/>
+              </g>
+              <text x="150" y="96" text-anchor="middle" font-family="IBM Plex Mono" font-size="13" fill="#fff" letter-spacing="2">COTA DE ALERTA</text>
+              <text x="160" y="378" text-anchor="middle" font-family="IBM Plex Mono" font-size="12" fill="#fff" letter-spacing="2">NÍVEL DO RIO</text>
+            </svg>
+          </div>
+        </article>
+
+      </div>
+    </div>
+
+    <div class="scrub__foot">
+      <div class="scrub__dots">
+        <span class="scrub__dot active" data-scrub-dot></span>
+        <span class="scrub__dot" data-scrub-dot></span>
+        <span class="scrub__dot" data-scrub-dot></span>
+        <span class="scrub__dot" data-scrub-dot></span>
+      </div>
+      <div class="scrub__progress"><span class="scrub__progress-fill" data-scrub-progress></span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FEATURE — climaSUS Gestor ============ -->
+<section class="feature" id="gestor">
+  <div class="feature__inner feature--reverse">
+    <div class="feature__media" data-reveal="left">
+      <div class="gphone">
+        <div class="gphone__scr">
+          <div class="gphone__top">
+            <div class="gphone__mark">cS</div>
+            <div class="gphone__id"><b>clima<i>SUS</i> Gestor</b><span>Porto Velho · RO</span></div>
+            <div class="gphone__badge">4</div>
+          </div>
+          <div class="gphone__body">
+            <div class="gphone__kick">Situação atual</div>
+            <div class="gphone__q">O que está acontecendo em <i>Porto Velho</i></div>
+            <div class="gcard hot">
+              <i class="ic"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 14.8V5a2 2 0 1 1 4 0v9.8a4 4 0 1 1-4 0Z"/><path d="M14 18.2v.2"/><path d="M5 7.5h4"/><path d="M5 11.5h4"/></svg></i>
+              <div class="tx"><b>Calor</b><span>Heat Index 43 °C hoje</span></div>
+              <span class="sl">VERMELHO</span>
+            </div>
+            <div class="gcard warn">
+              <i class="ic"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.5c3.2 3.6 5.4 6.4 5.4 8.9a5.4 5.4 0 0 1-10.8 0c0-1 .35-2 .95-3.1"/><path d="M4 4l16 16"/></svg></i>
+              <div class="tx"><b>Seca</b><span>SPI‑30 = −1,4 · 23 dias sem chuva</span></div>
+              <span class="sl">AMARELO</span>
+            </div>
+            <div class="gcard">
+              <i class="ic"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8.5h10a2.5 2.5 0 1 0-2.5-2.5"/><path d="M3 12.5h14a2.5 2.5 0 1 1-2.5 2.5"/><path d="M3 16.5h7"/></svg></i>
+              <div class="tx"><b>Ar</b><span>PM2.5 = 12 µg/m³ · normal</span></div>
+              <span class="sl">VERDE</span>
+            </div>
+            <div class="gphone__src">Fonte climasusAlerta · há 6 min</div>
+            <div class="gphone__cta">Ver saúde da população</div>
+          </div>
+          <div class="gphone__tabs"><span class="on">Situação</span><span>Saúde</span><span>Ações</span><span>Documentos</span></div>
         </div>
       </div>
     </div>
-  </section>
-
-  <!-- ══ PACKAGES ════════════════════════════════════════════════════════ -->
-  <section id="packages" aria-labelledby="packages-title">
-    <div class="section-container">
-      <span class="section-label" data-i18n="packages.section_label">Packages</span>
-      <h2 class="section-title" id="packages-title" data-i18n="packages.title">Ecosystem libraries</h2>
-      <p class="section-subtitle" data-i18n="packages.subtitle">R and Python tools for every step of the analysis.</p>
-      <div id="packages-grid" aria-live="polite">
-        <!-- populated by JS from design-system/data/project/repositories.json -->
-        <p style="color:var(--text-3);margin-top:2rem;" aria-label="Loading packages">Loading…</p>
+    <div class="feature__text" data-reveal="right">
+      <span class="eyebrow feature__eyebrow"><span class="bar"></span>climaSUS Gestor</span>
+      <h2 class="feature__title">Do alerta à <span class="it">ação registrada</span>.</h2>
+      <div class="feature__body">
+        <p>O aplicativo do gestor municipal de saúde. Recebe os alertas do climasusAlerta e conduz quem decide por três perguntas: o que está acontecendo, como isso já afeta a população e o que fazer hoje. Cada ação confirmada é registrada com horário e responsável.</p>
       </div>
+      <ul class="feature__list">
+        <li><span class="k">Situação</span><span>Semáforo de calor, seca, qualidade do ar e cheias no município</span></li>
+        <li><span class="k">Saúde</span><span>Impacto já observado em internações, atendimentos e óbitos · últimas 72 h</span></li>
+        <li><span class="k">Ações</span><span>Três prioridades — fazer hoje, próximas 24 h e monitorar — com responsável e prazo</span></li>
+        <li><span class="k">Documentos</span><span>Comunicado à imprensa e nota técnica à SES gerados prontos para assinar</span></li>
+        <li><span class="k">Cobertura</span><span>Amazônia Legal · 9 capitais na versão atual</span></li>
+      </ul>
+      <div class="feature__cta"><a class="btn btn--ghost" href="https://climasus-gestor.vercel.app/" target="_blank" rel="noopener">Abrir o app <span class="arrow">→</span></a></div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- ══ PHASES ══════════════════════════════════════════════════════════ -->
-  <section id="phases" aria-labelledby="phases-title">
-    <div class="section-container">
-      <span class="section-label" data-i18n="phases.section_label">Analysis phases</span>
-      <h2 class="section-title" id="phases-title" data-i18n="phases.title">Five integrated phases</h2>
-      <p class="section-subtitle" data-i18n="phases.subtitle">From raw data to intelligence for public health policies.</p>
-      <div class="phases-grid" id="phases-grid">
-        <div class="phase-card">
-          <div class="phase-number">01</div>
-          <div class="phase-title" data-i18n="phases.phase1.title">Phase 1 — Data Infrastructure</div>
-          <div class="phase-desc" data-i18n="phases.phase1.desc"></div>
-          <div class="phase-tags"><span class="phase-tag">DBC/DBF</span><span class="phase-tag">ETL</span><span class="phase-tag">CID-10</span></div>
-        </div>
-        <div class="phase-card">
-          <div class="phase-number">02</div>
-          <div class="phase-title" data-i18n="phases.phase2.title">Phase 2 — Socioeconomic Integration</div>
-          <div class="phase-desc" data-i18n="phases.phase2.desc"></div>
-          <div class="phase-tags"><span class="phase-tag">IBGE</span><span class="phase-tag">Spatial</span><span class="phase-tag">HDI</span></div>
-        </div>
-        <div class="phase-card">
-          <div class="phase-number">03</div>
-          <div class="phase-title" data-i18n="phases.phase3.title">Phase 3 — Climate Integration</div>
-          <div class="phase-desc" data-i18n="phases.phase3.desc"></div>
-          <div class="phase-tags"><span class="phase-tag">INMET</span><span class="phase-tag">Satellite</span><span class="phase-tag">Air quality</span></div>
-        </div>
-        <div class="phase-card">
-          <div class="phase-number">04</div>
-          <div class="phase-title" data-i18n="phases.phase4.title">Phase 4 — Spatial Analysis</div>
-          <div class="phase-desc" data-i18n="phases.phase4.desc"></div>
-          <div class="phase-tags"><span class="phase-tag">Bayesian</span><span class="phase-tag">SaTScan</span><span class="phase-tag">LISA</span></div>
-        </div>
-        <div class="phase-card">
-          <div class="phase-number">05</div>
-          <div class="phase-title" data-i18n="phases.phase5.title">Phase 5 — Temporal Modeling</div>
-          <div class="phase-desc" data-i18n="phases.phase5.desc"></div>
-          <div class="phase-tags"><span class="phase-tag">DLNM</span><span class="phase-tag">ML</span><span class="phase-tag">Bioprognosis</span></div>
-        </div>
-      </div>
-    </div>
-  </section>
+<!-- ============ TEAM ============ -->
+<section class="team" id="equipe">
+  <div class="section-head" data-reveal>
+    <span class="eyebrow"><span class="bar"></span>A equipe</span>
+    <h2 class="section-title">Quem constrói <span class="it">o climaSUS</span>.</h2>
+    <p class="section-lede">Uma rede colaborativa de pesquisadores, desenvolvedores, comunicadores e gestores de instituições brasileiras e internacionais, unida pela ciência aberta, pelo fortalecimento do SUS e pela inovação em clima e saúde.</p>
+  </div>
 
-  <!-- ══ ARCHITECTURE ════════════════════════════════════════════════════ -->
-  <section id="architecture" aria-labelledby="arch-title">
-    <div class="section-container">
-      <span class="section-label" data-i18n="architecture.section_label">How it works</span>
-      <h2 class="section-title" id="arch-title" data-i18n="architecture.title">Ecosystem architecture</h2>
-      <p class="section-subtitle" data-i18n="architecture.subtitle">Vertical layers — from raw data to intelligence for public policies.</p>
-      <div class="arch-layers" id="arch-layers" aria-live="polite">
-        <p style="color:var(--text-3);margin-top:2rem;">Loading…</p>
-      </div>
-    </div>
-  </section>
+  <div class="team__sub" data-reveal>
+    <span class="eyebrow"><span class="bar"></span>Núcleo</span>
+    <span class="line"></span>
+    <span class="count">07</span>
+  </div>
 
-  <!-- ══ ROADMAP ═════════════════════════════════════════════════════════ -->
-  <section id="roadmap" aria-labelledby="roadmap-title">
-    <div class="section-container">
-      <span class="section-label" data-i18n="roadmap.section_label">Project evolution</span>
-      <h2 class="section-title" id="roadmap-title" data-i18n="roadmap.title">Ecosystem roadmap</h2>
-      <p class="section-subtitle" data-i18n="roadmap.subtitle">From infrastructure to bioclimatic prognosis.</p>
-      <div class="roadmap-grid" id="roadmap-grid" aria-live="polite">
-        <p style="color:var(--text-3);margin-top:2rem;">Loading…</p>
+  <div class="team-grid">
+    <!-- Max Anjos -->
+    <article class="team-card" data-reveal style="--i:0">
+      <div class="team-avatar">
+        <img src="uploads/max_anjos.JPG" alt="Dr. Max Anjos">
+        <span class="ph">MA</span>
       </div>
-    </div>
-  </section>
-
-  <!-- ══ TEAM ════════════════════════════════════════════════════════════ -->
-  <section id="team" aria-labelledby="team-title">
-    <div class="section-container">
-      <span class="section-label" data-i18n="team.section_label">Team</span>
-      <h2 class="section-title" id="team-title" data-i18n="team.title">Who we are</h2>
-      <p class="section-subtitle" data-i18n="team.subtitle"></p>
-      <div id="team-grid" aria-live="polite">
-        <p style="color:var(--text-3);margin-top:2rem;">Loading…</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- ══ FUNDING ═════════════════════════════════════════════════════════ -->
-  <section id="funding" aria-labelledby="funding-title">
-    <div class="section-container">
-      <span class="section-label" data-i18n="funding.section_label">Institutional support</span>
-      <h2 class="section-title" id="funding-title" data-i18n="funding.title">Funding and support</h2>
-      <p class="funding-text" data-i18n="funding.body"></p>
-      <div class="funding-logos" id="funding-logos">
-        <!-- populated by JS from organization.json -->
-      </div>
-    </div>
-  </section>
-
-  <!-- ══ CTA ═════════════════════════════════════════════════════════════ -->
-  <section id="contact">
-    <div id="cta">
-      <p class="cta-title" data-i18n="cta.title">Start using ClimaSUS today</p>
-      <p class="cta-subtitle" data-i18n="cta.subtitle">Transform climate and health data into intelligence for public policies.</p>
-      <div class="cta-actions">
-        <a href="https://climasus.github.io/climasus4r/" target="_blank" rel="noopener"
-           class="btn-cta-dark" data-i18n="cta.primary">Get Started</a>
-        <a href="https://github.com/climasus" target="_blank" rel="noopener"
-           class="btn-cta-outline" data-i18n="cta.secondary">View on GitHub</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- ══ FOOTER ══════════════════════════════════════════════════════════ -->
-  <footer class="site-footer" role="contentinfo">
-    <div class="footer-container">
-      <div class="footer-brand">
-        <img src="./assets/icons/favicon-16x16.png"
-             alt="ClimaSUS" onerror="this.style.display='none'">
-        <span>ClimaSUS</span>
-      </div>
-      <nav class="footer-links" id="footer-links" aria-label="Footer navigation" style="display:none">
-        <!-- populated by JS from footer.json -->
-      </nav>
-      <p class="footer-copy" id="footer-copy" data-i18n="footer.copyright">
-        © 2024–2026 ClimaSUS Team · INCT-CONEXÃO / CCSRO / FIOCRUZ-RO
+      <h3 class="team-name">Dr. Max Anjos</h3>
+      <span class="team-role">COORDENAÇÃO · MANTENEDOR</span>
+      <p class="team-org">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/7/71/Logo_da_UFJF.png" alt="UFJF">
+        <span>UFJF · Fiocruz‑RO (CCSRO) · INCT‑Conexão</span>
       </p>
+      <div class="team-links">
+        <a href="https://github.com/ByMaxAnjos" target="_blank" rel="noopener" class="team-link" title="GitHub" aria-label="GitHub">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
+        </a>
+        <a href="https://linkedin.com/in/maxanjos" target="_blank" rel="noopener" class="team-link" title="LinkedIn" aria-label="LinkedIn">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+        </a>
+        <a href="mailto:max.anjos@campus.ul.pt" class="team-link" title="E‑mail" aria-label="E‑mail">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        </a>
+      </div>
+    </article>
+
+    <!-- Marlon Resende Faria -->
+    <article class="team-card" data-reveal style="--i:1">
+      <div class="team-avatar">
+        <img src="uploads/Marlon.jpeg" alt="Marlon Resende Faria">
+        <span class="ph">MF</span>
+      </div>
+      <h3 class="team-name">Marlon Resende Faria</h3>
+      <span class="team-role">Desenvolvedor sênior R/Python</span>
+      <p class="team-org">
+        <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Webysther_20160310_-_Logo_USP.svg" alt="USP">
+        <span>Universidade de São Paulo (USP)</span>
+      </p>
+      <div class="team-links">
+        <a href="https://github.com/MarlonRF" target="_blank" rel="noopener" class="team-link" title="GitHub" aria-label="GitHub">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
+        </a>
+        <a href="https://www.linkedin.com/in/marlon-f-881159113" target="_blank" rel="noopener" class="team-link" title="LinkedIn" aria-label="LinkedIn">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+        </a>
+        <a href="mailto:marlon.faria@usp.br" class="team-link" title="E‑mail" aria-label="E‑mail">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        </a>
+      </div>
+    </article>
+
+    <!-- Thauã Menezes -->
+    <article class="team-card" data-reveal style="--i:2">
+      <div class="team-avatar">
+        <img src="uploads/thaua.jpeg" alt="Thauã Menezes">
+        <span class="ph">TM</span>
+      </div>
+      <h3 class="team-name">Thauã Menezes</h3>
+      <span class="team-role">Desenvolvedor Associado R/Python / Comunicação Científica</span>
+      <p class="team-org">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0a/Logo_Unesp.svg/1920px-Logo_Unesp.svg.png" alt="UNESP">
+        <span>UNESP · Univ. Federal de Rondônia (UNIR)</span>
+      </p>
+      <div class="team-links">
+        <a href="https://github.com/thauamenezez" target="_blank" rel="noopener" class="team-link" title="GitHub" aria-label="GitHub">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
+        </a>
+        <a href="mailto:thaua.menezes@unesp.br" class="team-link" title="E‑mail" aria-label="E‑mail">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        </a>
+      </div>
+    </article>
+
+    <!-- Andrey Araújo -->
+    <article class="team-card" data-reveal style="--i:3">
+      <div class="team-avatar">
+        <img src="uploads/Andrey.jpeg" alt="Andrey Araújo">
+        <span class="ph">AA</span>
+      </div>
+      <h3 class="team-name">Andrey Araújo</h3>
+      <span class="team-role">Desenvolvedor Associado R/Python</span>
+      <p class="team-org">
+        <img src="uploads/logo-fiocruz-rondonia.png" alt="Fiocruz Rondônia">
+        <span>Fundação Oswaldo Cruz Rondônia</span>
+      </p>
+      <div class="team-links">
+        <a href="mailto:andreyke.araujo@gmail.com" class="team-link" title="E‑mail" aria-label="E‑mail">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        </a>
+      </div>
+    </article>
+
+    <!-- Nathalia Franqlin -->
+    <article class="team-card" data-reveal style="--i:4">
+      <div class="team-avatar">
+        <img src="uploads/nathalia.jpeg" alt="Nathalia A. Franqlin">
+        <span class="ph">NF</span>
+      </div>
+      <h3 class="team-name">Nathalia A. Franqlin</h3>
+      <span class="team-role">Desenvolvedora Associada/Comunicação Científica</span>
+      <p class="team-org">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0a/Logo_Unesp.svg/1920px-Logo_Unesp.svg.png" alt="UNESP">
+        <span>UNESP</span>
+      </p>
+      <div class="team-links">
+        <a href="mailto:n.franqlin@unesp.br" class="team-link" title="E‑mail" aria-label="E‑mail">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        </a>
+      </div>
+    </article>
+
+    <!-- Cecília Cassab -->
+    <article class="team-card" data-reveal style="--i:5">
+      <div class="team-avatar">
+        <img src="uploads/Cecilia.jpeg" alt="Cecília Cassab">
+        <span class="ph">CC</span>
+      </div>
+      <h3 class="team-name">Cecília Cassab</h3>
+      <span class="team-role">Desenvolvedora Júnior Python / Aplicativos</span>
+      <p class="team-org">
+        <img src="uploads/logo_UFV.png" alt="UFV">
+        <span>Universidade Federal de Viçosa · UFV</span>
+      </p>
+      <div class="team-links">
+        <a href="mailto:cecilia.prieto@ufv.br" class="team-link" title="E‑mail" aria-label="E‑mail">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        </a>
+        <a href="https://www.linkedin.com/in/ceciliacassab" target="_blank" rel="noopener" class="team-link" title="LinkedIn" aria-label="LinkedIn">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9h4v12H3zM9 9h3.8v1.7h.05c.53-.95 1.83-1.95 3.77-1.95 4.03 0 4.78 2.5 4.78 5.75V21h-4v-5.3c0-1.27-.02-2.9-1.77-2.9-1.78 0-2.05 1.37-2.05 2.8V21H9z"/></svg>
+        </a>
+        <a href="http://lattes.cnpq.br/2408443124108030" target="_blank" rel="noopener" class="team-link" title="Currículo Lattes" aria-label="Currículo Lattes">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h11l5 5v11H4z"/><path d="M8 12h8M8 16h5"/></svg>
+        </a>
+      </div>
+    </article>
+
+    <!-- Sergio Lins -->
+    <article class="team-card" data-reveal style="--i:6">
+      <div class="team-avatar">
+        <img src="uploads/Sergio.jpeg" alt="Sergio Lins">
+        <span class="ph">SL</span>
+      </div>
+      <h3 class="team-name">Sergio Lins</h3>
+      <span class="team-role">Desenvolvedor Assistente</span>
+      <p class="team-org">
+        <img src="uploads/logomarca-uerj.png" alt="UERJ">
+        <span>Universidade do Estado do Rio de Janeiro · UERJ</span>
+      </p>
+      <div class="team-links">
+        <a href="mailto:sergiolinsdec@gmail.com" class="team-link" title="E‑mail" aria-label="E‑mail">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        </a>
+        <a href="https://www.linkedin.com/in/sergio-lins-2171901b8/" target="_blank" rel="noopener" class="team-link" title="LinkedIn" aria-label="LinkedIn">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9h4v12H3zM9 9h3.8v1.7h.05c.53-.95 1.83-1.95 3.77-1.95 4.03 0 4.78 2.5 4.78 5.75V21h-4v-5.3c0-1.27-.02-2.9-1.77-2.9-1.78 0-2.05 1.37-2.05 2.8V21H9z"/></svg>
+        </a>
+      </div>
+    </article>
+  </div>
+
+  <div class="team__sub" data-reveal>
+    <span class="eyebrow"><span class="bar"></span>Conselho científico</span>
+    <span class="line"></span>
+    <span class="count">12</span>
+  </div>
+
+  <div class="team-grid">
+    <!-- João Paulo Assis Gobo -->
+    <article class="team-card" data-reveal style="--i:0">
+      <div class="team-avatar">
+        <img src="uploads/joao-gobo.gif" alt="Dr. João Paulo A. Gobo">
+        <span class="ph">JG</span>
+      </div>
+      <h3 class="team-name">Dr. João Paulo A. Gobo</h3>
+      <span class="team-role">BIOCLIMATOLOGIA · CLIMA E SAÚDE</span>
+      <p class="team-org">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/3/3e/Logo_UNIR_Horizontal_01.png" alt="UNIR">
+        <span>UNIR · Fiocruz‑RO (CCSRO)</span>
+      </p>
+      <div class="team-links">
+        <a href="mailto:joao.gobo@unir.br" class="team-link" title="E‑mail" aria-label="E‑mail">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        </a>
+      </div>
+    </article>
+
+    <!-- Andreimar Martins Soares -->
+    <article class="team-card" data-reveal style="--i:1">
+      <div class="team-avatar">
+        <img src="uploads/Andreimar.jpeg" alt="Dr. Andreimar M. Soares">
+        <span class="ph">AS</span>
+      </div>
+      <h3 class="team-name">Dr. Andreimar M. Soares</h3>
+      <span class="team-role">BIOTECNOLOGIA APLICADA À SAÚDE</span>
+      <p class="team-org">
+        <img src="uploads/logo-fiocruz-rondonia.png" alt="Fiocruz Rondônia">
+        <span>Fundação Oswaldo Cruz Rondônia (CCSRO)</span>
+      </p>
+      <div class="team-links">
+        <a href="https://linkedin.com/in/andreimar-soares" target="_blank" rel="noopener" class="team-link" title="LinkedIn" aria-label="LinkedIn">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+        </a>
+        <a href="mailto:andreimar.soares@fiocruz.br" class="team-link" title="E‑mail" aria-label="E‑mail">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        </a>
+      </div>
+    </article>
+
+    <!-- Adriana Cristina da Silva Nunes -->
+    <article class="team-card" data-reveal style="--i:2">
+      <div class="team-avatar">
+        <img src="uploads/adriana-nunes-crop.png" alt="Dra. Adriana C. S. Nunes">
+        <span class="ph">AN</span>
+      </div>
+      <h3 class="team-name">Dra. Adriana C. S. Nunes</h3>
+      <span class="team-role">BIOLOGIA MOLECULAR · SAÚDE AMBIENTAL</span>
+      <p class="team-org">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/3/3e/Logo_UNIR_Horizontal_01.png" alt="UNIR">
+        <span>UNIR · CIBEBI</span>
+      </p>
+      <div class="team-links">
+        <a href="https://www.linkedin.com/in/adriana-nunes-974032150" target="_blank" rel="noopener" class="team-link" title="LinkedIn" aria-label="LinkedIn">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+        </a>
+        <a href="mailto:adriananunes@unir.br" class="team-link" title="E‑mail" aria-label="E‑mail">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        </a>
+      </div>
+    </article>
+
+    <!-- Carolina L. Zilli Vieira -->
+    <article class="team-card" data-reveal style="--i:3">
+      <div class="team-avatar">
+        <img src="uploads/Carolina.jpeg" alt="Dra. Carolina L. Zilli Vieira">
+        <span class="ph">CV</span>
+      </div>
+      <h3 class="team-name">Dra. Carolina L. Zilli Vieira</h3>
+      <span class="team-role">SAÚDE AMBIENTAL</span>
+      <p class="team-org">
+        <img src="https://almamater.hsa.net/cdn/shop/collections/HarvardChan_logo_stack_RGB_Large_a39831c5-8d87-4579-a622-c49dfa280e38_1723x630.png?v=1719859877" alt="Harvard T.H. Chan">
+        <span>Harvard T.H. Chan School of Public Health</span>
+      </p>
+      <div class="team-links">
+        <a href="https://www.linkedin.com/in/carolinalzvieira" target="_blank" rel="noopener" class="team-link" title="LinkedIn" aria-label="LinkedIn">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+        </a>
+        <a href="mailto:cazilli@hsph.harvard.edu" class="team-link" title="E‑mail" aria-label="E‑mail">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        </a>
+      </div>
+    </article>
+
+    <!-- Natacha Cíntia Regina Aleixo -->
+    <article class="team-card" data-reveal style="--i:0">
+      <div class="team-avatar">
+        <img src="uploads/Natacha.jpeg" alt="Dra. Natacha C. R. Aleixo">
+        <span class="ph">NA</span>
+      </div>
+      <h3 class="team-name">Dra. Natacha C. R. Aleixo</h3>
+      <span class="team-role">BIOCLIMATOLOGIA · CLIMATOLOGIA URBANA</span>
+      <p class="team-org">
+        <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Brasao_ufam_2011.jpg" alt="UFAM">
+        <span>Universidade Federal do Amazonas (UFAM)</span>
+      </p>
+      <div class="team-links">
+        <a href="mailto:natachaaleixo@ufam.edu.br" class="team-link" title="E‑mail" aria-label="E‑mail">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        </a>
+      </div>
+    </article>
+
+    <!-- Mariana Andreotti Dias -->
+    <article class="team-card" data-reveal style="--i:1">
+      <div class="team-avatar">
+        <img src="uploads/Mariana.jpeg" alt="Dra. Mariana Andreotti Dias">
+        <span class="ph">MD</span>
+      </div>
+      <h3 class="team-name">Dra. Mariana Andreotti Dias</h3>
+      <span class="team-role">GEOGRAFIA DA SAÚDE · CLIMA E AMBIENTE</span>
+      <p class="team-org">
+        <img src="uploads/logomarca-uerj.png" alt="UERJ">
+        <span>Univ. do Estado do Rio de Janeiro (UERJ)</span>
+      </p>
+      <div class="team-links">
+        <a href="https://www.linkedin.com/in/marianaandreottidias" target="_blank" rel="noopener" class="team-link" title="LinkedIn" aria-label="LinkedIn">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+        </a>
+        <a href="mailto:marianaandreotti@gmail.com" class="team-link" title="E‑mail" aria-label="E‑mail">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        </a>
+      </div>
+    </article>
+
+    <!-- Eucilene Alves Santana -->
+    <article class="team-card" data-reveal style="--i:2">
+      <div class="team-avatar">
+        <img src="uploads/Eucilene.jpeg" alt="Dra. Eucilene Alves Santana">
+        <span class="ph">ES</span>
+      </div>
+      <h3 class="team-name">Dra. Eucilene Alves Santana</h3>
+      <span class="team-role">EPIDEMIOLOGIA · SAÚDE PÚBLICA</span>
+      <p class="team-org">
+        <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Logo_Ministério_da_Saúde.png" alt="Ministério da Saúde">
+        <span>Ministério da Saúde · DEMSP · Fiocruz Manaus</span>
+      </p>
+      <div class="team-links">
+        <a href="https://www.linkedin.com/in/eucilene-santana-92856234" target="_blank" rel="noopener" class="team-link" title="LinkedIn" aria-label="LinkedIn">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+        </a>
+        <a href="mailto:eucilenealves2012@gmail.com" class="team-link" title="E‑mail" aria-label="E‑mail">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        </a>
+      </div>
+    </article>
+
+    <!-- Priscilla Ikefuti -->
+    <article class="team-card" data-reveal style="--i:3">
+      <div class="team-avatar">
+        <img src="uploads/priscila.jpeg" alt="Dra. Priscilla V. Ikefuti">
+        <span class="ph">PI</span>
+      </div>
+      <h3 class="team-name">Dra. Priscilla V. Ikefuti</h3>
+      <span class="team-role">BIOMETEOROLOGIA HUMANA · SAÚDE AMBIENTAL</span>
+      <p class="team-org">
+        <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Webysther_20160310_-_Logo_USP.svg" alt="USP">
+        <span>Universidade de São Paulo (USP)</span>
+      </p>
+      <div class="team-links">
+        <a href="mailto:pvikefuti@usp.br" class="team-link" title="E‑mail" aria-label="E‑mail">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        </a>
+      </div>
+    </article>
+
+    <!-- Ariane Frassoni -->
+    <article class="team-card" data-reveal style="--i:4">
+      <div class="team-avatar">
+        <img src="uploads/Ariane.jpeg" alt="Dra. Ariane Frassoni">
+        <span class="ph">AF</span>
+      </div>
+      <h3 class="team-name">Dra. Ariane Frassoni</h3>
+      <span class="team-role">METEOROLOGIA · PREVISÃO CLIMÁTICA</span>
+      <p class="team-org">
+        <img src="logo-inpe.svg" alt="INPE">
+        <span>INPE · Instituto Nacional de Pesquisas Espaciais</span>
+      </p>
+      <div class="team-links">
+        <a href="https://linkedin.com/in/ariane-frassoni-27139932" target="_blank" rel="noopener" class="team-link" title="LinkedIn" aria-label="LinkedIn">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+        </a>
+        <a href="mailto:ariane.frassoni@inpe.br" class="team-link" title="E‑mail" aria-label="E‑mail">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        </a>
+      </div>
+    </article>
+
+    <!-- Francisco Jablinski Castelhano -->
+    <article class="team-card" data-reveal style="--i:5">
+      <div class="team-avatar">
+        <img src="uploads/Francisco_castlheano.png" alt="Dr. Francisco J. Castelhano">
+        <span class="ph">FC</span>
+      </div>
+      <h3 class="team-name"> Dr. Francisco J. Castelhano</h3>
+      <span class="team-role">CLIMATOLOGIA · MUDANÇAS CLIMÁTICAS</span>
+      <p class="team-org">
+        <img src="https://commons.wikimedia.org/wiki/Special:FilePath/UFRN.png" alt="UFRN">
+        <span>Universidade Federal do Rio Grande do Norte (UFRN)</span>
+      </p>
+      <div class="team-links">
+        <a href="mailto:francisco.castelhano@ufrn.br" class="team-link" title="E‑mail" aria-label="E‑mail">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        </a>
+      </div>
+    </article>
+
+    <!-- Antonio Carlos Oscar Júnior -->
+    <article class="team-card" data-reveal style="--i:6">
+      <div class="team-avatar">
+        <img src="uploads/antonio_oscar.png" alt="Dr. Antonio C. Oscar Júnior">
+        <span class="ph">AO</span>
+      </div>
+      <h3 class="team-name">Dr. Antonio C. Oscar Júnior</h3>
+      <span class="team-role">CLIMA E SAÚDE</span>
+      <p class="team-org">
+        <img src="uploads/logomarca-uerj.png" alt="UERJ">
+        <span>Universidade do Estado do Rio de Janeiro (UERJ)</span>
+      </p>
+      <div class="team-links">
+        <a href="mailto:antonio.junior@uerj.br" class="team-link" title="E‑mail" aria-label="E‑mail">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        </a>
+      </div>
+    </article>
+
+    <!-- Adriana Polachini do Valle -->
+    <article class="team-card" data-reveal style="--i:0">
+      <div class="team-avatar">
+        <img src="uploads/Adriana Polachini.jpeg" alt="Dra. Adriana Polachini do Valle">
+        <span class="ph">AV</span>
+      </div>
+      <h3 class="team-name">Dra. Adriana Polachini do Valle</h3>
+      <span class="team-role">CLÍNICA MÉDICA</span>
+      <p class="team-org">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0a/Logo_Unesp.svg/1920px-Logo_Unesp.svg.png" alt="UNESP">
+        <span>Departamento de Clínica Médica · UNESP Botucatu</span>
+      </p>
+      <div class="team-links">
+        <a href="mailto:adriana.valle@unesp.br" class="team-link" title="E‑mail" aria-label="E‑mail">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        </a>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- ============ FINALE / CTA ============ -->
+<section class="finale" id="cta">
+  <div class="finale__bg">
+    <span class="ring" style="width:420px;height:420px"></span>
+    <span class="ring" style="width:720px;height:720px"></span>
+    <span class="ring" style="width:1040px;height:1040px"></span>
+    <span class="ring" style="width:1360px;height:1360px"></span>
+  </div>
+  <div class="finale__inner" data-reveal="scale">
+    <span class="eyebrow finale__eyebrow"><span class="bar"></span>Apoio &amp; Financiamento</span>
+    <h2 class="finale__title">Com o suporte de <span class="it">quem faz acontecer</span>.</h2>
+
+    <div class="supporters-grid" data-reveal>
+      <div class="supporters-row supporters-row--logos">
+        <img class="supporter-mark" src="logo-inct-conexao.png" alt="INCT-CONEXÃO">
+      </div>
+      <div class="supporters-row supporters-row--logos">
+        <img class="supporter-mark supporter-mark--wide" src="logo-cnpq-mcti-gov.png"
+               alt="CNPq · Ministério da Ciência, Tecnologia e Inovação · Governo do Brasil">
+      </div>
     </div>
-  </footer>
 
-  <!-- ══ SCRIPTS ═════════════════════════════════════════════════════════ -->
-  <script type="module" src="./assets/js/main.js"></script>
+  </div>
+</section>
 
+<!-- ============ FOOTER ============ -->
+<footer class="footer">
+  <div class="footer__top">
+    <div class="footer__brand">
+      <div class="bw">clima<span class="alt">SUS</span></div>
+      <p>Ecossistema brasileiro de código aberto que conecta ciência atmosférica, dados ambientais e saúde pública. Desenvolvido por uma rede de pesquisadores e gestores comprometidos com o SUS.</p>
+    </div>
+    <div class="footer__col">
+      <h5>Produtos</h5>
+      <ul>
+        <li><a href="#ciencia">climasus4r</a></li>
+        <li><a href="#ciencia">climasus4py</a></li>
+        <li><a href="#db">climasusDB</a></li>
+        <li><a href="#gestor">climaSUS Gestor</a></li>
+        <li><a href="#plataforma">climasus+ Studio</a></li>
+        <li><a href="#">climasusEduca</a></li>
+        <li><a href="#alerta">climasusAlerta</a></li>
+      </ul>
+    </div>
+    <div class="footer__col">
+      <h5>Sistemas</h5>
+      <ul>
+        <li><a href="#alerta">SACS — Calor</a></li>
+        <li><a href="#alerta">SACES — Cheias</a></li>
+        <li><a href="#alerta">SAQS — Ar</a></li>
+        <li><a href="#alerta">SASS — Secas</a></li>
+      </ul>
+    </div>
+    <div class="footer__col">
+      <h5>Aberto</h5>
+      <ul>
+        <li><a href="https://github.com/climasus" target="_blank" rel="noopener">GitHub</a></li>
+        <li><a href="#">Documentação</a></li>
+        <li><a href="#">Dados · Zenodo</a></li>
+        <li><a href="#">Citar climaSUS</a></li>
+        <li><a href="#equipe">Equipe</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer__bottom">
+    <span>© 2026 CLIMASUS · INCT-CONEXÃO • CCSRO • UFJF</span>
+    <span>Licença MIT · CC BY 4.0</span>
+  </div>
+</footer>
+
+<script src="site-app.js"></script>
+<script>
+// Fallback robusto para fotos/logos externos: não depende da ordem de parsing.
+(function(){
+  function wire(img, onFail){
+    var fail = function(){ onFail(img); };
+    img.addEventListener('error', fail);
+    if (img.complete && img.naturalWidth === 0) fail();
+  }
+  function run(){
+    document.querySelectorAll('.team-avatar img').forEach(function(img){
+      wire(img, function(i){
+        i.style.display = 'none';
+        var ph = i.parentElement && i.parentElement.querySelector('.ph');
+        if (ph) ph.style.display = 'flex';
+      });
+    });
+    document.querySelectorAll('.team-org img, .supporter-pill img').forEach(function(img){
+      wire(img, function(i){ i.style.display = 'none'; });
+    });
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', run);
+  else run();
+})();
+</script>
 </body>
 </html>

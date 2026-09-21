@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>climaSUS — Slide institucional</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,500&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+deck-stage:not(:defined){visibility:hidden}
+:root{--deep:#0A2431;--deep-2:#061821;--aqua:#81C4D6;--mint:#4FD1AD;--dot:#6FE0B5;--paper:#F2F7F6;--muted:rgba(242,247,246,.62)}
+*{box-sizing:border-box}
+body{margin:0;background:#061821}
+a{color:var(--mint)}a:hover{color:var(--dot)}
+.slide{width:1920px;height:1080px;position:relative;overflow:hidden;background:radial-gradient(1200px 900px at 18% 42%,#0D2E3C 0%,transparent 62%),radial-gradient(1000px 800px at 88% 88%,rgba(79,209,173,.10) 0%,transparent 58%),linear-gradient(160deg,#0A2431 0%,#061821 100%);font-family:"IBM Plex Sans",sans-serif;color:var(--paper);display:grid;grid-template-columns:760px 1fr;align-items:center;gap:96px;padding:0 130px}
+.hair{position:absolute;left:0;right:0;top:0;height:5px;background:linear-gradient(90deg,var(--aqua),var(--mint) 55%,var(--dot))}
+.glowring{position:absolute;left:150px;top:50%;transform:translateY(-50%);width:660px;height:660px;border-radius:50%;background:radial-gradient(circle,rgba(129,196,214,.16),transparent 66%);filter:blur(10px)}
+.logo{position:relative;width:620px;height:620px;justify-self:center;filter:drop-shadow(0 50px 110px rgba(0,0,0,.55))}
+.logo img{width:100%;height:100%;object-fit:contain;display:block}
+.body{max-width:900px}
+.eyebrow{display:flex;align-items:center;gap:18px;font-family:"IBM Plex Mono",monospace;font-size:25px;letter-spacing:.26em;text-transform:uppercase;color:var(--aqua);margin:0 0 34px}
+.eyebrow .bar{width:64px;height:2px;background:linear-gradient(90deg,var(--aqua),var(--mint));flex-shrink:0}
+h1{font-family:"Newsreader",serif;font-weight:600;font-size:170px;line-height:.92;letter-spacing:-.045em;margin:0 0 8px;padding-bottom:.1em}
+h1 .alt{font-style:italic;font-weight:500;padding:0 .09em;margin:0 -.09em;background:linear-gradient(100deg,var(--aqua),var(--mint) 58%,var(--dot));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.tagline{font-family:"Newsreader",serif;font-size:56px;line-height:1.16;font-weight:400;letter-spacing:-.02em;margin:0 0 40px;color:#DCEDEA;text-wrap:balance}
+.tagline em{font-style:italic;color:var(--mint)}
+.rule{width:180px;height:2px;background:linear-gradient(90deg,rgba(129,196,214,.85),rgba(79,209,173,.15));margin:0 0 38px}
+.lede{font-size:38px;line-height:1.5;color:var(--muted);margin:0;max-width:860px;text-wrap:pretty}
+.lede b{color:var(--paper);font-weight:500}
+/* ---------- slides de conteúdo (fundo claro) ---------- */
+.s-light{width:1920px;height:1080px;overflow:hidden;box-sizing:border-box;background:#F4F8F7;font-family:"IBM Plex Sans",sans-serif;color:var(--ink,#0A2431);padding:84px 100px 72px;display:flex;flex-direction:column;gap:40px}
+.s-light a{color:#15687F}.s-light a:hover{color:#0E7A5F}
+.s-head{display:flex;justify-content:space-between;align-items:flex-end;border-bottom:2px solid #0A2431;padding-bottom:26px;gap:40px}
+.s-head .kick{font-family:"IBM Plex Mono",monospace;font-size:24px;letter-spacing:.18em;text-transform:uppercase;color:#15687F;display:block;margin-bottom:14px}
+.s-head h1{font-family:"Newsreader",serif;font-size:72px;font-weight:600;letter-spacing:-.025em;line-height:1;margin:0;padding:0}
+.s-head .aside{font-family:"IBM Plex Mono",monospace;font-size:24px;color:#566B75;white-space:nowrap}
+.grp{display:flex;flex-direction:column;gap:18px}
+.grp>.lbl{font-family:"IBM Plex Mono",monospace;font-size:24px;letter-spacing:.14em;text-transform:uppercase;color:#566B75}
+.row{display:grid;gap:24px}
+.row.c4{grid-template-columns:repeat(4,1fr)}
+.row.c3{grid-template-columns:repeat(3,1fr)}
+.card{background:#fff;border:1px solid #D8E3E0;border-radius:8px;padding:28px;display:flex;flex-direction:column;gap:12px;min-height:214px;box-sizing:border-box}
+.card h2{font-family:"Newsreader",serif;margin:0;font-size:36px;font-weight:600;letter-spacing:-.02em}
+.card p{margin:0;font-size:24px;line-height:1.35;color:#3A4A56;flex:1;text-wrap:pretty}
+.card .url{font-family:"IBM Plex Mono",monospace;font-size:24px;word-break:break-all}
+.card .url.none{color:#8A97A1}
+.card.dark{background:#0A2431;border-color:#0A2431}
+.card.dark h2{color:#fff}.card.dark p{color:#C4D9DF}.card.dark .url,.s-light .card.dark a{color:var(--aqua)}
+.card.new{background:#0E7A5F;border-color:#0E7A5F;position:relative}
+.card.new h2{color:#fff}.card.new p{color:#D6F5EA}.card.new .url,.s-light .card.new a{color:#fff}
+.card .flag{position:absolute;top:24px;right:24px;font-family:"IBM Plex Mono",monospace;font-size:24px;letter-spacing:.12em;text-transform:uppercase;background:#fff;color:#0E7A5F;padding:5px 14px;border-radius:4px}
+.demo{display:grid;grid-template-columns:1fr 1fr;gap:56px;flex:1;min-height:0}
+.demo>div{display:flex;flex-direction:column;gap:18px;min-height:0}
+.demo h2{font-family:"Newsreader",serif;margin:0;font-size:44px;font-weight:600;letter-spacing:-.02em}
+.demo p{margin:0;font-size:26px;line-height:1.4;color:#3A4A56;text-wrap:pretty}
+.demo .shot{flex:1;min-height:0;border:1px solid #D8E3E0;border-radius:8px;overflow:hidden;position:relative;background:#fff}
+.demo .url{font-family:"IBM Plex Mono",monospace;font-size:24px}
+.phones{flex:1;min-height:0;display:grid;grid-template-columns:repeat(3,1fr);gap:24px;align-items:stretch}
+.phones>div{display:flex;flex-direction:column;gap:14px;min-height:0}
+.phones .bezel{flex:1;min-height:0;background:#0A2431;border-radius:22px;padding:8px;box-sizing:border-box;color:#C4D9DF}
+.phones .cap{font-family:"IBM Plex Mono",monospace;font-size:24px;color:#566B75}
+.solo{flex:1;min-height:0;display:flex;flex-direction:column;gap:22px}
+.solo .lead{margin:0;font-size:30px;line-height:1.4;color:#3A4A56;max-width:1320px;text-wrap:pretty}
+.solo .shot{flex:1;min-height:0;border:1px solid #D8E3E0;border-radius:10px;overflow:hidden;position:relative;background:#fff}
+.solo .url{font-family:"IBM Plex Mono",monospace;font-size:26px}
+.phones-lg{flex:1;min-height:0;display:grid;grid-template-columns:repeat(3,1fr);gap:64px;width:100%;max-width:1180px;margin:0 auto}
+.phones-lg>div{display:flex;flex-direction:column;gap:18px;min-height:0}
+.phones-lg .bezel{flex:1;min-height:0;background:#0A2431;border-radius:30px;padding:10px;box-sizing:border-box;color:#C4D9DF}
+.phones-lg .cap{font-family:"IBM Plex Mono",monospace;font-size:26px;color:#566B75;text-align:center}
+</style>
+</head>
+<body>
+<deck-stage width="1920" height="1080">
+  <section data-label="Abertura" data-screen-label="01">
+    <div class="slide">
+      <div class="hair"></div>
+      <div class="glowring"></div>
+      <div class="logo"><img src="logo-climasus.png" alt="ClimaSUS"></div>
+      <div class="body">
+        <p class="eyebrow"><span class="bar"></span>Plataforma nacional</p>
+        <h1>clima<span class="alt">SUS</span></h1>
+        <p class="tagline">A plataforma de clima, ambiente e saúde do Brasil</p>
+        <div class="rule"></div>
+        <p class="lede">Ciência do clima, dados ambientais e saúde pública — <b>em código aberto</b>, para antecipar os impactos do clima sobre quem mais precisa.</p>
+      </div>
+    </div>
+  </section>
+
+  <section data-label="Portfólio" data-screen-label="02">
+    <div class="s-light">
+      <div class="s-head">
+        <div><span class="kick">Ecossistema climaSUS</span><h1>Portfólio de produtos</h1></div>
+        <span class="aside">7 produtos · 2 camadas</span>
+      </div>
+      <div class="grp">
+        <span class="lbl">Dados e análise</span>
+        <div class="row c4">
+          <div class="card">
+            <h2>climasus4r</h2>
+            <p>Biblioteca em R para análise de dados climáticos e de saúde.</p>
+            <a class="url" href="https://bymaxanjos.github.io/climasus4r/">bymaxanjos.github.io/climasus4r</a>
+          </div>
+          <div class="card">
+            <h2>climasus4py</h2>
+            <p>Biblioteca em Python com as mesmas rotinas para pipelines automatizados.</p>
+            <a class="url" href="https://climasus.github.io/climasus4py/">climasus.github.io/climasus4py</a>
+          </div>
+          <div class="card">
+            <h2>climasus+</h2>
+            <p>Studio desktop para análise sem programação.</p>
+            <a class="url" href="https://github.com/ByMaxAnjos/climasus-plus">github.com/ByMaxAnjos/climasus-plus</a>
+          </div>
+          <div class="card">
+            <h2>climasusDB</h2>
+            <p>Plataforma de dados pronta para análise.</p>
+            <span class="url none">Em desenvolvimento</span>
+          </div>
+        </div>
+      </div>
+      <div class="grp">
+        <span class="lbl">Alerta, gestão e capacitação</span>
+        <div class="row c3">
+          <div class="card dark">
+            <h2>climasusAlerta</h2>
+            <p>Sistemas de alerta precoce de calor, cheias, secas e qualidade do ar.</p>
+            <a class="url" href="https://www.climasus.app.br/painel/">climasus.app.br/painel</a>
+          </div>
+          <div class="card new">
+            <span class="flag">Novo</span>
+            <h2>climaSUS Gestor</h2>
+            <p>Aplicativo que entrega os alertas ao gestor de saúde no celular.</p>
+            <a class="url" href="https://climasus-gestor.vercel.app/">climasus-gestor.vercel.app</a>
+          </div>
+          <div class="card">
+            <h2>climasusEduca</h2>
+            <p>Ações de capacitação e comunicação.</p>
+            <span class="url none">Podcast, redes sociais, youtube</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section data-label="Painel de Calor" data-screen-label="03">
+    <div class="s-light">
+      <div class="s-head">
+        <div><span class="kick">Do alerta à decisão</span><h1>Painel de Calor</h1></div>
+        <span class="aside">Demonstração ao vivo</span>
+      </div>
+      <div class="solo">
+        <p class="lead">Monitoramento e alerta precoce de calor extremo, com recorte territorial para a gestão em saúde.</p>
+        <div class="shot"><image-slot id="cs-painel" shape="rect" placeholder="Captura do Painel de Calor"></image-slot></div>
+        <a class="url" href="https://www.climasus.app.br/painel/">climasus.app.br/painel</a>
+      </div>
+    </div>
+  </section>
+
+  <section data-label="climaSUS Gestor" data-screen-label="04">
+    <div class="s-light">
+      <div class="s-head">
+        <div><span class="kick">Do alerta à decisão</span><h1>climaSUS Gestor</h1></div>
+        <span class="aside">Demonstração ao vivo</span>
+      </div>
+      <div class="solo">
+        <p class="lead">O mesmo alerta chega ao celular do gestor, com o risco detalhado e a ação recomendada.</p>
+        <div class="phones-lg">
+          <div><div class="bezel"><image-slot id="cs-app-1" shape="rounded" radius="20" placeholder="Tela 1"></image-slot></div><span class="cap">01 · Alerta recebido</span></div>
+          <div><div class="bezel"><image-slot id="cs-app-2" shape="rounded" radius="20" placeholder="Tela 2"></image-slot></div><span class="cap">02 · Detalhe do risco</span></div>
+          <div><div class="bezel"><image-slot id="cs-app-3" shape="rounded" radius="20" placeholder="Tela 3"></image-slot></div><span class="cap">03 · Ação recomendada</span></div>
+        </div>
+        <a class="url" href="https://climasus-gestor.vercel.app/">climasus-gestor.vercel.app</a>
+      </div>
+    </div>
+  </section>
+</deck-stage>
+<script type="application/json" id="speaker-notes">{"1":"Visão geral do ecossistema climaSUS: da análise de dados ao alerta e à ação do gestor. Destacar que o climaSUS Gestor é o produto mais recente.","2":"Demonstração ao vivo do Painel de Calor.","3":"Percorrer a sequência de telas do app climaSUS Gestor: alerta recebido, detalhe do risco e ação recomendada."}</script>
+<script src="image-slot.js"></script>
+<script src="deck-stage.js"></script>
+</body>
+</html>

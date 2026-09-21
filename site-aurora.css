@@ -1,0 +1,746 @@
+/* ============================================================
+   TEMA AURORA CLIMÁTICA — v2 (improved)
+   Light, airy climate+health skin layered over site-app.css.
+   Improvements over v1: living animated aurora, drifting gradient
+   wordmark, aligned scrub palette, sharper contrast & depth.
+   Load AFTER site-app.css.
+   ============================================================ */
+:root {
+  --ink: #052E2B;
+  --ink-2: #063B33;
+  --ink-3: #0B5F4A;
+  --paper: #F7FBF8;
+  --paper-2: #ECF8F1;
+  --paper-3: #FFFFFF;
+  --muted: #5E7772;
+  --muted-d: #BFE2D7;
+  --rule: rgba(5,46,43,0.10);
+  --rule-d: rgba(255,255,255,0.24);
+
+  --health: #0E7A5F;
+  --health-2: #42D392;
+  --climate: #1D9BF0;
+  --climate-2: #6AE6F2;
+  --heat: #FF6B4A;
+  --heat-2: #FF9B72;
+  --air: #15B8A6;
+  --air-2: #7DEAD8;
+  --drought: #FFB84D;
+  --drought-2: #FFE08A;
+  --accent: #0E7A5F;
+
+  --glass: rgba(255,255,255,0.72);
+  --glass-strong: rgba(255,255,255,0.88);
+  --shadow-soft: 0 24px 80px rgba(5,46,43,0.12);
+  --shadow-glow: 0 34px 110px rgba(29,155,240,0.20);
+}
+
+body {
+  background:
+    radial-gradient(circle at 8% 4%, rgba(106,230,242,0.22), transparent 30vw),
+    radial-gradient(circle at 94% 8%, rgba(66,211,146,0.18), transparent 32vw),
+    linear-gradient(180deg, #FBFFFC 0%, #F3FBF6 40%, #FFF8EC 100%);
+  color: var(--ink);
+}
+
+::selection { background: var(--health); color: #fff; }
+.top-progress { background: linear-gradient(90deg, var(--climate), var(--health-2), var(--drought), var(--heat)); height: 4px; }
+
+/* ---------- shared gradient-text helper (animated) ---------- */
+.nav__brand .alt,
+.hero__title .alt,
+.eco-card__name .alt,
+.section-title .it,
+.feature__title .it,
+.finale__title .it {
+  color: transparent;
+  background: linear-gradient(110deg, var(--health), var(--climate), var(--heat), var(--health));
+  background-size: 280% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  animation: auroraText 9s ease-in-out infinite;
+}
+@keyframes auroraText { 0%,100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } }
+
+/* ============ NAV ============ */
+.nav { color: var(--ink); padding-top: 20px; padding-bottom: 20px; }
+.nav--solid {
+  background: rgba(255,255,255,0.72);
+  border-bottom: 1px solid rgba(5,46,43,0.08);
+  box-shadow: 0 12px 40px rgba(5,46,43,0.08);
+  backdrop-filter: saturate(180%) blur(26px);
+  -webkit-backdrop-filter: saturate(180%) blur(26px);
+}
+.nav__brand { color: var(--ink); letter-spacing: -0.04em; }
+.nav__links a { color: rgba(5,46,43,0.74); }
+.nav__links a:hover { color: var(--health); }
+.nav__cta {
+  color: var(--ink);
+  border-color: rgba(5,46,43,0.18);
+  background: rgba(255,255,255,0.58);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.88);
+}
+.nav__cta:hover { background: var(--ink); color: #fff; border-color: var(--ink); }
+
+/* ============ HERO — living aurora ============ */
+.hero {
+  background:
+    radial-gradient(circle at 50% 54%, rgba(255,255,255,0.96) 0 12%, rgba(255,255,255,0.62) 13% 22%, transparent 40%),
+    radial-gradient(circle at 22% 24%, rgba(106,230,242,0.46), transparent 31vw),
+    radial-gradient(circle at 78% 28%, rgba(66,211,146,0.34), transparent 30vw),
+    radial-gradient(circle at 52% 84%, rgba(255,184,77,0.32), transparent 30vw),
+    linear-gradient(180deg, #F8FFFD 0%, #F4FBFF 48%, #FFF8EC 100%);
+  color: var(--ink);
+}
+/* logo mark — flowing waves + surfing dot behind the hero title */
+.heromark { position: absolute; left: 50%; top: 50%; transform: translate(-50%,-50%); width: min(1500px, 122vw); height: min(820px, 82vh); z-index: 0; pointer-events: none; overflow: visible; }
+.hm-flow path { fill: none; stroke-linecap: round; stroke-dasharray: 100; stroke-dashoffset: 100; animation: hmDraw 2.4s cubic-bezier(.22,.9,.24,1) forwards; }
+.hm-flow { animation: hmFlow linear infinite; }
+.hm-flow--haze { opacity: .10; animation-duration: 46s; }
+.hm-flow--haze path { stroke: #14526B; stroke-width: 110; }
+.hm-flow--ink { opacity: .22; animation-duration: 27s; }
+.hm-flow--ink path { stroke: url(#hmInk); stroke-width: 56; animation-delay: .15s; }
+.hm-flow--thin { opacity: .30; animation-duration: 34s; }
+.hm-flow--thin path { stroke: #6AE6F2; stroke-width: 5; animation-delay: .5s; }
+.hm-flow--green { opacity: .24; animation-duration: 20s; }
+.hm-flow--green path { stroke: url(#hmGreen); stroke-width: 56; animation-delay: .35s; }
+.hm-dot { fill: #3EBE83; opacity: 0; offset-path: path("M-600 250 C-500 170 -400 170 -300 250 C-200 330 -100 330 0 250 C100 170 200 170 300 250 C400 330 500 330 600 250 C700 170 800 170 900 250 C1000 330 1100 330 1200 250 C1300 170 1400 170 1500 250 C1600 330 1700 330 1800 250"); offset-rotate: 0deg; offset-distance: 0%; animation: hmRide 22s linear infinite, hmDotIn 1.2s ease-out 1.5s forwards, hmPulse 5s ease-in-out 2s infinite; }
+@keyframes hmDraw { to { stroke-dashoffset: 0; } }
+@keyframes hmFlow { to { transform: translateX(-600px); } }
+@keyframes hmRide { to { offset-distance: 100%; } }
+@keyframes hmDotIn { from { opacity: 0; } to { opacity: .55; } }
+@keyframes hmPulse { 0%,100% { r: 34; } 50% { r: 44; } }
+/* second, looser aurora ribbon counter-rotating for depth */
+.hero::after {
+  content: "";
+  position: absolute;
+  left: 50%; top: 50%;
+  width: min(980px, 90vw); height: min(620px, 60vw);
+  transform: translate(-50%, -50%) rotate(0deg);
+  border-radius: 50%;
+  background: conic-gradient(from 0deg,
+    transparent 0deg,
+    rgba(106,230,242,0.16) 60deg,
+    transparent 130deg,
+    rgba(66,211,146,0.16) 210deg,
+    transparent 280deg,
+    rgba(255,184,77,0.14) 330deg,
+    transparent 360deg);
+  filter: blur(46px);
+  opacity: 0.8;
+  z-index: 0;
+  pointer-events: none;
+  animation: auroraSpinRev 60s linear infinite;
+}
+@keyframes auroraSpin { to { transform: translate(-50%, -50%) rotate(360deg); } }
+@keyframes auroraSpinRev { to { transform: translate(-50%, -50%) rotate(-360deg); } }
+@keyframes auroraBreathe {
+  0%, 100% { width: min(760px, 72vw); height: min(760px, 72vw); opacity: 0.9; }
+  50%      { width: min(820px, 78vw); height: min(800px, 76vw); opacity: 1; }
+}
+
+.hero__bg .blob { filter: blur(80px); opacity: 0.5; mix-blend-mode: multiply; }
+.hero__bg .b1 { background: radial-gradient(circle at 30% 30%, var(--heat), transparent 64%); }
+.hero__bg .b2 { background: radial-gradient(circle at 60% 40%, var(--climate), transparent 66%); }
+.hero__bg .b3 { background: radial-gradient(circle at 50% 50%, var(--health-2), transparent 64%); opacity: 0.44; }
+.hero__bg .grid {
+  opacity: .5;
+  background-image: linear-gradient(rgba(5,46,43,0.045) 1px, transparent 1px), linear-gradient(90deg, rgba(5,46,43,0.045) 1px, transparent 1px);
+}
+.hero__bg .grain { opacity: .5; background-image: radial-gradient(rgba(5,46,43,0.05) 1px, transparent 1px); }
+.hero__vignette { background: linear-gradient(180deg, rgba(247,251,248,0.5), transparent 32%, rgba(255,248,236,0.82)); }
+.hero__content { max-width: min(1040px, calc(100% - 40px)); }
+.hero__eyebrow { color: var(--health); }
+.hero__title {
+  color: var(--ink);
+  letter-spacing: -0.085em;
+  text-shadow: 0 18px 80px rgba(5,46,43,0.10);
+  padding-bottom: 0.18em;
+}
+/* italic gradient glyphs (SUS) overhang their inline-block box — extend the
+   background-clip paint area horizontally so the slanted edges aren't cut */
+.hero__title .ch.alt { padding: 0 0.1em; margin: 0 -0.1em; }
+.hero__sub { color: rgba(5,46,43,0.78); max-width: 850px; }
+.btn { border-radius: 999px; box-shadow: 0 14px 44px rgba(5,46,43,0.10); }
+.btn--primary { background: #052E2B; color: #fff; }
+.btn--primary:hover { box-shadow: 0 18px 58px rgba(5,46,43,0.24), 0 0 0 8px rgba(66,211,146,0.12); }
+.btn--ghost { color: var(--ink); border: 1px solid rgba(5,46,43,0.14); background: rgba(255,255,255,0.48); backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px); }
+.btn--ghost:hover { background: rgba(255,255,255,0.86); box-shadow: 0 16px 48px rgba(29,155,240,0.16); }
+.hero__scroll { color: rgba(5,46,43,0.58); }
+.hero__scroll .mouse { border-color: rgba(5,46,43,0.24); }
+.hero__scroll .mouse::after { background: rgba(5,46,43,0.58); }
+
+/* ============ STATEMENT ============ */
+.statement { background: linear-gradient(180deg, #FFF8EC 0%, #F7FBF8 100%); }
+.statement__text { color: var(--ink); letter-spacing: -0.045em; }
+.statement__text .word { color: rgba(5,46,43,0.14); }
+.statement__text .word.lit { color: var(--ink); }
+.statement__text .accent .word.lit {
+  color: transparent;
+  background: linear-gradient(95deg, var(--heat), var(--drought), var(--health));
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+/* ============ SECTIONS ============ */
+.section--cream { background: linear-gradient(180deg, #F7FBF8 0%, #FFFFFF 52%, #F2FBF8 100%); }
+.section--dark,
+.numbers,
+.finale {
+  background:
+    radial-gradient(circle at 18% 18%, rgba(106,230,242,0.24), transparent 34vw),
+    radial-gradient(circle at 82% 10%, rgba(66,211,146,0.18), transparent 34vw),
+    linear-gradient(135deg, #052E2B 0%, #063B33 48%, #08242F 100%);
+  color: #F7FBF8;
+}
+.section-head .eyebrow { color: var(--health); }
+.section-lede { color: rgba(5,46,43,0.66); }
+.section--dark .section-head .eyebrow,
+.numbers .section-head .eyebrow { color: var(--health-2); }
+.section--dark .section-lede { color: rgba(247,251,248,0.76); }
+
+/* ============ ECOSYSTEM CARDS — glass ============ */
+.eco-card, .why-card { border-radius: 28px; }
+.eco-card,
+.why-card {
+  background: var(--glass-strong);
+  border: 1px solid rgba(5,46,43,0.08);
+  box-shadow: var(--shadow-soft);
+  backdrop-filter: blur(24px) saturate(150%);
+  -webkit-backdrop-filter: blur(24px) saturate(150%);
+}
+.eco-card:hover,
+.why-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 34px 100px rgba(5,46,43,0.16), 0 0 0 1px rgba(66,211,146,0.14);
+}
+.eco-card::before,
+.why-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background: linear-gradient(135deg, rgba(255,255,255,0.72), transparent 28%, rgba(106,230,242,0.10));
+  opacity: .7;
+}
+.eco-card > *, .why-card > * { position: relative; z-index: 1; }
+.eco-card__num, .eco-card__tag { color: var(--health); }
+.eco-card__desc { color: var(--ink-3); }
+
+/* highlight the flagship (climasus+) AND the operational alerta card */
+.eco-card.plus {
+  background:
+    radial-gradient(circle at 80% 0%, rgba(106,230,242,0.32), transparent 32%),
+    linear-gradient(135deg, #053D38, #0E7A5F 60%, #15B8A6);
+  box-shadow: 0 34px 120px rgba(14,122,95,0.25);
+  color: #fff;
+}
+.eco-card.plus .eco-card__num,
+.eco-card.plus .eco-card__tag { color: rgba(255,255,255,0.8); }
+.eco-card.plus .eco-card__desc { color: rgba(255,255,255,0.9); }
+.eco-card.plus .eco-card__name { color: #fff; }
+.eco-card.plus .eco-card__name .alt { -webkit-text-fill-color: #BFF3E6; }
+.eco-card.alerta {
+  background:
+    radial-gradient(circle at 12% 100%, rgba(255,107,74,0.4), transparent 42%),
+    linear-gradient(135deg, #08242F, #052E2B 55%, #063B33);
+}
+.eco-card.alerta::after { background: radial-gradient(circle at 40% 40%, rgba(255,155,114,0.45), transparent 70%); }
+
+/* ============ SCRUB — aligned to aurora palette ============ */
+.scrub {
+  background:
+    radial-gradient(circle at 50% 0%, rgba(255,255,255,0.06), transparent 40%),
+    linear-gradient(135deg, #052E2B, #08242F);
+}
+.scrub__kicker { color: rgba(255,255,255,0.72); }
+.scrub-card {
+  background: rgba(255,255,255,0.13);
+  border: 1px solid rgba(255,255,255,0.26);
+  border-radius: 28px;
+  box-shadow: 0 28px 92px rgba(0,0,0,0.18), inset 0 1px 0 rgba(255,255,255,0.22);
+  backdrop-filter: blur(22px) saturate(160%);
+  -webkit-backdrop-filter: blur(22px) saturate(160%);
+  padding: clamp(20px, 3vw, 40px);
+  width: min(78vw, 920px);
+}
+.scrub-card__visual {
+  background: radial-gradient(circle at 50% 38%, rgba(255,255,255,0.24), transparent 42%), rgba(255,255,255,0.08);
+  border-radius: 24px;
+}
+
+/* ============ FEATURE VISUALS ============ */
+.feature__media { box-shadow: 0 30px 110px rgba(5,46,43,0.18); overflow: hidden; border-radius: 28px; }
+.codewin, .platwin, .educawin { box-shadow: inset 0 1px 0 rgba(255,255,255,0.20); }
+.codewin { background: linear-gradient(145deg, #052E2B, #08242F); }
+.eco-card__logo { height: 54px; width: auto; vertical-align: -14px; margin-right: 14px; }
+.libmarks { display: flex; gap: 18px; align-items: center; margin: 6px 0 18px; }
+.libmarks img { height: 76px; width: auto; filter: drop-shadow(0 10px 24px rgba(5,46,43,0.16)); }
+.codewin__shot { display: block; width: 100%; height: auto; }
+.feature--stack .feature__inner { grid-template-columns: 1fr; gap: 56px; }
+.feature--stack .feature__media { aspect-ratio: auto; height: auto; width: 100%; max-width: 1000px; justify-self: center; }
+.feature--stack .codewin, .feature--stack .platwin { position: relative; inset: auto; }
+#ciencia .feature__inner { grid-template-columns: 0.85fr 1.15fr; }
+#ciencia .feature__media { aspect-ratio: auto; height: auto; align-self: center; }
+#ciencia .codewin { position: relative; inset: auto; }
+.feature--stack .feature__text { max-width: 900px; }
+.platwin { background: linear-gradient(145deg, #063B33, #0E7A5F 70%, #15B8A6); }
+.platwin__shot { display: block; width: 100%; height: auto; }
+.dl { margin-top: 30px; }
+.dl__label { display: block; font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--health); margin-bottom: 12px; }
+.dl__row { display: flex; flex-wrap: wrap; gap: 10px; }
+.dl__btn { display: flex; flex-direction: column; gap: 2px; padding: 12px 20px; border: 1px solid rgba(5,46,43,0.18); border-radius: 14px; text-decoration: none; background: rgba(255,255,255,0.5); transition: background .2s, border-color .2s, transform .2s; }
+.dl__btn:hover { background: #052E2B; border-color: #052E2B; transform: translateY(-2px); }
+.dl__btn:hover .dl__os, .dl__btn:hover .dl__meta { color: #fff; }
+.dl__os { font-size: 15px; font-weight: 600; color: #052E2B; }
+.dl__meta { font-size: 12px; color: rgba(5,46,43,0.55); }
+.dl__note { display: block; margin-top: 14px; font-size: 13px; line-height: 1.6; color: rgba(5,46,43,0.6); }
+.educawin { background: radial-gradient(ellipse at 30% 20%, #6AE6F2, #0E7A5F 42%, #052E2B 78%); }
+.feature__list .k { color: var(--health); }
+.codewin__body .fn { color: var(--drought-2); }
+.codewin__body .kw { color: var(--heat-2); }
+.codewin__body .st { color: var(--air-2); }
+.platwin__panel .big { color: var(--climate-2); }
+
+/* ============ NUMBERS ============ */
+.num-cell .v { color: #fff; text-shadow: 0 16px 70px rgba(106,230,242,0.22); }
+.num-cell .s { color: var(--health-2); }
+
+/* ============ WHY ============ */
+.why-card .icon { background: linear-gradient(135deg, var(--health), var(--climate)); color: #fff; box-shadow: 0 16px 40px rgba(14,122,95,0.22); }
+
+/* ============ FINALE ============ */
+.finale__eyebrow { color: var(--health-2); }
+.finale__bg .ring { border-color: rgba(106,230,242,0.12); }
+.finale::before {
+  content: "";
+  position: absolute;
+  inset: auto 8% -25% 8%;
+  height: 52%;
+  background: radial-gradient(ellipse at center, rgba(106,230,242,0.25), transparent 66%);
+  filter: blur(12px);
+  z-index: 0;
+}
+
+/* ============ SUPPORTERS ============ */
+.supporters-grid {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  margin: 44px auto 0;
+  max-width: 860px;
+  width: 100%;
+}
+.supporters-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 14px;
+  width: 100%;
+}
+/* ============ SUPPORTERS (bare logos) ============ */
+.supporters-row--logos { display: flex; align-items: center; justify-content: center; gap: 64px; flex-wrap: wrap; }
+.supporter-mark { height: 130px; width: auto; object-fit: contain; }
+.supporter-mark--wide { height: 190px; max-width: 640px; }
+.sp-name--bare { font-family: "IBM Plex Mono", monospace; font-size: 20px; letter-spacing: .04em; color: #F7FBF8; line-height: 1.3; text-align: center; }
+.supporter-pill {
+  background: rgba(255,255,255,0.93);
+  border-radius: 16px;
+  padding: 16px 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-width: 160px;
+  transition: transform 0.3s var(--ease), box-shadow 0.3s var(--ease);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+}
+.supporter-pill:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 48px rgba(0,0,0,0.26);
+}
+.supporter-pill img {
+  height: 42px;
+  width: auto;
+  max-width: 160px;
+  object-fit: contain;
+  display: block;
+}
+.supporter-pill.pill--wide img { max-width: 340px; }
+.supporter-pill.pill--inct { padding: 20px 34px; }
+.supporter-pill.pill--inct img { height: 150px; }
+.supporter-pill.pill--ccs { padding: 20px 34px; }
+.pill--ccs img { height: 42px; }
+.supporter-pill .sp-name {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink);
+  text-align: center;
+  line-height: 1.4;
+  max-width: 180px;
+}
+
+/* ============ climasusDB — data commons ============ */
+#db .feature__media { width: 100%; align-self: center; aspect-ratio: auto; height: auto; }
+#db .datawin { position: relative; inset: auto; }
+.dl__row--docs { flex-wrap: nowrap; }
+@media (max-width: 900px) { .dl__row--docs { flex-wrap: wrap; } }
+.scrub-card__link { display: inline-flex; align-items: center; gap: 8px; margin-top: 18px; padding: 11px 20px; border-radius: 999px; background: rgba(255,255,255,0.94); color: #052E2B; font-size: 14px; font-weight: 600; text-decoration: none; transition: transform .2s, background .2s; }
+.scrub-card__link:hover { transform: translateY(-2px); background: #fff; }
+.scrub-card__soon { display: inline-flex; align-items: center; gap: 8px; margin-top: 18px; padding: 11px 20px; border-radius: 999px; border: 1px solid rgba(255,255,255,0.4); color: rgba(255,255,255,0.82); font-size: 14px; font-weight: 600; letter-spacing: .04em; }
+/* scrub cards — fit the sticky stage without clipping names or CTAs */
+.scrub__head { padding-top: clamp(24px, 4vh, 56px) !important; }
+.scrub__viewport { min-height: 0; align-items: center; }
+.scrub-card { align-items: center; }
+.scrub-card__name { font-size: clamp(30px, 3.4vw, 54px) !important; margin-top: 10px !important; }
+.scrub-card__tag { margin-top: 8px; }
+.scrub-card__desc { font-size: clamp(15px, 1.15vw, 18px); margin-top: 12px; }
+.scrub-card__attrs { margin-top: 16px; }
+.scrub-card__attrs .row { padding: 9px 0; font-size: 13px; }
+.scrub-card__visual { aspect-ratio: auto; height: 100%; max-height: 58vh; }
+.pill--wide img { height: 110px !important; max-width: none; }
+@media (max-height: 760px) {
+  .scrub-card__desc { display: none; }
+  .scrub-card__attrs .row:nth-child(n+3) { display: none; }
+}
+/* climaSUS EDUCA — social network orbit */
+.educawin { position: absolute; inset: 0; overflow: hidden; }
+.educawin > svg { position: absolute; inset: 0; }
+.edu-orbit { transform-origin: 260px 210px; }
+.edu-orbit--in { animation: eduSpin 26s linear infinite; }
+.edu-orbit--out { animation: eduSpin 42s linear infinite reverse; }
+.edu-core { animation: eduCore 5s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+@keyframes eduSpin { to { transform: rotate(360deg); } }
+@keyframes eduCore { 0%,100% { transform: scale(1); opacity: .95; } 50% { transform: scale(1.28); opacity: .7; } }
+.edunet { position: absolute; inset: 0; display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); align-content: center; justify-items: center; gap: 16px; padding: 0 clamp(20px, 6%, 52px); }
+.edunet__node { display: flex; flex-direction: column; align-items: center; gap: 9px; padding: 16px 14px; width: 100%; border-radius: 18px; border: 1px solid rgba(244,239,227,0.22); background: rgba(8,36,47,0.34); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); color: #F4EFE3; text-decoration: none; text-align: center; animation: eduFloat 6s ease-in-out infinite; animation-delay: var(--d, 0s); transition: transform .25s, border-color .25s, background .25s; }
+.edunet__node svg { width: 26px; height: 26px; }
+.edunet__node:hover { transform: translateY(-4px); border-color: rgba(244,239,227,0.5); background: rgba(8,36,47,0.52); }
+.edunet__node.is-soon { opacity: .62; }
+.edunet__label { display: flex; flex-direction: column; gap: 3px; font-size: 13px; font-weight: 600; letter-spacing: .02em; }
+.edunet__label em { font-style: normal; font-family: "IBM Plex Mono", monospace; font-size: 10.5px; letter-spacing: .08em; text-transform: uppercase; opacity: .68; }
+.edunet__caption { position: absolute; left: 0; right: 0; bottom: 20px; text-align: center; text-decoration: none; cursor: pointer; font-family: "IBM Plex Mono", monospace; font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: rgba(244,239,227,0.7); }
+@keyframes eduFloat { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-7px); } }
+@media (prefers-reduced-motion: reduce) { .edu-orbit, .edu-core, .edunet__node { animation: none !important; } }
+.eco-card.db {
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: clamp(28px, 5vw, 72px);
+  flex-wrap: wrap;
+  min-height: 0;
+  background:
+    radial-gradient(circle at 92% 0%, rgba(29,155,240,0.16), transparent 38%),
+    radial-gradient(circle at 0% 100%, rgba(66,211,146,0.16), transparent 42%),
+    var(--glass-strong);
+}
+.eco-card.db > div:first-child { flex: 1 1 360px; }
+.eco-card.db .eco-card__desc { max-width: 720px; }
+.eco-card.db .eco-card__tag { margin-top: 0; flex-shrink: 0; }
+.datawin__shot { display: block; width: 100%; height: auto; border-radius: inherit; }
+.datawin {
+  position: absolute; inset: 0;
+  background: linear-gradient(155deg, #0A2C3A, #08221C 58%, #052E2B);
+  display: flex; flex-direction: column; overflow: hidden;
+}
+.datawin__bar {
+  height: 50px; flex-shrink: 0;
+  display: flex; align-items: center; gap: 10px;
+  padding: 0 20px; border-bottom: 1px solid rgba(244,239,227,0.1);
+}
+.datawin__bar .dot { width: 10px; height: 10px; border-radius: 50%; }
+.datawin__chip {
+  margin-left: auto;
+  font-family: "IBM Plex Mono", monospace; font-size: 11px;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  color: rgba(244,239,227,0.55);
+}
+.datawin__body {
+  flex: 1; min-height: 0;
+  padding: clamp(16px, 2.4vw, 24px);
+  display: flex; flex-direction: column; gap: clamp(10px, 1.6vw, 16px);
+}
+.datawin__sources { display: flex; gap: 10px; }
+.datawin__src {
+  flex: 1; border-radius: 12px; padding: 11px 13px;
+  border: 1px solid rgba(244,239,227,0.14);
+  background: rgba(244,239,227,0.05);
+}
+.datawin__src .t {
+  font-family: "IBM Plex Mono", monospace; font-size: 9px;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  color: rgba(244,239,227,0.5); display: block; margin-bottom: 6px;
+}
+.datawin__src .v {
+  font-family: "Newsreader", serif; font-size: clamp(14px, 1.5vw, 17px);
+  color: #fff; line-height: 1.08;
+}
+.datawin__src.saude { border-top: 2px solid var(--health-2); }
+.datawin__src.clima { border-top: 2px solid var(--climate-2); }
+.datawin__src.amb   { border-top: 2px solid var(--drought); }
+.datawin__merge {
+  display: flex; align-items: center; gap: 12px;
+  font-family: "IBM Plex Mono", monospace; font-size: 10px;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  color: rgba(244,239,227,0.42);
+}
+.datawin__merge::before,
+.datawin__merge::after { content: ""; flex: 1; height: 1px; background: rgba(244,239,227,0.16); }
+.datawin__catalog { display: flex; flex-direction: column; gap: 8px; }
+.datawin__row {
+  display: flex; align-items: center; gap: 12px;
+  border-radius: 10px; background: rgba(244,239,227,0.05);
+  border: 1px solid rgba(244,239,227,0.1); padding: 10px 13px;
+}
+.datawin__row .name {
+  font-family: "IBM Plex Mono", monospace; font-size: 12px;
+  color: rgba(244,239,227,0.85); flex: 1;
+}
+.datawin__row .fmt {
+  font-family: "IBM Plex Mono", monospace; font-size: 9px;
+  letter-spacing: 0.08em; padding: 3px 9px; border-radius: 999px;
+  color: #08221C; font-weight: 600;
+}
+.fmt.parquet { background: var(--health-2); }
+.fmt.zarr    { background: var(--climate-2); }
+.fmt.cog     { background: var(--drought-2); }
+.datawin__foot {
+  margin-top: auto; display: flex; align-items: center; gap: 8px;
+  font-family: "IBM Plex Mono", monospace; font-size: 10px;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  color: rgba(244,239,227,0.45);
+}
+.datawin__foot .stac { color: var(--climate-2); }
+
+/* ============ climaSUS Gestor — app dentro do card Alerta ============ */
+.eco-app{display:flex;gap:20px;align-items:center;margin-top:20px;padding:16px 18px;border-radius:16px;text-decoration:none;background:rgba(244,239,227,0.05);border:1px solid rgba(244,239,227,0.14);transition:background .3s var(--ease),border-color .3s var(--ease)}
+.eco-app:hover{background:rgba(244,239,227,0.09);border-color:var(--heat-2)}
+.eco-app:hover .phone{transform:translateY(-3px) rotate(-1deg)}
+.eco-app__copy{display:flex;flex-direction:column;min-width:0}
+.eco-app__flag{align-self:flex-start;font-family:"IBM Plex Mono",monospace;font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:#08221C;background:var(--heat-2);border-radius:999px;padding:3px 10px;margin-bottom:9px}
+.eco-app__name{font-family:"Newsreader",serif;font-size:19px;font-weight:600;letter-spacing:-.015em;color:var(--paper);line-height:1.1}
+.eco-app__name .alt{font-style:italic;font-weight:500;color:var(--heat-2)}
+.eco-app__desc{font-size:13px;line-height:1.45;color:rgba(244,239,227,0.7);margin-top:6px;text-wrap:pretty}
+.eco-app__link{font-family:"IBM Plex Mono",monospace;font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--heat-2);margin-top:11px}
+
+/* mini dispositivo */
+.phone{flex-shrink:0;width:122px;height:242px;border-radius:19px;padding:4px;background:linear-gradient(160deg,#3A4148,#15191C);box-shadow:0 12px 28px rgba(0,0,0,.4);transition:transform .4s var(--ease)}
+.phone__scr{position:relative;width:100%;height:100%;border-radius:15px;overflow:hidden;background:#0B1416;display:flex;flex-direction:column}
+.phone__notch{position:absolute;top:5px;left:50%;transform:translateX(-50%);width:28px;height:3.5px;border-radius:2px;background:rgba(255,255,255,.28)}
+.phone__bar{display:flex;align-items:center;gap:5px;padding:14px 9px 7px}
+.phone__dot{width:5px;height:5px;border-radius:50%;background:#E5482A;box-shadow:0 0 0 3px rgba(229,72,42,.22)}
+.phone__ttl{font-family:"IBM Plex Mono",monospace;font-size:7.5px;letter-spacing:.1em;text-transform:uppercase;color:rgba(244,239,227,.6)}
+.phone__body{flex:1;display:flex;flex-direction:column;gap:5px;padding:0 7px 8px}
+.phone__alert{border-radius:9px;padding:8px;background:linear-gradient(150deg,#E5482A,#B4301A);color:#fff}
+.phone__lvl{font-family:"IBM Plex Mono",monospace;font-size:7px;letter-spacing:.12em;text-transform:uppercase;opacity:.9}
+.phone__temp{font-family:"Newsreader",serif;font-size:26px;font-weight:600;line-height:1;letter-spacing:-.03em;margin-top:2px}
+.phone__loc{font-size:8px;opacity:.88;margin-top:2px}
+.phone__row{display:flex;align-items:center;gap:5px;border-radius:6px;padding:5px 6px;background:rgba(244,239,227,.07)}
+.phone__row i{width:4px;height:4px;border-radius:50%;flex-shrink:0}
+.phone__row span{font-size:8px;line-height:1.25;color:rgba(244,239,227,.78)}
+.phone__cta{margin-top:auto;text-align:center;border-radius:6px;padding:6px;background:var(--heat-2);color:#08221C;font-family:"IBM Plex Mono",monospace;font-size:8px;letter-spacing:.12em;text-transform:uppercase;font-weight:600}
+@media (max-width:520px){.eco-app{flex-direction:column;align-items:flex-start}}
+
+/* ============ climaSUS Gestor — seção ============ */
+#gestor .feature__media{aspect-ratio:auto;width:100%;max-width:none;padding:52px 0;background:linear-gradient(160deg,#0A2C3A,#08221C 58%,#052E2B);display:flex;align-items:center;justify-content:center}
+.gphone{width:290px;height:530px;border-radius:38px;padding:9px;background:linear-gradient(160deg,#243038,#0D1215);box-shadow:0 40px 100px rgba(0,0,0,.5);flex-shrink:0}
+.gphone__scr{width:100%;height:100%;border-radius:30px;overflow:hidden;background:linear-gradient(180deg,#F8FFFD,#F4FBFF 46%,#FFF8EC);display:flex;flex-direction:column}
+.gphone__top{flex:none;display:flex;align-items:center;gap:9px;padding:16px 15px 12px;background:rgba(255,255,255,.72);border-bottom:1px solid rgba(5,46,43,.08)}
+.gphone__mark{width:27px;height:27px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-family:"Newsreader",serif;font-size:13px;font-weight:600;color:#fff;background:linear-gradient(135deg,#0E7A5F,#1D9BF0);flex-shrink:0}
+.gphone__id{flex:1;min-width:0}
+.gphone__id b{display:block;font-family:"Newsreader",serif;font-size:16px;font-weight:600;letter-spacing:-.02em;color:#052E2B;line-height:1}
+.gphone__id b i{font-weight:500;color:#0E7A5F}
+.gphone__id span{display:block;font-family:"IBM Plex Mono",monospace;font-size:8.5px;letter-spacing:.12em;text-transform:uppercase;color:#0E7A5F;margin-top:3px}
+.gphone__badge{flex:none;min-width:20px;height:20px;padding:0 6px;border-radius:999px;background:#FF6B4A;color:#fff;font-size:11px;font-weight:600;display:flex;align-items:center;justify-content:center}
+.gphone__body{flex:1;overflow:hidden;padding:14px 13px;display:flex;flex-direction:column;gap:9px}
+.gphone__kick{font-family:"IBM Plex Mono",monospace;font-size:8.5px;letter-spacing:.2em;text-transform:uppercase;color:#0E7A5F}
+.gphone__q{font-family:"Newsreader",serif;font-size:19px;font-weight:600;letter-spacing:-.03em;line-height:1.12;color:#052E2B}
+.gphone__q i{font-weight:500}
+.gcard{border-radius:17px;padding:11px 12px;display:flex;align-items:center;gap:10px;background:rgba(255,255,255,.9);border:1px solid rgba(5,46,43,.08)}
+.gcard i.ic{width:26px;height:26px;border-radius:9px;flex:none;display:flex;align-items:center;justify-content:center;font-style:normal;background:rgba(5,46,43,.05);color:#052E2B}
+.gcard .tx{flex:1;min-width:0}
+.gcard .tx b{display:block;font-family:"Newsreader",serif;font-size:15px;font-weight:600;letter-spacing:-.02em;line-height:1;color:#052E2B}
+.gcard .tx span{display:block;font-size:10px;color:#5E7772;margin-top:3px}
+.gcard .sl{flex:none;font-family:"IBM Plex Mono",monospace;font-size:8px;letter-spacing:.14em;padding:5px 8px;border-radius:999px;background:rgba(66,211,146,.18);color:#0E7A5F}
+.gcard.hot{background:linear-gradient(135deg,#08242F,#052E2B 56%,#063B33);border-color:transparent}
+.gcard.hot .tx b{color:#F7FBF8}.gcard.hot .tx span{color:rgba(247,251,248,.76)}
+.gcard.hot i.ic{background:rgba(247,251,248,.12);color:#F7FBF8}
+.gcard.hot .sl{background:#D9411E;color:#fff}
+.gcard.warn .sl{background:rgba(255,184,77,.22);color:#8A5B00}
+.gphone__src{font-family:"IBM Plex Mono",monospace;font-size:8px;letter-spacing:.13em;text-transform:uppercase;color:#5E7772}
+.gphone__cta{margin-top:auto;text-align:center;border-radius:999px;padding:12px;background:#052E2B;color:#fff;font-size:12px;font-weight:600}
+.gphone__tabs{flex:none;display:flex;padding:8px 4px 12px;background:rgba(255,255,255,.8);border-top:1px solid rgba(5,46,43,.08)}
+.gphone__tabs span{flex:1;text-align:center;font-family:"IBM Plex Mono",monospace;font-size:8px;letter-spacing:.1em;text-transform:uppercase;color:#9FB09C}
+.gphone__tabs span.on{color:#0E7A5F}
+.feature__cta{margin-top:26px}
+@media (max-width:760px){#gestor .feature__media{padding:40px 0}}
+
+/* ============ TEAM ============ */
+.team {
+  padding: clamp(90px, 13vh, 180px) var(--pad);
+  background: linear-gradient(180deg, #F2FBF8 0%, #FFFFFF 56%, #F7FBF8 100%);
+  position: relative;
+}
+.team__sub {
+  max-width: var(--maxw);
+  margin: 0 auto clamp(24px, 3vh, 36px);
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+.team__sub:not(:first-of-type) { margin-top: clamp(48px, 7vh, 88px); }
+.team__sub .eyebrow { color: var(--health); flex-shrink: 0; }
+.team__sub .line { flex: 1; height: 1px; background: var(--rule); }
+.team__sub .count {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 12px; letter-spacing: 0.14em;
+  color: var(--muted);
+  flex-shrink: 0;
+}
+.team-grid {
+  max-width: var(--maxw);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+}
+.team-card {
+  position: relative;
+  border-radius: 24px;
+  padding: 30px 26px 26px;
+  background: var(--glass-strong);
+  border: 1px solid rgba(5,46,43,0.08);
+  box-shadow: var(--shadow-soft);
+  backdrop-filter: blur(24px) saturate(150%);
+  -webkit-backdrop-filter: blur(24px) saturate(150%);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  overflow: hidden;
+  transition: transform 0.4s var(--ease), box-shadow 0.4s var(--ease);
+}
+.team-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background: linear-gradient(135deg, rgba(255,255,255,0.72), transparent 30%, rgba(106,230,242,0.08));
+  opacity: 0.7;
+}
+.team-card > * { position: relative; z-index: 1; }
+.team-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 34px 100px rgba(5,46,43,0.16), 0 0 0 1px rgba(66,211,146,0.14);
+}
+.team-avatar {
+  width: 80px; height: 80px;
+  border-radius: 50%;
+  padding: 3px;
+  margin-bottom: 18px;
+  background: linear-gradient(135deg, var(--health), var(--climate), var(--drought));
+  box-shadow: 0 10px 28px rgba(14,122,95,0.20);
+  flex-shrink: 0;
+}
+.team-avatar img,
+.team-avatar .ph {
+  width: 100%; height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
+  background: #EAF6F0;
+}
+.team-avatar .ph {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  font-family: "Newsreader", serif;
+  font-style: italic;
+  font-weight: 500;
+  font-size: 24px;
+  letter-spacing: 0.02em;
+  color: #fff;
+  background: linear-gradient(135deg, var(--health), var(--climate));
+}
+.team-name {
+  font-family: "Newsreader", serif;
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  margin: 0;
+  color: var(--ink);
+  text-wrap: balance;
+}
+.team-role {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--health);
+  margin-top: 9px;
+  display: block;
+}
+.team-org {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  margin: 16px 0 0;
+  font-size: 12.5px;
+  line-height: 1.4;
+  color: var(--muted);
+}
+.team-org img { height: 40px; width: auto; max-width: 84px; margin-right: 10px; display: block; object-fit: contain; flex-shrink: 0; }
+.team-links {
+  display: flex;
+  gap: 8px;
+  margin-top: auto;
+  padding-top: 20px;
+}
+.team-link {
+  width: 34px; height: 34px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(5,46,43,0.14);
+  color: var(--ink-3);
+  background: rgba(255,255,255,0.6);
+  transition: transform 0.2s var(--ease), background 0.2s, color 0.2s, border-color 0.2s;
+}
+.team-link:hover {
+  background: var(--ink);
+  color: #fff;
+  border-color: var(--ink);
+  transform: translateY(-2px);
+}
+@media (max-width: 1080px) { .team-grid { grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 760px)  { .team-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 460px)  { .team-grid { grid-template-columns: 1fr; } }
+
+/* ============ FOOTER ============ */
+.footer { background: #031816; color: rgba(247,251,248,0.66); }
+.footer__col a:hover { color: var(--climate-2); }
+.footer__brand .bw .alt { -webkit-text-fill-color: initial; }
+
+/* ============ RESPONSIVE ============ */
+@media (max-width: 760px) {
+  .heromark { width: 190vw; height: 60vh; }
+  .hero::after { width: 110vw; height: 80vw; }
+  .hero__title { letter-spacing: -0.075em; }
+  .nav { color: var(--ink); }
+}
+
+/* ============ REDUCED MOTION ============ */
+@media (prefers-reduced-motion: reduce) {
+  .hero::after, .hm-flow, .hm-flow path, .hm-dot { animation: none !important; }
+  .hm-flow path { stroke-dashoffset: 0; }
+  .hm-dot { opacity: .5; }
+  .nav__brand .alt, .hero__title .alt, .eco-card__name .alt,
+  .section-title .it, .feature__title .it, .finale__title .it { animation: none !important; }
+}

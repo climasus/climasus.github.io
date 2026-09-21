@@ -1,0 +1,1766 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>climaSUS — Apresentação científica</title>
+<link rel="icon" href="favicon.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700;800&family=Inter:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+<script type="application/json" id="speaker-notes">
+[
+  "Bom dia. Obrigado pelo convite. Nos próximos vinte minutos eu vou apresentar o climaSUS — um ecossistema brasileiro de código aberto que conecta ciência atmosférica, dados ambientais e saúde pública, com foco prioritário na Amazônia. A pergunta que orienta o trabalho é simples: como antecipar, em escala municipal, os impactos do clima sobre a saúde da população — especialmente nos territórios mais vulneráveis? A apresentação tem três partes: o problema, a arquitetura da resposta, e o caminho até 2031.",
+
+  "Antes de qualquer ciência, uma constatação. O clima já mudou. As séries históricas de temperatura, de precipitação, de qualidade do ar — todas elas já não descrevem mais o presente. Mas a nossa vigilância em saúde continua sendo desenhada como se descrevessem. Limiares fixos, séries de referência estacionárias, alertas que assumem estabilidade do sistema climático. Esta apresentação é, no fundo, sobre essa defasagem — e sobre como fechá-la.",
+
+  "Três números para dimensionar o problema na Amazônia. Primeiro: o aumento de trinta e oito por cento na mortalidade cardiovascular em dias com Heat Index acima de quarenta e um graus. Isso significa que, nesses dias, morrem quatro pessoas onde morreriam três. Segundo: setecentos e setenta e dois municípios da Amazônia Legal não têm hoje nenhum sistema operacional de alerta de calor calibrado localmente — zero. Terceiro: óbitos atribuíveis ao calor em populações ribeirinhas são subnotificados em até três vírgula seis vezes em relação à média nacional. Quem está mais exposto, está mais invisível.",
+
+  "O diagnóstico do porquê isso acontece tem três camadas. Falha um: usamos limiares calibrados para zonas temperadas — trinta e dois graus em Berlim e em Tefé não significam a mesma coisa, porque a umidade tropical amplifica o estresse térmico. Falha dois: temos dados em abundância — INMET, DATASUS, CEMADEN, INPE — mas não temos um pipeline operacional que devolva ao gestor municipal um alerta acionável em tempo útil. Falha três: os painéis web nos portais governamentais não chegam ao agente comunitário, ao ribeirinho, ao gestor da escola pública. Um alerta sem o canal adequado é apenas um arquivo no servidor.",
+
+  "A resposta que propomos é um ecossistema de cinco componentes, integrados e em código aberto. As bibliotecas climasus4r e climasus4py são a infraestrutura científica — código que qualquer pesquisador ou vigilância em saúde pode integrar e reusar. A plataforma climasus+ traz as mesmas funções para gestores sem conhecimento de programação. O climasusEduca é a camada formativa, porque tecnologia sem capilaridade institucional não vira política pública. E o climasusAlerta, foco principal da nossa conversa hoje, é a plataforma operacional onde rodam os sistemas de alerta propriamente ditos.",
+
+  "Toda essa arquitetura se ancora em um framework reconhecido internacionalmente: o MHEWS, da Organização Meteorológica Mundial. São quatro pilares inseparáveis. Conhecimento do risco — entender quem está exposto e por quê. Monitoramento e previsão — a ciência que detecta e antecipa. Disseminação — chegar a quem precisa, no tempo certo, na linguagem certa. E capacidade de resposta — porque um alerta sem resposta institucional é apenas um aviso. Cada sistema da nossa plataforma cumpre, deliberadamente, os quatro pilares.",
+
+  "O primeiro e mais maduro dos nossos sistemas é o SACS-Amazônia — Sistema de Monitoramento e Alerta de Calor e Risco à Saúde. Ele segue as diretrizes da OMS e da OMM para Heat-Health Warning Systems, mas tropicalizadas. O ponto técnico mais importante é o limiar: ao invés de adotar um valor absoluto importado, calculamos o percentil noventa da climatologia local de cada município, sobre a série de referência da WMO. E traduzimos esse limiar em quatro níveis de resposta — N1 atenção, N2 aviso, N3 emergência, N4 extrema — cada um com gatilho objetivo e ação pré-acordada. O gestor não precisa decidir o que fazer no momento da crise.",
+
+  "Os outros dois sistemas seguem a mesma lógica, com adaptações. O SAQS é qualidade do ar — usa redes densas de sensores IoT de baixo custo para vigilância hiperlocal de PM 2.5, com alertas bairro-a-bairro durante incêndios florestais. O SASS é secas — um perigo de início lento, que demanda previsões em escala sub-sazonal e sazonal, semanas a meses de antecedência, e integra segurança alimentar, doenças hídricas e saneamento. Juntos, os três sistemas dão cobertura completa: do calor agudo ao ar contaminado, da hora seguinte à estação seguinte.",
+
+  "Voltamos à terceira falha — alertas sem alcance. Cada sistema da plataforma se desdobra em cinco canais especializados, e essa multiplicidade é deliberada. O painel web para gestores cumpre a tomada de decisão municipal. O aplicativo móvel chega ao cidadão e ao agente comunitário, via push geolocalizado. A extensão para Defesa Civil aciona protocolos de crise e integração com o CEMADEN. A extensão para a Atenção Básica leva protocolos clínicos para a UBS — para idosos, gestantes, ribeirinhos, indígenas. E os boletins de TV, rádio e WhatsApp cobrem o público massivo. Mesmo dado científico, cinco linguagens diferentes.",
+
+  "Por baixo de tudo, uma infraestrutura aberta e reprodutível. As estações do INMET alimentam um download automatizado em Python, que consolida tudo em um arquivo Parquet único. O SACS detecta atualização a cada trinta segundos, recalcula os quinze índices bioclimáticos via climasus4r, e atualiza o motor de alerta. Todas as bibliotecas estão publicadas em CRAN e PyPI, com licença MIT, cobertura de testes acima de noventa por cento e documentação trilíngue. É infraestrutura científica de produção, não protótipo — e qualquer pesquisador desta sala pode usar, contribuir ou auditar.",
+
+  "Para fechar, o caminho à frente. Estamos pleiteando um programa quinquenal de doze vírgula oito milhões de dólares para o consórcio nacional, liderado por UFRN, Fiocruz, INMET e CEMADEN. Em cinco anos, projetamos cobrir os setecentos e setenta e dois municípios da Amazônia Legal, formar dois mil e quatrocentos profissionais de saúde, e reduzir em ao menos doze por cento a mortalidade atribuível ao calor extremo — validado por ensaio randomizado em sessenta municípios. Mas o resultado mais importante não está nesses números: é a portaria do Ministério da Saúde, no ano cinco, que integra o climaSUS como infraestrutura permanente do SUS.",
+
+  "Para encerrar: o climaSUS é, simultaneamente, infraestrutura científica, política pública e ação clínica concreta. Não estamos propondo mais um relatório sobre clima e saúde. Estamos propondo entregar, em cinco anos, um sistema operacional, validado e adotado, que proteja vidas amazônicas antes que o próximo evento extremo chegue. Toda a base é código aberto — convidamos esta comunidade a usar, a contribuir, a criticar. Obrigado. Estou à disposição para perguntas."
+]
+</script>
+
+<style>
+  :root {
+    --bg: #FFFFFF;
+    --bg-2: #F5F4F0;
+    --bg-3: #ECEBE5;
+    --ink: #0F1419;
+    --ink-2: #2A3038;
+    --muted: #6B6F73;
+    --muted-2: #A4A8AC;
+    --rule: #DADBD6;
+    --rule-strong: #0F1419;
+    --primary: #14387F;
+    --primary-2: #1E4FA8;
+    --accent: #C2410C;
+    --green: #166534;
+    --gold: #A16207;
+    --red: #991B1B;
+  }
+
+  html, body { margin: 0; padding: 0; background: #050608; }
+  body {
+    font-family: "Inter", system-ui, sans-serif;
+    color: var(--ink);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  deck-stage {
+    --deck-bg: #050608;
+  }
+
+  deck-stage section {
+    background: var(--bg);
+    color: var(--ink);
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* ============ COMMON TYPOGRAPHY ============ */
+  .display {
+    font-family: "Inter Tight", "Inter", sans-serif;
+    font-weight: 700;
+    letter-spacing: -0.025em;
+    line-height: 0.98;
+    color: var(--ink);
+  }
+  .display .it { font-style: italic; font-weight: 500; color: var(--primary); }
+  .display .accent { color: var(--primary); }
+
+  .label {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 18px;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .label.primary { color: var(--primary); }
+  .label.accent { color: var(--accent); }
+
+  /* ============ COMMON CHROME ============ */
+  .chrome-top, .chrome-bot {
+    position: absolute;
+    left: 80px;
+    right: 80px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 18px;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .chrome-top { top: 56px; }
+  .chrome-bot {
+    bottom: 56px;
+    padding-top: 24px;
+    border-top: 1px solid var(--rule);
+  }
+  .chrome-bot.dark { border-top-color: rgba(255,255,255,0.18); color: rgba(255,255,255,0.55); }
+  .wordmark {
+    font-family: "Inter Tight", sans-serif;
+    font-weight: 700;
+    font-size: 24px;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+    text-transform: none;
+  }
+  .wordmark .alt { color: var(--primary); }
+  .chrome-bot.dark .wordmark { color: rgba(255,255,255,0.92); }
+  .chrome-bot.dark .wordmark .alt { color: #6EA8FF; }
+
+  /* ============ FRAME ============ */
+  .frame {
+    padding: 140px 96px 120px;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    gap: 48px;
+  }
+  .frame.tight { padding: 120px 96px 100px; gap: 36px; }
+
+  /* ============ SLIDE 1 — CAPA ============ */
+  .cover {
+    background: var(--bg);
+    padding: 96px 96px 80px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .cover .top-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 18px;
+    font-weight: 500;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .cover .top-row .brand-line {
+    display: inline-flex;
+    align-items: center;
+    gap: 18px;
+    color: var(--ink);
+  }
+  .cover .top-row .brand-line .pill {
+    width: 10px;
+    height: 10px;
+    background: var(--primary);
+    border-radius: 50%;
+  }
+  .cover .wordmark-big {
+    font-family: "Inter Tight", sans-serif;
+    font-weight: 800;
+    font-size: 240px;
+    line-height: 0.85;
+    letter-spacing: -0.045em;
+    color: var(--ink);
+    margin: -20px 0 0;
+  }
+  .cover .wordmark-big .alt { color: var(--primary); }
+  .cover .subtitle {
+    font-family: "Inter Tight", sans-serif;
+    font-weight: 400;
+    font-size: 40px;
+    line-height: 1.2;
+    letter-spacing: -0.015em;
+    color: var(--ink-2);
+    max-width: 1280px;
+    margin-top: 40px;
+  }
+  .cover .subtitle .em {
+    color: var(--primary);
+    font-weight: 600;
+  }
+  .cover .meta-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 0;
+    border-top: 1px solid var(--ink);
+    padding-top: 28px;
+  }
+  .cover .meta-col {
+    padding-right: 32px;
+    border-right: 1px solid var(--rule);
+  }
+  .cover .meta-col:not(:first-child) { padding-left: 32px; }
+  .cover .meta-col:last-child { border-right: none; }
+  .cover .meta-col .k {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 16px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 12px;
+  }
+  .cover .meta-col .v {
+    font-family: "Inter Tight", sans-serif;
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 1.25;
+    color: var(--ink);
+    letter-spacing: -0.005em;
+  }
+
+  /* ============ SLIDE 2 — PROVOCAÇÃO ============ */
+  .provocacao {
+    background: var(--ink);
+    color: #FFFFFF;
+  }
+  .provocacao .frame { justify-content: center; }
+  .provocacao .quote {
+    font-family: "Inter Tight", sans-serif;
+    font-weight: 500;
+    font-size: 124px;
+    line-height: 1.0;
+    letter-spacing: -0.03em;
+    color: #FFFFFF;
+    max-width: 1600px;
+    margin: 0;
+  }
+  .provocacao .quote .accent {
+    color: #6EA8FF;
+    font-style: italic;
+    font-weight: 400;
+  }
+  .provocacao .quote .strike {
+    text-decoration: line-through;
+    text-decoration-thickness: 6px;
+    color: rgba(255,255,255,0.35);
+    text-decoration-color: #6EA8FF;
+  }
+  .provocacao .source {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 18px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.5);
+    margin-top: 56px;
+    border-left: 3px solid #6EA8FF;
+    padding-left: 24px;
+    max-width: 600px;
+    line-height: 1.5;
+  }
+
+  /* ============ SLIDE 3 — STATS ============ */
+  .stats .frame { gap: 56px; }
+  .stats-head { display: flex; justify-content: space-between; align-items: flex-end; gap: 80px; }
+  .stats-title {
+    font-family: "Inter Tight", sans-serif;
+    font-weight: 600;
+    font-size: 88px;
+    line-height: 0.98;
+    letter-spacing: -0.025em;
+    margin: 18px 0 0;
+    max-width: 1200px;
+    color: var(--ink);
+  }
+  .stats-title .it { font-style: italic; font-weight: 400; color: var(--primary); }
+  .stats-sub {
+    font-family: "Inter", sans-serif;
+    font-weight: 400;
+    font-size: 22px;
+    line-height: 1.45;
+    color: var(--muted);
+    max-width: 480px;
+    text-align: right;
+    margin: 0;
+  }
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    border-top: 2px solid var(--ink);
+    border-bottom: 1px solid var(--rule);
+    flex: 1;
+  }
+  .stat {
+    padding: 56px 48px 48px 0;
+    border-right: 1px solid var(--rule);
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    justify-content: space-between;
+  }
+  .stat:last-child { border-right: none; }
+  .stat:not(:first-child) { padding-left: 48px; }
+  .stat .num {
+    font-family: "Inter Tight", sans-serif;
+    font-weight: 700;
+    font-size: 200px;
+    line-height: 0.88;
+    letter-spacing: -0.04em;
+    color: var(--primary);
+  }
+  .stat .num .unit {
+    font-weight: 500;
+    font-size: 0.32em;
+    color: var(--ink);
+    margin-left: 12px;
+    letter-spacing: 0;
+    vertical-align: 0.5em;
+  }
+  .stat .desc {
+    font-family: "Inter", sans-serif;
+    font-size: 24px;
+    line-height: 1.4;
+    color: var(--ink);
+    max-width: 460px;
+  }
+  .stat .src {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 16px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    padding-top: 16px;
+    border-top: 1px dashed var(--rule);
+  }
+
+  /* ============ SLIDE 4 — 3 FALHAS ============ */
+  .falhas .frame { gap: 48px; }
+  .falhas-head { display: flex; justify-content: space-between; align-items: flex-end; gap: 80px; }
+  .falhas-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+    flex: 1;
+  }
+  .falha-card {
+    background: var(--bg-2);
+    border-top: 4px solid var(--primary);
+    padding: 40px 36px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+  .falha-card .num {
+    font-family: "Inter Tight", sans-serif;
+    font-weight: 700;
+    font-size: 96px;
+    line-height: 1;
+    color: var(--primary);
+    letter-spacing: -0.03em;
+  }
+  .falha-card h3 {
+    font-family: "Inter Tight", sans-serif;
+    font-weight: 600;
+    font-size: 40px;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    margin: 0;
+    color: var(--ink);
+  }
+  .falha-card p {
+    font-family: "Inter", sans-serif;
+    font-size: 22px;
+    line-height: 1.45;
+    color: var(--ink-2);
+    margin: 0;
+  }
+  .falha-card .quote {
+    font-family: "Inter Tight", sans-serif;
+    font-style: italic;
+    font-weight: 500;
+    font-size: 22px;
+    line-height: 1.4;
+    color: var(--primary);
+    border-top: 1px solid var(--rule);
+    padding-top: 20px;
+    margin-top: auto;
+  }
+
+  /* ============ SLIDE 5 — ECOSSISTEMA (5 PRODUTOS) ============ */
+  .eco .frame { gap: 48px; }
+  .eco-head { display: flex; justify-content: space-between; align-items: flex-end; gap: 80px; }
+  .eco-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 0;
+    border-top: 2px solid var(--ink);
+    border-bottom: 2px solid var(--ink);
+    flex: 1;
+  }
+  .eco-item {
+    padding: 32px 28px 32px 0;
+    border-right: 1px solid var(--rule);
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    justify-content: space-between;
+  }
+  .eco-item:not(:first-child) { padding-left: 28px; }
+  .eco-item:last-child { border-right: none; }
+  .eco-item .marker {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 16px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .eco-item .name {
+    font-family: "Inter Tight", sans-serif;
+    font-weight: 700;
+    font-size: 44px;
+    line-height: 0.95;
+    letter-spacing: -0.025em;
+    margin: 0;
+    color: var(--ink);
+  }
+  .eco-item .name .alt { color: var(--primary); font-weight: 500; }
+  .eco-item .desc {
+    font-family: "Inter", sans-serif;
+    font-size: 18px;
+    line-height: 1.45;
+    color: var(--ink-2);
+    margin: 0;
+  }
+  .eco-item .role {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 14px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--primary);
+    padding-top: 16px;
+    border-top: 1px solid var(--rule);
+  }
+  .eco-item.featured {
+    background: var(--ink);
+    color: #FFFFFF;
+    padding-left: 28px;
+    padding-right: 28px;
+  }
+  .eco-item.featured .marker { color: rgba(255,255,255,0.55); }
+  .eco-item.featured .name { color: #FFFFFF; }
+  .eco-item.featured .name .alt { color: #6EA8FF; }
+  .eco-item.featured .desc { color: rgba(255,255,255,0.85); }
+  .eco-item.featured .role { color: #6EA8FF; border-top-color: rgba(255,255,255,0.2); }
+
+  /* ============ SLIDE 6 — MHEWS 4 PILARES ============ */
+  .pilares .frame { gap: 48px; }
+  .pilares-head { display: flex; justify-content: space-between; align-items: flex-end; gap: 80px; }
+  .pilares-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    border-top: 2px solid var(--ink);
+    border-bottom: 2px solid var(--ink);
+    flex: 1;
+  }
+  .pilar-col {
+    padding: 48px 32px 48px 0;
+    border-right: 1px solid var(--rule);
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+  }
+  .pilar-col:not(:first-child) { padding-left: 32px; }
+  .pilar-col:last-child { border-right: none; }
+  .pilar-col .num {
+    font-family: "Inter Tight", sans-serif;
+    font-weight: 700;
+    font-size: 32px;
+    color: var(--primary);
+    letter-spacing: -0.01em;
+  }
+  .pilar-col h4 {
+    font-family: "Inter Tight", sans-serif;
+    font-weight: 600;
+    font-size: 36px;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    margin: 0;
+    color: var(--ink);
+  }
+  .pilar-col p {
+    font-family: "Inter", sans-serif;
+    font-size: 22px;
+    line-height: 1.45;
+    color: var(--ink-2);
+    margin: 0;
+  }
+
+  /* ============ SLIDE 7 — SACS HHWS ============ */
+  .sacs .frame { gap: 40px; }
+  .sacs-head { display: flex; justify-content: space-between; align-items: flex-end; gap: 80px; }
+  .sacs-body {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    gap: 64px;
+    flex: 1;
+    align-items: stretch;
+  }
+  .sacs-left {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+    justify-content: center;
+  }
+  .sacs-left .lede {
+    font-family: "Inter Tight", sans-serif;
+    font-weight: 500;
+    font-size: 38px;
+    line-height: 1.2;
+    letter-spacing: -0.015em;
+    color: var(--ink);
+    max-width: 800px;
+  }
+  .sacs-left .lede .em { color: var(--primary); font-style: italic; font-weight: 400; }
+  .sacs-attrs { display: flex; flex-direction: column; gap: 0; margin-top: 16px; border-top: 1px solid var(--ink); }
+  .sacs-attr {
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    gap: 32px;
+    padding: 18px 0;
+    border-bottom: 1px solid var(--rule);
+    align-items: baseline;
+  }
+  .sacs-attr .k {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 16px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .sacs-attr .v {
+    font-family: "Inter", sans-serif;
+    font-size: 22px;
+    line-height: 1.35;
+    color: var(--ink);
+  }
+  .sacs-attr .v .em { color: var(--primary); font-weight: 500; }
+
+  .sacs-niveis {
+    display: grid;
+    grid-template-rows: repeat(4, 1fr);
+    gap: 12px;
+  }
+  .nivel {
+    display: grid;
+    grid-template-columns: 80px 1fr 120px;
+    gap: 24px;
+    padding: 22px 24px;
+    border: 1px solid var(--rule);
+    align-items: center;
+    background: var(--bg-2);
+  }
+  .nivel .code {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 22px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    color: #FFFFFF;
+    padding: 6px 10px;
+    text-align: center;
+  }
+  .nivel .body h5 {
+    font-family: "Inter Tight", sans-serif;
+    font-weight: 600;
+    font-size: 24px;
+    margin: 0 0 4px;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+  }
+  .nivel .body p {
+    font-family: "Inter", sans-serif;
+    font-size: 17px;
+    color: var(--muted);
+    margin: 0;
+    line-height: 1.3;
+  }
+  .nivel .trigger {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 16px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-2);
+    text-align: right;
+    line-height: 1.3;
+  }
+  .nivel.n1 .code { background: #166534; }
+  .nivel.n2 .code { background: #A16207; }
+  .nivel.n3 .code { background: #C2410C; }
+  .nivel.n4 .code { background: #991B1B; }
+  .nivel.n4 { background: var(--ink); color: #FFFFFF; border-color: var(--ink); }
+  .nivel.n4 .body h5 { color: #FFFFFF; }
+  .nivel.n4 .body p { color: rgba(255,255,255,0.7); }
+  .nivel.n4 .trigger { color: rgba(255,255,255,0.85); }
+
+  /* ============ SLIDE 8 — SAQS + SASS ============ */
+  .dois-sist .frame { gap: 40px; }
+  .dois-sist-head { display: flex; justify-content: space-between; align-items: flex-end; gap: 80px; }
+  .dois-sist-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    flex: 1;
+  }
+  .sist-card {
+    border: 1px solid var(--rule);
+    padding: 48px 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    background: var(--bg-2);
+  }
+  .sist-card .marker {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 18px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--primary);
+    display: inline-flex;
+    gap: 14px;
+    align-items: center;
+  }
+  .sist-card .marker .dot { width: 10px; height: 10px; background: var(--primary); border-radius: 50%; }
+  .sist-card .name {
+    font-family: "Inter Tight", sans-serif;
+    font-weight: 700;
+    font-size: 92px;
+    line-height: 0.9;
+    letter-spacing: -0.03em;
+    margin: 0;
+    color: var(--ink);
+  }
+  .sist-card .tag {
+    font-family: "Inter Tight", sans-serif;
+    font-weight: 400;
+    font-style: italic;
+    font-size: 28px;
+    color: var(--primary);
+    margin: -8px 0 0;
+  }
+  .sist-card .desc {
+    font-family: "Inter", sans-serif;
+    font-size: 22px;
+    line-height: 1.45;
+    color: var(--ink-2);
+    margin: 8px 0 0;
+  }
+  .sist-card .desc .em { color: var(--primary); font-weight: 500; }
+  .sist-card .attrs {
+    display: flex;
+    flex-direction: column;
+    border-top: 1px solid var(--rule);
+    margin-top: auto;
+  }
+  .sist-card .attrs .row {
+    display: grid;
+    grid-template-columns: 140px 1fr;
+    gap: 24px;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--rule);
+  }
+  .sist-card .attrs .row:last-child { border-bottom: none; }
+  .sist-card .attrs .k {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 15px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .sist-card .attrs .v {
+    font-family: "Inter", sans-serif;
+    font-size: 18px;
+    line-height: 1.35;
+    color: var(--ink);
+  }
+
+  /* ============ SLIDE 9 — CANAIS ============ */
+  .canais .frame { gap: 40px; }
+  .canais-head { display: flex; justify-content: space-between; align-items: flex-end; gap: 80px; }
+  .canais-grid {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: 0;
+    border-top: 2px solid var(--ink);
+    border-bottom: 2px solid var(--ink);
+    flex: 1;
+  }
+  .canais-trunk {
+    padding: 36px 32px 36px 0;
+    border-right: 1px solid var(--ink);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 16px;
+  }
+  .canais-trunk .lede {
+    font-family: "Inter Tight", sans-serif;
+    font-style: italic;
+    font-weight: 500;
+    font-size: 36px;
+    line-height: 1.1;
+    letter-spacing: -0.015em;
+    color: var(--primary);
+  }
+  .canais-trunk .sub {
+    font-family: "Inter", sans-serif;
+    font-size: 18px;
+    line-height: 1.45;
+    color: var(--muted);
+  }
+  .canais-cards {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 0;
+  }
+  .canal {
+    padding: 36px 24px;
+    border-right: 1px solid var(--rule);
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    justify-content: space-between;
+  }
+  .canal:not(:first-child) { padding-left: 24px; }
+  .canal:last-child { border-right: none; }
+  .canal .icon {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 16px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--primary);
+  }
+  .canal .who {
+    font-family: "Inter Tight", sans-serif;
+    font-weight: 600;
+    font-size: 28px;
+    line-height: 1.05;
+    letter-spacing: -0.015em;
+    color: var(--ink);
+    margin-top: auto;
+  }
+  .canal .what {
+    font-family: "Inter", sans-serif;
+    font-size: 17px;
+    line-height: 1.35;
+    color: var(--muted);
+  }
+
+  /* ============ SLIDE 10 — PIPELINE / ABERTURA ============ */
+  .pipeline .frame { gap: 40px; }
+  .pipeline-head { display: flex; justify-content: space-between; align-items: flex-end; gap: 80px; }
+  .pipeline-body {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    flex: 1;
+    align-items: stretch;
+  }
+  .pipeline-left { display: flex; flex-direction: column; justify-content: center; gap: 28px; }
+  .pipeline-left .lede {
+    font-family: "Inter Tight", sans-serif;
+    font-weight: 500;
+    font-size: 36px;
+    line-height: 1.2;
+    letter-spacing: -0.015em;
+    color: var(--ink);
+    max-width: 700px;
+  }
+  .pipeline-left .lede .em { color: var(--primary); font-style: italic; font-weight: 400; }
+  .pipeline-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 0; border-top: 1px solid var(--ink); }
+  .pipeline-stat {
+    padding: 24px 24px 24px 0;
+    border-right: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+  }
+  .pipeline-stat:not(:first-child):nth-child(odd) { padding-left: 24px; }
+  .pipeline-stat:nth-child(even) { padding-left: 24px; border-right: none; }
+  .pipeline-stat:nth-last-child(-n+2) { border-bottom: none; }
+  .pipeline-stat .v {
+    font-family: "Inter Tight", sans-serif;
+    font-weight: 700;
+    font-size: 56px;
+    line-height: 1;
+    color: var(--primary);
+    letter-spacing: -0.025em;
+  }
+  .pipeline-stat .l {
+    font-family: "Inter", sans-serif;
+    font-size: 17px;
+    color: var(--muted);
+    margin-top: 8px;
+    line-height: 1.35;
+  }
+  .pipeline-flow {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    justify-content: center;
+  }
+  .flow-step {
+    display: grid;
+    grid-template-columns: 56px 1fr;
+    gap: 20px;
+    align-items: center;
+    padding: 18px 24px;
+    background: var(--bg-2);
+    border: 1px solid var(--rule);
+    position: relative;
+  }
+  .flow-step .n {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    color: #FFFFFF;
+    background: var(--primary);
+    padding: 6px 0;
+    text-align: center;
+  }
+  .flow-step .body {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .flow-step .body .lbl {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 14px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--primary);
+  }
+  .flow-step .body .desc {
+    font-family: "Inter", sans-serif;
+    font-size: 19px;
+    color: var(--ink);
+    line-height: 1.3;
+  }
+  .flow-step.last {
+    background: var(--ink);
+    color: #FFFFFF;
+    border-color: var(--ink);
+  }
+  .flow-step.last .body .lbl { color: #6EA8FF; }
+  .flow-step.last .body .desc { color: #FFFFFF; }
+  .flow-step.last .n { background: #6EA8FF; color: var(--ink); }
+
+  /* ============ SLIDE 11 — ROADMAP / IMPACTO ============ */
+  .roadmap .frame { gap: 40px; }
+  .roadmap-head { display: flex; justify-content: space-between; align-items: flex-end; gap: 80px; }
+  .roadmap-body {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 64px;
+    flex: 1;
+    align-items: stretch;
+  }
+  .roadmap-track {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    justify-content: center;
+  }
+  .phase {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 32px;
+    align-items: baseline;
+    padding: 22px 0;
+    border-bottom: 1px solid var(--rule);
+  }
+  .phase:last-child { border-bottom: none; }
+  .phase .year {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 18px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--primary);
+    line-height: 1.3;
+  }
+  .phase .year .big {
+    display: block;
+    font-family: "Inter Tight", sans-serif;
+    font-weight: 700;
+    font-size: 36px;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    text-transform: none;
+    margin-bottom: 4px;
+  }
+  .phase .desc {
+    font-family: "Inter Tight", sans-serif;
+    font-weight: 500;
+    font-size: 26px;
+    line-height: 1.25;
+    color: var(--ink);
+    letter-spacing: -0.01em;
+  }
+  .phase .desc .em { color: var(--primary); font-style: italic; font-weight: 400; }
+
+  .impacto-card {
+    background: var(--ink);
+    color: #FFFFFF;
+    padding: 48px 44px;
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+  }
+  .impacto-card .head {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 16px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: #6EA8FF;
+  }
+  .impacto-card h3 {
+    font-family: "Inter Tight", sans-serif;
+    font-weight: 600;
+    font-size: 42px;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    margin: 0;
+    color: #FFFFFF;
+  }
+  .impacto-card h3 .em { color: #6EA8FF; font-style: italic; font-weight: 400; }
+  .impacto-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    border-top: 1px solid rgba(255,255,255,0.18);
+  }
+  .impacto-item {
+    padding: 18px 16px 18px 0;
+    border-right: 1px solid rgba(255,255,255,0.12);
+    border-bottom: 1px solid rgba(255,255,255,0.12);
+  }
+  .impacto-item:nth-child(2n) { padding-left: 16px; border-right: none; }
+  .impacto-item:nth-child(2n+1) { padding-right: 16px; }
+  .impacto-item:nth-last-child(-n+2) { border-bottom: none; }
+  .impacto-item .v {
+    font-family: "Inter Tight", sans-serif;
+    font-weight: 700;
+    font-size: 44px;
+    line-height: 1;
+    color: #FFFFFF;
+    letter-spacing: -0.025em;
+  }
+  .impacto-item .l {
+    font-family: "Inter", sans-serif;
+    font-size: 16px;
+    color: rgba(255,255,255,0.7);
+    margin-top: 6px;
+    line-height: 1.3;
+  }
+
+  /* ============ SLIDE 12 — CONCLUSÃO ============ */
+  .conclusao {
+    background: var(--bg-2);
+  }
+  .conclusao .frame { justify-content: space-between; }
+  .conclusao .top {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+  }
+  .conclusao .title {
+    font-family: "Inter Tight", sans-serif;
+    font-weight: 600;
+    font-size: 132px;
+    line-height: 0.96;
+    letter-spacing: -0.035em;
+    color: var(--ink);
+    margin: 0;
+    max-width: 1500px;
+  }
+  .conclusao .title .em {
+    color: var(--primary);
+    font-style: italic;
+    font-weight: 400;
+  }
+  .conclusao .sub {
+    font-family: "Inter Tight", sans-serif;
+    font-weight: 400;
+    font-size: 30px;
+    line-height: 1.35;
+    color: var(--ink-2);
+    max-width: 1300px;
+    letter-spacing: -0.01em;
+  }
+  .conclusao .contacts {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    border-top: 2px solid var(--ink);
+    padding-top: 32px;
+  }
+  .conclusao .contact-col {
+    padding-right: 32px;
+    border-right: 1px solid var(--rule);
+  }
+  .conclusao .contact-col:not(:first-child) { padding-left: 32px; }
+  .conclusao .contact-col:last-child { border-right: none; }
+  .conclusao .contact-col .k {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 16px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 12px;
+  }
+  .conclusao .contact-col .v {
+    font-family: "Inter Tight", sans-serif;
+    font-weight: 500;
+    font-size: 26px;
+    line-height: 1.3;
+    color: var(--ink);
+    letter-spacing: -0.01em;
+  }
+  .conclusao .contact-col .v.mono {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 22px;
+    font-weight: 500;
+    letter-spacing: 0;
+    color: var(--primary);
+  }
+</style>
+</head>
+<body>
+
+<deck-stage width="1920" height="1080">
+
+<!-- ============ SLIDE 1 — CAPA ============ -->
+<section data-screen-label="01 Capa" class="cover">
+  <div class="top-row">
+    <span class="brand-line">
+      <span class="pill"></span>
+      <span>climaSUS · 2026</span>
+    </span>
+    <span>XXII Congresso Brasileiro de Saúde Coletiva · ABRASCO</span>
+  </div>
+
+  <div>
+    <div class="wordmark-big">clima<span class="alt">SUS</span></div>
+    <div class="subtitle">
+      Ciência do clima e saúde pública na Amazônia Brasileira: <br/>
+      arquitetura de um <span class="em">sistema multi‑perigo</span> de alerta precoce.
+    </div>
+  </div>
+
+  <div class="meta-row">
+    <div class="meta-col">
+      <div class="k">Autores</div>
+      <div class="v">Equipe climaSUS<br/>UFRN · Fiocruz · INMET</div>
+    </div>
+    <div class="meta-col">
+      <div class="k">Sessão</div>
+      <div class="v">Clima, ambiente e saúde — eixo temático 04</div>
+    </div>
+    <div class="meta-col">
+      <div class="k">Data</div>
+      <div class="v">25 de maio, 2026<br/>14h30 — Sala 03</div>
+    </div>
+    <div class="meta-col">
+      <div class="k">Localização</div>
+      <div class="v">Natal — RN<br/>UFRN · Centro de Convenções</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SLIDE 2 — PROVOCAÇÃO ============ -->
+<section data-screen-label="02 Provocação" class="provocacao">
+  <div class="frame">
+    <h2 class="quote">
+      O clima já mudou. <br/>
+      A vigilância em saúde, <br/>
+      <span class="accent">ainda</span> não.
+    </h2>
+    <div class="source">
+      Mensagem central desta apresentação<br/>
+      climaSUS · ABRASCO 2026
+    </div>
+  </div>
+
+  <div class="chrome-bot dark">
+    <span class="wordmark">clima<span class="alt">SUS</span></span>
+    <span>§ 01 · Provocação</span>
+  </div>
+</section>
+
+<!-- ============ SLIDE 3 — STATS ============ -->
+<section data-screen-label="03 O problema" class="stats">
+  <div class="chrome-top">
+    <span>§ 02 · O problema</span>
+    <span>— Amazônia Brasileira · 2015 → 2025</span>
+  </div>
+
+  <div class="frame">
+    <div class="stats-head">
+      <div>
+        <div class="label primary">Problema científico</div>
+        <h2 class="stats-title">A Amazônia é o <span class="it">laboratório</span> do colapso climático.</h2>
+      </div>
+      <p class="stats-sub">
+        Em uma década, três das cinco maiores secas, sequências inéditas de ondas de calor e PM 2.5 oito vezes acima do limite da OMS.
+      </p>
+    </div>
+
+    <div class="stats-grid">
+      <div class="stat">
+        <div>
+          <div class="num">+38<span class="unit">%</span></div>
+          <div class="desc">Aumento da mortalidade cardiovascular em dias com Heat Index &gt; 41 °C.</div>
+        </div>
+        <div class="src">Cad. Saúde Pública · 2025</div>
+      </div>
+      <div class="stat">
+        <div>
+          <div class="num">772<span class="unit">municípios</span></div>
+          <div class="desc">Da Amazônia Legal sem qualquer sistema operacional de alerta de calor calibrado localmente.</div>
+        </div>
+        <div class="src">Mapeamento climaSUS · 2025</div>
+      </div>
+      <div class="stat">
+        <div>
+          <div class="num">3,6<span class="unit">×</span></div>
+          <div class="desc">Subnotificação estimada de óbitos atribuíveis ao calor em populações ribeirinhas.</div>
+        </div>
+        <div class="src">SIM/DATASUS · FUNAI · 2024</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="chrome-bot">
+    <span class="wordmark">clima<span class="alt">SUS</span></span>
+    <span>03 / 12</span>
+  </div>
+</section>
+
+<!-- ============ SLIDE 4 — 3 FALHAS ============ -->
+<section data-screen-label="04 Três falhas" class="falhas">
+  <div class="chrome-top">
+    <span>§ 02 · Diagnóstico</span>
+    <span>— três falhas estruturais a corrigir</span>
+  </div>
+
+  <div class="frame">
+    <div class="falhas-head">
+      <div>
+        <div class="label primary">Por que a vigilância não acompanha</div>
+        <h2 class="stats-title">Três falhas <span class="it">estruturais</span> da vigilância clima‑saúde.</h2>
+      </div>
+    </div>
+
+    <div class="falhas-grid">
+      <div class="falha-card">
+        <div class="num">01</div>
+        <h3>Limiares inadequados</h3>
+        <p>
+          A maioria dos estudos aplica thresholds calibrados para zonas temperadas, subestimando o estresse térmico no clima tropical úmido — onde a umidade amplifica a sobrecarga cardiopulmonar.
+        </p>
+        <div class="quote">"32 °C" não significa o mesmo em Berlim e em Tefé.</div>
+      </div>
+      <div class="falha-card">
+        <div class="num">02</div>
+        <h3>Dados sem decisão</h3>
+        <p>
+          Existe uma cadeia rica de dados — INMET, DATASUS, CEMADEN, INPE — mas inexiste um pipeline operacional que os integre e devolva ao gestor municipal um alerta acionável em tempo útil.
+        </p>
+        <div class="quote">Painéis bonitos não viram conduta clínica.</div>
+      </div>
+      <div class="falha-card">
+        <div class="num">03</div>
+        <h3>Alertas sem alcance</h3>
+        <p>
+          Portais governamentais não chegam ao agente comunitário, ao ribeirinho, ao gestor de escola pública. Disseminação multi‑canal é tratada como afterthought, não como design.
+        </p>
+        <div class="quote">Um alerta sem canal é arquivo no servidor.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="chrome-bot">
+    <span class="wordmark">clima<span class="alt">SUS</span></span>
+    <span>04 / 12</span>
+  </div>
+</section>
+
+<!-- ============ SLIDE 5 — ECOSSISTEMA ============ -->
+<section data-screen-label="05 Ecossistema" class="eco">
+  <div class="chrome-top">
+    <span>§ 03 · Resposta</span>
+    <span>— ecossistema climaSUS</span>
+  </div>
+
+  <div class="frame">
+    <div class="eco-head">
+      <div>
+        <div class="label primary">A resposta</div>
+        <h2 class="stats-title">Cinco componentes, <br/>uma arquitetura <span class="it">aberta</span>.</h2>
+      </div>
+      <p class="stats-sub">
+        Cinco produtos integrados — todos em código aberto, todos calibrados para o contexto brasileiro, todos pensados para a ponta do SUS.
+      </p>
+    </div>
+
+    <div class="eco-grid">
+      <div class="eco-item">
+        <div>
+          <div class="marker">01 · Biblioteca R</div>
+          <h3 class="name">climasus<span class="alt">4r</span></h3>
+          <p class="desc">Integração, análise e modelagem de dados de clima, ambiente e saúde em R.</p>
+        </div>
+        <div class="role">Pesquisa · Vigilância</div>
+      </div>
+      <div class="eco-item">
+        <div>
+          <div class="marker">02 · Biblioteca Python</div>
+          <h3 class="name">climasus<span class="alt">4py</span></h3>
+          <p class="desc">Mesmo arcabouço científico em Python, para pipelines e aprendizado de máquina.</p>
+        </div>
+        <div class="role">Modelagem · ML</div>
+      </div>
+      <div class="eco-item">
+        <div>
+          <div class="marker">03 · Plataforma</div>
+          <h3 class="name">climasus<span class="alt">+</span></h3>
+          <p class="desc">Plataforma ponto‑e‑clique que traz as funções científicas para gestores e técnicos, sem programação.</p>
+        </div>
+        <div class="role">Gestores · SUS</div>
+      </div>
+      <div class="eco-item">
+        <div>
+          <div class="marker">04 · Capacitação</div>
+          <h3 class="name">climasus<span class="alt">Educa</span></h3>
+          <p class="desc">Formação de gestores, técnicos e pesquisadores em clima e saúde — capilaridade institucional.</p>
+        </div>
+        <div class="role">Formação · Rede</div>
+      </div>
+      <div class="eco-item featured">
+        <div>
+          <div class="marker">05 · Operacional</div>
+          <h3 class="name">climasus<span class="alt">Alerta</span></h3>
+          <p class="desc">Plataforma operacional de alertas precoces multi‑perigo — SACS, SAQS, SASS.</p>
+        </div>
+        <div class="role">Em destaque</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="chrome-bot">
+    <span class="wordmark">clima<span class="alt">SUS</span></span>
+    <span>05 / 12</span>
+  </div>
+</section>
+
+<!-- ============ SLIDE 6 — 4 PILARES MHEWS ============ -->
+<section data-screen-label="06 4 Pilares MHEWS" class="pilares">
+  <div class="chrome-top">
+    <span>§ 04 · Framework</span>
+    <span>— Multi‑Hazard Early Warning System · WMO</span>
+  </div>
+
+  <div class="frame">
+    <div class="pilares-head">
+      <div>
+        <div class="label primary">Fundamentos técnicos</div>
+        <h2 class="stats-title">Quatro <span class="it">pilares</span> orientadores.</h2>
+      </div>
+      <p class="stats-sub">
+        Framework MHEWS da Organização Meteorológica Mundial — cada sistema da plataforma cumpre, deliberadamente, os quatro pilares.
+      </p>
+    </div>
+
+    <div class="pilares-grid">
+      <div class="pilar-col">
+        <div class="num">01</div>
+        <h4>Conhecimento <br/>do risco</h4>
+        <p>Mapeamento contínuo de exposição, vulnerabilidade e capacidade adaptativa nos territórios.</p>
+      </div>
+      <div class="pilar-col">
+        <div class="num">02</div>
+        <h4>Monitoramento <br/>e previsão</h4>
+        <p>Detecção e modelagem antecipatória do perigo, em alta resolução espaço‑temporal.</p>
+      </div>
+      <div class="pilar-col">
+        <div class="num">03</div>
+        <h4>Disseminação <br/>de alertas</h4>
+        <p>Mensagem no canal certo, na linguagem certa, em tempo útil para quem precisa agir.</p>
+      </div>
+      <div class="pilar-col">
+        <div class="num">04</div>
+        <h4>Capacidade <br/>de resposta</h4>
+        <p>Resposta institucional do SUS e ação comunitária preparada e coordenada.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="chrome-bot">
+    <span class="wordmark">clima<span class="alt">SUS</span></span>
+    <span>06 / 12</span>
+  </div>
+</section>
+
+<!-- ============ SLIDE 7 — SACS HHWS ============ -->
+<section data-screen-label="07 SACS HHWS" class="sacs">
+  <div class="chrome-top">
+    <span>§ 05 · Sistema em foco</span>
+    <span>— SACS‑Amazônia · Calor</span>
+  </div>
+
+  <div class="frame">
+    <div class="sacs-head">
+      <div>
+        <div class="label primary">Sistema 01 / 03</div>
+        <h2 class="stats-title">SACS‑Amazônia — <br/>alerta de <span class="it">calor</span>.</h2>
+      </div>
+      <p class="stats-sub">
+        Heat‑Health Warning System tropicalizado, calibrado por percentil climatológico local — município a município.
+      </p>
+    </div>
+
+    <div class="sacs-body">
+      <div class="sacs-left">
+        <p class="lede">
+          Limiar percentílico no <span class="em">P90 local</span>, em vez de limiar absoluto importado de zonas temperadas. Validação retrospectiva sobre cinco anos do SIM e do SIH.
+        </p>
+
+        <div class="sacs-attrs">
+          <div class="sacs-attr">
+            <span class="k">Fonte climatológica</span>
+            <span class="v">INMET · estações automáticas <span class="em">· coleta horária</span></span>
+          </div>
+          <div class="sacs-attr">
+            <span class="k">Índices bioclimáticos</span>
+            <span class="v">15 indicadores · WBGT, HI, UTCI, PET, THI…</span>
+          </div>
+          <div class="sacs-attr">
+            <span class="k">Endpoint de saúde</span>
+            <span class="v">Mortalidade excessiva ≥ 65 anos · CID‑10</span>
+          </div>
+          <div class="sacs-attr">
+            <span class="k">Sensibilidade alvo</span>
+            <span class="v"><span class="em">≥ 0,84</span> · especificidade ≥ 0,70 · PSS &gt; 0,30</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="sacs-niveis">
+        <div class="nivel n1">
+          <span class="code">N1</span>
+          <div class="body">
+            <h5>Atenção</h5>
+            <p>Monitoramento intensificado</p>
+          </div>
+          <div class="trigger">1 dia &gt;P90<br/>HI &gt; 48 °C</div>
+        </div>
+        <div class="nivel n2">
+          <span class="code">N2</span>
+          <div class="body">
+            <h5>Aviso público</h5>
+            <p>Comunicação ampla</p>
+          </div>
+          <div class="trigger">≥ 2 dias<br/>excesso 5–15%</div>
+        </div>
+        <div class="nivel n3">
+          <span class="code">N3</span>
+          <div class="body">
+            <h5>Emergência</h5>
+            <p>Protocolos de crise</p>
+          </div>
+          <div class="trigger">≥ 3 dias<br/>excesso &gt; 10%</div>
+        </div>
+        <div class="nivel n4">
+          <span class="code">N4</span>
+          <div class="body">
+            <h5>Extrema</h5>
+            <p>Standby de evacuação</p>
+          </div>
+          <div class="trigger">≥ 5 dias<br/>HI &gt; 52 °C</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="chrome-bot">
+    <span class="wordmark">clima<span class="alt">SUS</span></span>
+    <span>07 / 12</span>
+  </div>
+</section>
+
+<!-- ============ SLIDE 8 — SAQS + SASS ============ -->
+<section data-screen-label="08 SAQS SASS" class="dois-sist">
+  <div class="chrome-top">
+    <span>§ 05 · Demais sistemas</span>
+    <span>— qualidade do ar &amp; secas</span>
+  </div>
+
+  <div class="frame">
+    <div class="dois-sist-head">
+      <div>
+        <div class="label primary">Sistemas 02 e 03 / 03</div>
+        <h2 class="stats-title">Para além do calor: <br/><span class="it">ar</span> e <span class="it">seca</span>.</h2>
+      </div>
+      <p class="stats-sub">
+        Cada perigo demanda ciência, sensores e cadeia de resposta próprios. A plataforma compartilha o motor; os sistemas mantêm autonomia metodológica.
+      </p>
+    </div>
+
+    <div class="dois-sist-grid">
+      <div class="sist-card">
+        <div class="marker"><span class="dot"></span>Sistema 02 · Em piloto</div>
+        <h3 class="name">SAQS<span style="color:var(--primary); font-weight:500;">·</span>Amazônia</h3>
+        <div class="tag">Qualidade do ar · PM 2.5</div>
+        <p class="desc">
+          Vigilância hiperlocal com <span class="em">redes densas de sensores IoT</span> de baixo custo. Alertas bairro‑a‑bairro durante incêndios florestais, via algoritmo NowCast brasileiro.
+        </p>
+        <div class="attrs">
+          <div class="row">
+            <span class="k">Sensores</span>
+            <span class="v">240 unidades · 12 cidades amazônicas</span>
+          </div>
+          <div class="row">
+            <span class="k">Método</span>
+            <span class="v">NowCast calibrado por queimadas</span>
+          </div>
+          <div class="row">
+            <span class="k">Saúde</span>
+            <span class="v">Doenças respiratórias agudas, asma</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="sist-card">
+        <div class="marker"><span class="dot"></span>Sistema 03 · Em desenvolvimento</div>
+        <h3 class="name">SASS<span style="color:var(--primary); font-weight:500;">·</span>Amazônia</h3>
+        <div class="tag">Secas · S2S</div>
+        <p class="desc">
+          Perigos de <span class="em">início lento</span>, com previsões em escala sub‑sazonal e sazonal — semanas a meses de antecedência. Integra segurança alimentar e doenças hídricas.
+        </p>
+        <div class="attrs">
+          <div class="row">
+            <span class="k">Horizonte</span>
+            <span class="v">S2S · ECMWF · NCEP · CPTEC</span>
+          </div>
+          <div class="row">
+            <span class="k">Índices</span>
+            <span class="v">SPI · SPEI · vazão · cadeia ao incêndio</span>
+          </div>
+          <div class="row">
+            <span class="k">Parcerias</span>
+            <span class="v">SESAI · populações indígenas</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="chrome-bot">
+    <span class="wordmark">clima<span class="alt">SUS</span></span>
+    <span>08 / 12</span>
+  </div>
+</section>
+
+<!-- ============ SLIDE 9 — CANAIS ============ -->
+<section data-screen-label="09 Canais" class="canais">
+  <div class="chrome-top">
+    <span>§ 06 · Disseminação</span>
+    <span>— família de canais por sistema</span>
+  </div>
+
+  <div class="frame">
+    <div class="canais-head">
+      <div>
+        <div class="label primary">O alerta no canal certo</div>
+        <h2 class="stats-title">Cinco canais <br/>por sistema, <span class="it">deliberados</span>.</h2>
+      </div>
+      <p class="stats-sub">
+        Para cada perigo, cinco interfaces especializadas. Cada canal cumpre, de forma intencional, um pilar do MHEWS — conhecimento, disseminação, resposta.
+      </p>
+    </div>
+
+    <div class="canais-grid">
+      <div class="canais-trunk">
+        <div class="label">SACS · SAQS · SASS</div>
+        <div class="lede">Mesmo dado científico, cinco linguagens.</div>
+        <p class="sub">
+          Sem isso, o alerta não vira ação. Painéis web no portal não chegam ao agente comunitário, à UBS, à escola ou ao ribeirinho.
+        </p>
+      </div>
+
+      <div class="canais-cards">
+        <div class="canal">
+          <div class="icon">▢ Painel web</div>
+          <div>
+            <div class="who">Gestores</div>
+            <div class="what">Secretarias de Saúde · decisão municipal</div>
+          </div>
+        </div>
+        <div class="canal">
+          <div class="icon">□ Móvel</div>
+          <div>
+            <div class="who">Cidadão &amp; ACS</div>
+            <div class="what">Push geolocalizado · agentes comunitários</div>
+          </div>
+        </div>
+        <div class="canal">
+          <div class="icon">△ Institucional</div>
+          <div>
+            <div class="who">Defesa Civil</div>
+            <div class="what">Protocolos de crise · CEMADEN · PNPDEC</div>
+          </div>
+        </div>
+        <div class="canal">
+          <div class="icon">+ Atenção básica</div>
+          <div>
+            <div class="who">UBS &amp; SESAI</div>
+            <div class="what">Idosos · ribeirinhos · indígenas · gestantes</div>
+          </div>
+        </div>
+        <div class="canal">
+          <div class="icon">◇ Massivo</div>
+          <div>
+            <div class="who">TV · Rádio · WhatsApp</div>
+            <div class="what">Boletim · rádio comunitária · mídia automatizada</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="chrome-bot">
+    <span class="wordmark">clima<span class="alt">SUS</span></span>
+    <span>09 / 12</span>
+  </div>
+</section>
+
+<!-- ============ SLIDE 10 — PIPELINE / INFRAESTRUTURA ABERTA ============ -->
+<section data-screen-label="10 Pipeline" class="pipeline">
+  <div class="chrome-top">
+    <span>§ 07 · Infraestrutura</span>
+    <span>— pipeline INMET → SACS</span>
+  </div>
+
+  <div class="frame">
+    <div class="pipeline-head">
+      <div>
+        <div class="label primary">Sob o capô</div>
+        <h2 class="stats-title">Da estação <br/>de coleta à <span class="it">decisão</span>.</h2>
+      </div>
+      <p class="stats-sub">
+        Atualização contínua · detecção a cada 30 s · 15 índices bioclimáticos computados via climasus4r.
+      </p>
+    </div>
+
+    <div class="pipeline-body">
+      <div class="pipeline-left">
+        <p class="lede">
+          Toda a base científica do climaSUS é <span class="em">código aberto</span> — bibliotecas em CRAN e PyPI, dados FAIR no Zenodo, documentação trilíngue.
+        </p>
+
+        <div class="pipeline-stats">
+          <div class="pipeline-stat">
+            <div class="v">30s</div>
+            <div class="l">Latência de detecção de novo dado</div>
+          </div>
+          <div class="pipeline-stat">
+            <div class="v">15</div>
+            <div class="l">Índices bioclimáticos automáticos</div>
+          </div>
+          <div class="pipeline-stat">
+            <div class="v">≥ 90%</div>
+            <div class="l">Cobertura de testes do código</div>
+          </div>
+          <div class="pipeline-stat">
+            <div class="v">MIT</div>
+            <div class="l">Licença · livre uso e contribuição</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="pipeline-flow">
+        <div class="flow-step">
+          <div class="n">01</div>
+          <div class="body">
+            <div class="lbl">Fonte</div>
+            <div class="desc">Estações automáticas INMET · API horária</div>
+          </div>
+        </div>
+        <div class="flow-step">
+          <div class="n">02</div>
+          <div class="body">
+            <div class="lbl">Download</div>
+            <div class="desc">inmet_download_faster.py</div>
+          </div>
+        </div>
+        <div class="flow-step">
+          <div class="n">03</div>
+          <div class="body">
+            <div class="lbl">Consolidação</div>
+            <div class="desc">master_observations.parquet</div>
+          </div>
+        </div>
+        <div class="flow-step">
+          <div class="n">04</div>
+          <div class="body">
+            <div class="lbl">Watcher</div>
+            <div class="desc">SACS detecta novo Parquet a cada 30 s</div>
+          </div>
+        </div>
+        <div class="flow-step">
+          <div class="n">05</div>
+          <div class="body">
+            <div class="lbl">Índices</div>
+            <div class="desc">15 índices bioclimáticos · climasus4r</div>
+          </div>
+        </div>
+        <div class="flow-step last">
+          <div class="n">06</div>
+          <div class="body">
+            <div class="lbl">Motor de alerta</div>
+            <div class="desc">Limiar P90 → nível N1–N4 → resposta</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="chrome-bot">
+    <span class="wordmark">clima<span class="alt">SUS</span></span>
+    <span>10 / 12</span>
+  </div>
+</section>
+
+<!-- ============ SLIDE 11 — ROADMAP / IMPACTO ============ -->
+<section data-screen-label="11 Roadmap" class="roadmap">
+  <div class="chrome-top">
+    <span>§ 08 · Roadmap</span>
+    <span>— cronograma e impacto projetado</span>
+  </div>
+
+  <div class="frame">
+    <div class="roadmap-head">
+      <div>
+        <div class="label primary">Cinco anos · quatro fases</div>
+        <h2 class="stats-title">Roadmap & <span class="it">impacto</span> projetado.</h2>
+      </div>
+      <p class="stats-sub">
+        Programa quinquenal · USD 12,8 M · 8 pacotes de trabalho · consórcio nacional liderado por UFRN, Fiocruz, INMET e CEMADEN.
+      </p>
+    </div>
+
+    <div class="roadmap-body">
+      <div class="roadmap-track">
+        <div class="phase">
+          <div class="year">Ano 01<span class="big">2026</span></div>
+          <div class="desc">Fundação · consórcio · climasus4r v2 no CRAN · <span class="em">SACS calibrado em 100 municípios‑piloto</span></div>
+        </div>
+        <div class="phase">
+          <div class="year">Ano 02–03<span class="big">2027 → 28</span></div>
+          <div class="desc">Desenvolvimento · climasus+ MVP · SAQS rede inicial 60 sensores · SASS protótipo · <span class="em">trial RCT lançado</span></div>
+        </div>
+        <div class="phase">
+          <div class="year">Ano 04<span class="big">2029</span></div>
+          <div class="desc">Escala · <span class="em">cobertura total dos 772 municípios da Amazônia Legal</span> · 5 canais ativos em cada sistema</div>
+        </div>
+        <div class="phase">
+          <div class="year">Ano 05<span class="big">2030 → 31</span></div>
+          <div class="desc">Avaliação e transição · resultados primários do RCT · <span class="em">portaria do MS de integração permanente</span></div>
+        </div>
+      </div>
+
+      <div class="impacto-card">
+        <div class="head">Impacto projetado · M60</div>
+        <h3>O que muda quando o programa <span class="em">termina</span>.</h3>
+        <div class="impacto-list">
+          <div class="impacto-item">
+            <div class="v">28 M</div>
+            <div class="l">Pessoas alcançadas na Amazônia Legal</div>
+          </div>
+          <div class="impacto-item">
+            <div class="v">2 400</div>
+            <div class="l">Profissionais formados em clima e saúde</div>
+          </div>
+          <div class="impacto-item">
+            <div class="v">≥ 12%</div>
+            <div class="l">Redução projetada na mortalidade por calor</div>
+          </div>
+          <div class="impacto-item">
+            <div class="v">USD 60 M</div>
+            <div class="l">Custo anual evitado em saúde · estimativa</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="chrome-bot">
+    <span class="wordmark">clima<span class="alt">SUS</span></span>
+    <span>11 / 12</span>
+  </div>
+</section>
+
+<!-- ============ SLIDE 12 — CONCLUSÃO ============ -->
+<section data-screen-label="12 Conclusão" class="conclusao">
+  <div class="chrome-top">
+    <span>§ 09 · Encerramento</span>
+    <span>— climaSUS · ABRASCO 2026</span>
+  </div>
+
+  <div class="frame">
+    <div class="top">
+      <div class="label primary">Conclusão</div>
+      <h2 class="title">
+        Antecipar para <br/><span class="em">proteger</span>.
+      </h2>
+      <p class="sub">
+        O climaSUS é, simultaneamente, infraestrutura científica, política pública e ação clínica concreta — uma proposta para entregar, em cinco anos, um sistema operacional, validado e adotado, que proteja vidas amazônicas antes que o próximo evento extremo chegue.
+      </p>
+    </div>
+
+    <div class="contacts">
+      <div class="contact-col">
+        <div class="k">Apresentação</div>
+        <div class="v">[Nome do(a) apresentador(a)]<br/>UFRN · climaSUS</div>
+      </div>
+      <div class="contact-col">
+        <div class="k">Contato</div>
+        <div class="v mono">contato@climasus.org<br/>climasus.org</div>
+      </div>
+      <div class="contact-col">
+        <div class="k">Código aberto</div>
+        <div class="v mono">github.com/climasus<br/>licença MIT · CC BY 4.0</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="chrome-bot">
+    <span class="wordmark">clima<span class="alt">SUS</span></span>
+    <span>obrigado · perguntas?</span>
+  </div>
+</section>
+
+</deck-stage>
+
+<script src="deck-stage.js"></script>
+</body>
+</html>

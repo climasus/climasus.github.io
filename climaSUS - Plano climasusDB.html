@@ -1,0 +1,448 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>climasusDB — Plano de Desenvolvimento</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,500&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  doc-page:not(:defined) { visibility: hidden; }
+
+  :root {
+    --ink: #052E2B;
+    --ink-2: #063B33;
+    --muted: #5E7772;
+    --rule: rgba(5,46,43,0.14);
+    --rule-soft: rgba(5,46,43,0.08);
+    --health: #0E7A5F;
+    --health-2: #42D392;
+    --climate: #1D9BF0;
+    --climate-2: #6AE6F2;
+    --drought: #E0921B;
+    --heat: #E5482A;
+    --paper-tint: #F4FBF8;
+    --paper-tint-2: #EEF7FF;
+  }
+
+  doc-page {
+    font-family: "IBM Plex Sans", sans-serif;
+    color: var(--ink);
+    font-size: 10.6pt;
+    line-height: 1.55;
+    background: #fff;
+  }
+
+  /* ---------- Typographic system ---------- */
+  h1, h2, h3, h4 { font-family: "Newsreader", serif; font-weight: 600; letter-spacing: -0.01em; color: var(--ink); }
+  .doc-eyebrow {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 8pt; letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--health); margin: 0 0 10px;
+  }
+  h1 { font-size: 30pt; line-height: 1.02; margin: 0 0 14px; letter-spacing: -0.03em; }
+  h1 .alt {
+    font-style: italic; font-weight: 500;
+    background: linear-gradient(100deg, var(--climate), var(--health) 55%, var(--drought));
+    -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+  }
+  h2 {
+    font-size: 16pt; margin: 30px 0 12px; padding-top: 16px;
+    border-top: 1.5px solid var(--rule);
+    display: flex; align-items: baseline; gap: 12px;
+  }
+  h2 .n {
+    font-family: "IBM Plex Mono", monospace; font-size: 9.5pt; font-weight: 500;
+    color: var(--health); letter-spacing: 0.04em; flex-shrink: 0;
+  }
+  h3 { font-size: 12pt; margin: 18px 0 6px; }
+  h4 { font-size: 10.5pt; margin: 14px 0 4px; font-weight: 600; font-family: "IBM Plex Sans"; }
+  p { margin: 0 0 10px; text-wrap: pretty; }
+  strong { font-weight: 600; color: var(--ink-2); }
+  .lead { font-size: 11.6pt; line-height: 1.6; color: var(--ink-2); }
+  .mono { font-family: "IBM Plex Mono", monospace; }
+
+  a { color: var(--climate); text-decoration: none; }
+
+  /* ---------- Cover header block ---------- */
+  .cover { margin-bottom: 8px; }
+  .cover__meta {
+    display: flex; flex-wrap: wrap; gap: 6px 26px; margin-top: 18px;
+    padding: 14px 0; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule);
+    font-family: "IBM Plex Mono", monospace; font-size: 8.2pt; color: var(--muted);
+    letter-spacing: 0.04em;
+  }
+  .cover__meta b { color: var(--ink); font-weight: 600; }
+
+  /* ---------- Lists ---------- */
+  ul, ol { margin: 4px 0 12px; padding-left: 20px; }
+  li { margin: 0 0 5px; text-wrap: pretty; }
+  ul.clean { list-style: none; padding-left: 0; }
+  ul.clean > li {
+    padding-left: 20px; position: relative;
+  }
+  ul.clean > li::before {
+    content: ""; position: absolute; left: 2px; top: 8px;
+    width: 6px; height: 6px; border-radius: 2px; background: var(--health-2);
+  }
+
+  /* ---------- Callout / summary box ---------- */
+  .box {
+    background: var(--paper-tint); border: 1px solid var(--rule-soft);
+    border-left: 3px solid var(--health); border-radius: 10px;
+    padding: 16px 18px; margin: 14px 0; break-inside: avoid;
+  }
+  .box.climate { background: var(--paper-tint-2); border-left-color: var(--climate); }
+  .box h4 { margin-top: 0; }
+
+  /* ---------- Layered architecture ---------- */
+  .layers { margin: 12px 0 6px; }
+  .layer {
+    display: grid; grid-template-columns: 34px 150px 1fr; gap: 16px; align-items: start;
+    padding: 12px 0; border-bottom: 1px solid var(--rule-soft); break-inside: avoid;
+  }
+  .layer:last-child { border-bottom: none; }
+  .layer__n {
+    font-family: "IBM Plex Mono", monospace; font-weight: 600; font-size: 12pt;
+    color: #fff; background: var(--health); border-radius: 8px;
+    width: 34px; height: 34px; display: flex; align-items: center; justify-content: center;
+  }
+  .layer:nth-child(2) .layer__n { background: var(--climate); }
+  .layer:nth-child(3) .layer__n { background: var(--health); }
+  .layer:nth-child(4) .layer__n { background: var(--drought); }
+  .layer:nth-child(5) .layer__n { background: var(--climate); }
+  .layer:nth-child(6) .layer__n { background: var(--heat); }
+  .layer__name { font-family: "Newsreader", serif; font-weight: 600; font-size: 11.5pt; line-height: 1.15; }
+  .layer__name .tech { display: block; font-family: "IBM Plex Mono", monospace; font-size: 7.6pt; letter-spacing: 0.06em; color: var(--muted); margin-top: 3px; text-transform: uppercase; }
+  .layer__desc { font-size: 10pt; color: var(--ink-2); }
+
+  /* ---------- Source domains ---------- */
+  .domains { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 14px 0; }
+  .domain { border: 1px solid var(--rule-soft); border-radius: 10px; padding: 13px 14px; break-inside: avoid; }
+  .domain.saude { border-top: 3px solid var(--health-2); }
+  .domain.clima { border-top: 3px solid var(--climate-2); }
+  .domain.amb   { border-top: 3px solid var(--drought); }
+  .domain h4 { margin: 0 0 6px; font-family: "Newsreader", serif; font-size: 11.5pt; }
+  .domain ul { margin: 0; padding-left: 16px; font-size: 9.2pt; line-height: 1.5; }
+  .domain li { margin-bottom: 3px; }
+
+  /* ---------- Roadmap phases ---------- */
+  .phase {
+    display: grid; grid-template-columns: 92px 1fr; gap: 18px;
+    padding: 16px 0; border-top: 1px solid var(--rule-soft); break-inside: avoid;
+  }
+  .phase__tag { }
+  .phase__tag .ph { font-family: "IBM Plex Mono", monospace; font-size: 8pt; letter-spacing: 0.14em; text-transform: uppercase; color: var(--health); font-weight: 600; }
+  .phase__tag .when { display: block; font-family: "Newsreader", serif; font-size: 12pt; font-weight: 600; margin-top: 2px; }
+  .phase__body h3 { margin-top: 0; }
+  .phase__body .deliv { font-family: "IBM Plex Mono", monospace; font-size: 8.4pt; color: var(--muted); margin-top: 6px; }
+  .phase__body .deliv b { color: var(--ink); }
+
+  /* ---------- Table ---------- */
+  table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 9.4pt; }
+  th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--rule-soft); vertical-align: top; }
+  th { font-family: "IBM Plex Mono", monospace; font-size: 7.8pt; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); font-weight: 600; border-bottom: 1.5px solid var(--rule); }
+  tbody tr:last-child td { border-bottom: none; }
+  td .mono { font-size: 8.8pt; }
+
+  /* ---------- Two column ---------- */
+  .cols2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+
+  /* ---------- Running header / footer ---------- */
+  .rh, .rf {
+    font-family: "IBM Plex Mono", monospace; font-size: 7.6pt; letter-spacing: 0.08em;
+    color: var(--muted); display: flex; justify-content: space-between; align-items: center;
+    padding: 6px 0;
+  }
+  .rh { border-bottom: 1px solid var(--rule-soft); }
+  .rf { border-top: 1px solid var(--rule-soft); }
+  .rh b, .rf b { color: var(--ink); font-weight: 600; }
+  .badge { font-family:"IBM Plex Mono",monospace; font-size:7.4pt; letter-spacing:0.1em; text-transform:uppercase; color:var(--health); border:1px solid var(--health-2); border-radius:999px; padding:2px 9px; }
+</style>
+</head>
+<body>
+<doc-page size="a4" margin="18mm">
+
+  <div slot="header" class="rh">
+    <span>clima<b>SUS</b> · climasus<b>DB</b></span>
+    <span>Plano de Desenvolvimento</span>
+  </div>
+  <div slot="footer" class="rf">
+    <span>Documento técnico · v1.0 · Jul 2026</span>
+    <span>Confidencial · rede climaSUS</span>
+  </div>
+
+  <!-- ===================== COVER ===================== -->
+  <section class="cover">
+    <p class="doc-eyebrow">Plano de desenvolvimento · Produto de dados</p>
+    <h1>climasus<span class="alt">DB</span><br>a base de dados integrados de clima, saúde e ambiente do Brasil</h1>
+    <p class="lead">Plano técnico-institucional para conceber, construir e colocar em produção o climasusDB — o data commons do ecossistema climaSUS — alimentado pelas rotinas científicas das bibliotecas climasus4r e climasus4py e desenvolvido com apoio dos modelos mais avançados da Claude (Claude Code).</p>
+    <div class="cover__meta">
+      <span><b>Produto:</b> climasusDB (04 · Banco de dados)</span>
+      <span><b>Ecossistema:</b> climaSUS</span>
+      <span><b>Horizonte:</b> 18 meses · 5 fases</span>
+      <span><b>Motor científico:</b> climasus4r · climasus4py</span>
+    </div>
+  </section>
+
+  <!-- ===================== 1. SUMÁRIO ===================== -->
+  <h2><span class="n">01</span> Sumário executivo</h2>
+  <p>O <strong>climasusDB</strong> é o produto de dados do ecossistema climaSUS: uma infraestrutura de dados <em>analysis-ready</em> que reúne, harmoniza, versiona e publica — numa única grade comum (<span class="mono">município IBGE × tempo</span>) — os três universos hoje dispersos em dezenas de fontes oficiais: <strong>saúde</strong> (DATASUS), <strong>clima</strong> (INMET, ERA5, INPE) e <strong>ambiente</strong> (MapBiomas, queimadas, ANA). Todo o processamento é executado pelas funções já consolidadas das bibliotecas <span class="mono">climasus4r</span> e <span class="mono">climasus4py</span>, garantindo que o dado disponibilizado seja reprodutível, rastreável e citável.</p>
+  <p>Este plano detalha a arquitetura em camadas, o stack tecnológico, o roadmap em cinco fases (18 meses), o modelo de governança e conformidade com a LGPD, e a metodologia de desenvolvimento assistido por IA que acelera a construção sem comprometer o rigor científico. Ao final, o climasusDB estará em produção com três portas de acesso — API + clientes R/Python, hub de computação em nuvem e portal público — servindo pesquisadores, gestores do SUS e o público geral.</p>
+
+  <div class="box">
+    <h4>Proposta de valor em uma frase</h4>
+    <p style="margin:0;">Transformar semanas de garimpo, limpeza e cruzamento de fontes heterogêneas em uma <strong>consulta reprodutível de segundos</strong> — colocando o Brasil na fronteira mundial dos <em>data commons</em> de clima e saúde, ancorado no SUS.</p>
+  </div>
+
+  <!-- ===================== 2. VISÃO ===================== -->
+  <h2><span class="n">02</span> Visão, princípios e objetivos</h2>
+  <div class="cols2">
+    <div>
+      <h4>Objetivos</h4>
+      <ul class="clean">
+        <li>Unificar clima, saúde e ambiente em uma <strong>grade comum</strong> reprodutível.</li>
+        <li>Entregar dados <strong>prontos para análise</strong>, dispensando pré-processamento pelo usuário.</li>
+        <li>Garantir <strong>reprodutibilidade total</strong>: cada dataset com versão, proveniência e DOI.</li>
+        <li>Servir três públicos com <strong>três portas de acesso</strong> distintas.</li>
+        <li>Operar em <strong>nuvem escalável</strong>, com formatos cloud-optimized.</li>
+      </ul>
+    </div>
+    <div>
+      <h4>Princípios norteadores</h4>
+      <ul class="clean">
+        <li><strong>FAIR</strong> — dados localizáveis, acessíveis, interoperáveis e reutilizáveis.</li>
+        <li><strong>Ciência aberta</strong> — código, pipelines e catálogo públicos.</li>
+        <li><strong>Privacidade por concepção</strong> — dados de saúde sempre agregados e anonimizados (LGPD).</li>
+        <li><strong>Reprodutibilidade</strong> — pipeline versionado; nada é editado manualmente.</li>
+        <li><strong>Soberania de dados</strong> — hospedagem nacional preferencial.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ===================== 3. ARQUITETURA ===================== -->
+  <h2><span class="n">03</span> Arquitetura em camadas</h2>
+  <p>O climasusDB adota uma arquitetura de <em>data lakehouse</em> em seis camadas, do dado bruto à porta de acesso. Cada camada é modular, versionada e observável.</p>
+  <div class="layers">
+    <div class="layer">
+      <div class="layer__n">1</div>
+      <div class="layer__name">Ingestão<span class="tech">connectors · schedulers</span></div>
+      <div class="layer__desc">Conectores automáticos às fontes oficiais (DATASUS, INMET, INPE, ANA, IBGE, MapBiomas), com agendamento, controle de versão da fonte e detecção de atualização. Orquestração por Apache Airflow / Prefect.</div>
+    </div>
+    <div class="layer">
+      <div class="layer__n">2</div>
+      <div class="layer__name">Harmonização<span class="tech">climasus4r · climasus4py</span></div>
+      <div class="layer__desc">O coração científico. As bibliotecas normalizam unidades, calendários e geografias, imputam faltantes e reprojetam tudo à grade município × tempo. Cada transformação é uma função versionada e testada.</div>
+    </div>
+    <div class="layer">
+      <div class="layer__n">3</div>
+      <div class="layer__name">Armazenamento<span class="tech">parquet · zarr · cog</span></div>
+      <div class="layer__desc">Camadas Bronze (bruto), Silver (limpo) e Gold (analysis-ready) em object storage. Formatos cloud-optimized: Parquet (tabular/saúde), Zarr (clima em grade), COG (raster/ambiente).</div>
+    </div>
+    <div class="layer">
+      <div class="layer__n">4</div>
+      <div class="layer__name">Catálogo<span class="tech">stac · metadados · doi</span></div>
+      <div class="layer__desc">Descoberta padrão STAC (SpatioTemporal Asset Catalog) com metadados ricos, dicionário de variáveis, linhagem (proveniência) e emissão de DOI por dataset para citação acadêmica.</div>
+    </div>
+    <div class="layer">
+      <div class="layer__n">5</div>
+      <div class="layer__name">Acesso<span class="tech">api · hub · portal</span></div>
+      <div class="layer__desc">Três portas: (a) API REST/OGC + clientes nativos R/Python; (b) hub de computação (JupyterHub/RStudio) — "leve o código até o dado"; (c) portal público com atlas interativo e download CSV.</div>
+    </div>
+    <div class="layer">
+      <div class="layer__n">6</div>
+      <div class="layer__name">Governança<span class="tech">lgpd · segurança · qualidade</span></div>
+      <div class="layer__desc">Camada transversal: controle de acesso, trilhas de auditoria, testes de qualidade de dados (Great Expectations), conformidade LGPD e monitoramento de disponibilidade e latência.</div>
+    </div>
+  </div>
+
+  <!-- ===================== 4. FONTES ===================== -->
+  <h2><span class="n">04</span> Universos e fontes de dados</h2>
+  <p>A grade comum é o município (código IBGE) na dimensão espacial e o dia/semana epidemiológica na dimensão temporal. Sobre ela convergem três universos:</p>
+  <div class="domains">
+    <div class="domain saude">
+      <h4>Saúde</h4>
+      <ul>
+        <li>SIM — mortalidade</li>
+        <li>SINAN — agravos notificáveis</li>
+        <li>SIH — internações (AIH)</li>
+        <li>SIA — atenção ambulatorial</li>
+        <li>e-SUS APS / SIVEP</li>
+      </ul>
+    </div>
+    <div class="domain clima">
+      <h4>Clima</h4>
+      <ul>
+        <li>INMET — estações de superfície</li>
+        <li>ERA5 — reanálise (ECMWF)</li>
+        <li>INPE — projeções / downscaling</li>
+        <li>CHIRPS / MERGE — precipitação</li>
+        <li>Índices de calor e seca</li>
+      </ul>
+    </div>
+    <div class="domain amb">
+      <h4>Ambiente</h4>
+      <ul>
+        <li>MapBiomas — uso e cobertura</li>
+        <li>TerraBrasilis — desmatamento</li>
+        <li>BDQueimadas — focos de calor</li>
+        <li>ANA — hidrologia / rios</li>
+        <li>Qualidade do ar (MP₂,₅, O₃)</li>
+      </ul>
+    </div>
+  </div>
+  <div class="box climate">
+    <h4>O papel do climasus4r / climasus4py</h4>
+    <p style="margin:0;">O climasusDB <strong>não reimplementa</strong> a ciência: ele operacionaliza, em escala e de forma agendada, as mesmas funções que os pesquisadores já usam nas bibliotecas. Uma rotina que hoje um pesquisador roda para um município passa a rodar para os 5.570 municípios, todo dia, com saída versionada. As bibliotecas são a <strong>fonte única de verdade</strong> das transformações — o que garante coerência entre o que se analisa localmente e o que se publica na plataforma.</p>
+  </div>
+
+  <!-- ===================== 5. STACK ===================== -->
+  <h2><span class="n">05</span> Stack tecnológico</h2>
+  <table>
+    <thead>
+      <tr><th>Camada</th><th>Tecnologia principal</th><th>Justificativa</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Orquestração</td><td class="mono">Apache Airflow / Prefect</td><td>Pipelines agendados, reexecutáveis e observáveis.</td></tr>
+      <tr><td>Processamento</td><td class="mono">climasus4r · climasus4py · Dask</td><td>Motor científico + paralelização para escala nacional.</td></tr>
+      <tr><td>Armazenamento</td><td class="mono">Object storage · Parquet/Zarr/COG</td><td>Cloud-optimized, leitura parcial, custo baixo.</td></tr>
+      <tr><td>Catálogo</td><td class="mono">STAC · PostGIS</td><td>Padrão geoespacial aberto e consultas espaciais.</td></tr>
+      <tr><td>API</td><td class="mono">FastAPI · pygeoapi (OGC)</td><td>Interface performática e aderente a padrões abertos.</td></tr>
+      <tr><td>Hub de computação</td><td class="mono">JupyterHub · RStudio Server</td><td>Análise junto ao dado, sem download de TB.</td></tr>
+      <tr><td>Portal público</td><td class="mono">React · MapLibre · Observable</td><td>Atlas interativo e download acessível.</td></tr>
+      <tr><td>Qualidade / testes</td><td class="mono">Great Expectations · pytest · testthat</td><td>Validação contínua de dados e de código.</td></tr>
+      <tr><td>Infraestrutura</td><td class="mono">Docker · Kubernetes · Terraform</td><td>Reprodutível, escalável e portável entre nuvens.</td></tr>
+    </tbody>
+  </table>
+
+  <!-- ===================== 6. METODOLOGIA IA ===================== -->
+  <h2><span class="n">06</span> Desenvolvimento assistido por Claude</h2>
+  <p>O desenvolvimento adota um fluxo de <strong>engenharia assistida por IA</strong>, usando os modelos mais avançados da Claude em ambiente <span class="mono">Claude Code</span>, sob supervisão humana em todas as etapas críticas. A IA acelera a construção; a equipe científica valida o rigor.</p>
+  <div class="cols2">
+    <div>
+      <h4>Onde a IA acelera</h4>
+      <ul class="clean">
+        <li>Geração de <strong>conectores</strong> às fontes a partir de suas especificações.</li>
+        <li><em>Scaffolding</em> de pipelines e testes de qualidade de dados.</li>
+        <li>Documentação, dicionários de variáveis e exemplos de uso.</li>
+        <li>Migração e refatoração entre R e Python mantendo paridade.</li>
+        <li>Geração de casos de teste e revisão de código.</li>
+      </ul>
+    </div>
+    <div>
+      <h4>Onde o humano decide</h4>
+      <ul class="clean">
+        <li>Escolhas metodológicas e definição de variáveis científicas.</li>
+        <li>Validação estatística e epidemiológica dos resultados.</li>
+        <li>Conformidade ética e legal (LGPD, comitês).</li>
+        <li>Curadoria e aprovação de cada dataset publicado.</li>
+        <li>Governança, prioridades e relação institucional.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ===================== 7. ROADMAP ===================== -->
+  <h2><span class="n">07</span> Roadmap — 5 fases, 18 meses</h2>
+
+  <div class="phase">
+    <div class="phase__tag"><span class="ph">Fase 1</span><span class="when">Meses 1–3</span></div>
+    <div class="phase__body">
+      <h3>Fundação &amp; prova de conceito</h3>
+      <p>Definição de arquitetura, esquema da grade comum e governança. Piloto com um recorte: mortalidade por calor × temperatura em um estado da Amazônia, ponta a ponta.</p>
+      <p class="deliv"><b>Entregáveis:</b> documento de arquitetura · esquema de dados · pipeline piloto · ambiente de nuvem provisionado.</p>
+    </div>
+  </div>
+
+  <div class="phase">
+    <div class="phase__tag"><span class="ph">Fase 2</span><span class="when">Meses 4–7</span></div>
+    <div class="phase__body">
+      <h3>Ingestão &amp; harmonização em escala</h3>
+      <p>Conectores para as principais fontes de saúde, clima e ambiente. Integração das funções climasus4r/4py como camada de harmonização. Camadas Bronze/Silver/Gold operacionais.</p>
+      <p class="deliv"><b>Entregáveis:</b> conectores automatizados · pipelines agendados · datasets Gold para 1–2 domínios · testes de qualidade.</p>
+    </div>
+  </div>
+
+  <div class="phase">
+    <div class="phase__tag"><span class="ph">Fase 3</span><span class="when">Meses 8–11</span></div>
+    <div class="phase__body">
+      <h3>Catálogo &amp; acesso programático</h3>
+      <p>Catálogo STAC com metadados e DOI. API REST/OGC e clientes nativos em R/Python, permitindo leitura direta a partir das bibliotecas.</p>
+      <p class="deliv"><b>Entregáveis:</b> catálogo STAC público · API documentada · pacotes cliente · emissão de DOI.</p>
+    </div>
+  </div>
+
+  <div class="phase">
+    <div class="phase__tag"><span class="ph">Fase 4</span><span class="when">Meses 12–15</span></div>
+    <div class="phase__body">
+      <h3>Hub de computação &amp; portal público</h3>
+      <p>Hub JupyterHub/RStudio na nuvem para análise junto ao dado. Portal público com atlas interativo, painéis e download em CSV para gestores e público geral.</p>
+      <p class="deliv"><b>Entregáveis:</b> hub de computação · portal público · atlas e painéis · tutoriais.</p>
+    </div>
+  </div>
+
+  <div class="phase">
+    <div class="phase__tag"><span class="ph">Fase 5</span><span class="when">Meses 16–18</span></div>
+    <div class="phase__body">
+      <h3>Produção, cobertura nacional &amp; sustentação</h3>
+      <p>Expansão para cobertura nacional de todos os domínios, endurecimento de segurança e desempenho, lançamento oficial e modelo de sustentação contínua.</p>
+      <p class="deliv"><b>Entregáveis:</b> plataforma em produção · cobertura nacional · plano de sustentação · governança de manutenção.</p>
+    </div>
+  </div>
+
+  <!-- ===================== 8. GOVERNANÇA ===================== -->
+  <h2><span class="n">08</span> Governança, LGPD &amp; sustentabilidade</h2>
+  <div class="cols2">
+    <div>
+      <h4>Conformidade &amp; ética</h4>
+      <ul class="clean">
+        <li>Dados de saúde exclusivamente <strong>agregados e anonimizados</strong>.</li>
+        <li>Adequação à <strong>LGPD</strong> e aos trâmites de comitês de ética.</li>
+        <li>Trilhas de auditoria e controle de acesso por perfil.</li>
+        <li>Licenciamento aberto com atribuição.</li>
+      </ul>
+    </div>
+    <div>
+      <h4>Sustentabilidade</h4>
+      <ul class="clean">
+        <li>Financiamento via editais (CNPq, MCTI, Ministério da Saúde).</li>
+        <li>Custo de nuvem otimizado por formatos e leitura parcial.</li>
+        <li>Modelo de manutenção com a rede interinstitucional.</li>
+        <li>Documentação e testes que reduzem custo de sustentação.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ===================== 9. MÉTRICAS & RISCOS ===================== -->
+  <h2><span class="n">09</span> Métricas de sucesso &amp; riscos</h2>
+  <div class="cols2">
+    <div>
+      <h4>Indicadores</h4>
+      <ul class="clean">
+        <li>Nº de datasets Gold publicados e citados (DOI).</li>
+        <li>Cobertura: % dos 5.570 municípios e período coberto.</li>
+        <li>Latência de atualização por fonte.</li>
+        <li>Usuários ativos (pesquisadores, gestores, público).</li>
+        <li>Reprodutibilidade: % de pipelines com teste verde.</li>
+      </ul>
+    </div>
+    <div>
+      <h4>Riscos &amp; mitigação</h4>
+      <ul class="clean">
+        <li><strong>Fontes instáveis</strong> → cache versionado + monitor de mudanças.</li>
+        <li><strong>Custo de nuvem</strong> → formatos cloud-optimized + tiering.</li>
+        <li><strong>Qualidade dos dados</strong> → validação automatizada por camada.</li>
+        <li><strong>Dependência de pessoas</strong> → documentação e automação.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="box">
+    <h4>Próximo passo imediato</h4>
+    <p style="margin:0;">Aprovar este plano, provisionar o ambiente de nuvem e iniciar a <strong>Fase 1</strong> com o piloto ponta a ponta (calor × mortalidade em um estado amazônico) — validando a arquitetura e a integração com o climasus4r/4py antes de escalar.</p>
+  </div>
+
+</doc-page>
+<script src="doc-page.js"></script>
+</body>
+</html>

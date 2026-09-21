@@ -1,0 +1,443 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8" />
+<title>SACS-Amazônia — Logos</title>
+<style>
+  body { margin: 0; background: #F4EFE3; font-family: system-ui, sans-serif; padding: 60px; }
+  .row { display: flex; flex-direction: column; gap: 80px; }
+  .logo-card { display: flex; flex-direction: column; gap: 16px; }
+  .logo-frame {
+    background: #F4EFE3;
+    width: 1024px;
+    height: 1024px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .logo-frame.dark { background: #14322A; }
+  .label { font-family: 'IBM Plex Mono', monospace; color: #6B7A6B; font-size: 14px; letter-spacing: 0.12em; text-transform: uppercase; }
+</style>
+</head>
+<body>
+<div class="row">
+
+  <!-- =========== LOGO 1 — SOL/RIO/POVOS · marca primária =========== -->
+  <div class="logo-card">
+    <div class="label">01 — Sol, rio e povos · marca primária</div>
+    <div class="logo-frame">
+      <svg id="logo1" viewBox="0 0 1024 1024" width="1024" height="1024" xmlns="http://www.w3.org/2000/svg">
+        <!-- Concept reading top-to-bottom:
+             SOL DE CALOR (ondas térmicas) → DOSSEL DA FLORESTA → RIO AMAZÔNICO → COMUNIDADE (silhuetas conectadas)
+             with a thin grafismo indígena-inspired band tying it together.
+             Pulse line of saúde coletiva runs through the middle. -->
+
+        <!-- Climatology ring — "tempo / mudança climática" -->
+        <circle cx="512" cy="430" r="350" fill="none" stroke="#14322A" stroke-width="1.5" stroke-dasharray="2 8" opacity="0.4"/>
+
+        <!-- Sun with concentric heat-wave halos -->
+        <g>
+          <!-- heat waves emanating -->
+          <path d="M 290 280 Q 340 250, 390 280 T 490 280 T 590 280 T 690 280 T 740 280"
+                fill="none" stroke="#B85A1F" stroke-width="4" stroke-linecap="round" opacity="0.55"/>
+          <path d="M 250 220 Q 310 188, 370 220 T 490 220 T 610 220 T 730 220 T 780 220"
+                fill="none" stroke="#B85A1F" stroke-width="4" stroke-linecap="round" opacity="0.35"/>
+          <!-- sun body -->
+          <circle cx="512" cy="358" r="92" fill="#B85A1F"/>
+          <!-- inner notch suggesting thermometer reading -->
+          <circle cx="512" cy="358" r="92" fill="none" stroke="#F4EFE3" stroke-width="2" opacity="0.4"/>
+          <line x1="512" y1="298" x2="512" y2="406" stroke="#F4EFE3" stroke-width="3" opacity="0.6" stroke-linecap="round"/>
+          <circle cx="512" cy="406" r="11" fill="#F4EFE3" opacity="0.6"/>
+        </g>
+
+        <!-- Forest canopy — three layered silhouettes -->
+        <g>
+          <!-- back layer (dark) -->
+          <path d="M 130 540
+                   Q 180 470, 230 510 Q 280 460, 330 510
+                   Q 380 470, 430 510 Q 480 460, 530 510
+                   Q 580 470, 630 510 Q 680 460, 730 510
+                   Q 780 470, 830 510 Q 880 470, 894 540
+                   L 894 600 L 130 600 Z"
+                fill="#14322A"/>
+          <!-- mid layer (deep green) -->
+          <path d="M 130 580
+                   Q 200 530, 270 570 Q 340 525, 410 570
+                   Q 480 525, 550 570 Q 620 525, 690 570
+                   Q 760 525, 830 570 Q 880 545, 894 590
+                   L 894 620 L 130 620 Z"
+                fill="#1F4A3D"/>
+          <!-- front layer (moss) -->
+          <path d="M 130 605
+                   Q 220 575, 310 600 Q 400 575, 490 600
+                   Q 580 575, 670 600 Q 760 575, 850 600
+                   L 894 615 L 894 640 L 130 640 Z"
+                fill="#5C8A3A"/>
+        </g>
+
+        <!-- Indigenous grafismo band — kene-inspired diamond/triangle pattern -->
+        <g transform="translate(130, 644)">
+          <!-- background bar -->
+          <rect x="0" y="0" width="764" height="44" fill="#14322A"/>
+          <!-- repeating geometric pattern -->
+          <g fill="#C9A036">
+            <!-- diamonds at intervals of ~84px -->
+            <path d="M 30 22 L 52 4 L 74 22 L 52 40 Z"/>
+            <path d="M 114 22 L 136 4 L 158 22 L 136 40 Z"/>
+            <path d="M 198 22 L 220 4 L 242 22 L 220 40 Z"/>
+            <path d="M 282 22 L 304 4 L 326 22 L 304 40 Z"/>
+            <path d="M 366 22 L 388 4 L 410 22 L 388 40 Z"/>
+            <path d="M 450 22 L 472 4 L 494 22 L 472 40 Z"/>
+            <path d="M 534 22 L 556 4 L 578 22 L 556 40 Z"/>
+            <path d="M 618 22 L 640 4 L 662 22 L 640 40 Z"/>
+            <path d="M 702 22 L 724 4 L 746 22 L 724 40 Z"/>
+          </g>
+          <g fill="#B85A1F">
+            <!-- inner small diamonds -->
+            <path d="M 72 22 L 84 10 L 96 22 L 84 34 Z"/>
+            <path d="M 156 22 L 168 10 L 180 22 L 168 34 Z"/>
+            <path d="M 240 22 L 252 10 L 264 22 L 252 34 Z"/>
+            <path d="M 324 22 L 336 10 L 348 22 L 336 34 Z"/>
+            <path d="M 408 22 L 420 10 L 432 22 L 420 34 Z"/>
+            <path d="M 492 22 L 504 10 L 516 22 L 504 34 Z"/>
+            <path d="M 576 22 L 588 10 L 600 22 L 588 34 Z"/>
+            <path d="M 660 22 L 672 10 L 684 22 L 672 34 Z"/>
+          </g>
+          <!-- thin border lines top and bottom -->
+          <line x1="0" y1="2" x2="764" y2="2" stroke="#5C8A3A" stroke-width="2"/>
+          <line x1="0" y1="42" x2="764" y2="42" stroke="#5C8A3A" stroke-width="2"/>
+        </g>
+
+        <!-- River — flowing curve below the canopy band, with the pulse line of saúde coletiva embedded -->
+        <g>
+          <!-- river body -->
+          <path d="M 130 740
+                   Q 250 720, 380 750
+                   Q 510 780, 640 750
+                   Q 770 720, 894 740
+                   L 894 770
+                   Q 770 750, 640 780
+                   Q 510 810, 380 780
+                   Q 250 750, 130 770 Z"
+                fill="#1F4A3D" opacity="0.85"/>
+          <!-- pulse line — saúde coletiva — riding on top of the river -->
+          <polyline points="160,755 240,755 270,725 300,785 332,705 364,795 396,755 460,755 490,725 520,785 552,705 584,795 616,755 680,755 710,725 740,785 772,705 804,795 836,755 894,755"
+                    fill="none" stroke="#F4EFE3" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" opacity="0.95"/>
+        </g>
+
+        <!-- Community — silhouette of connected people standing on the riverbank -->
+        <g fill="#14322A">
+          <!-- person 1 (small child) -->
+          <circle cx="270" cy="828" r="12"/>
+          <path d="M 258 842 L 258 870 L 282 870 L 282 842 Z"/>
+          <!-- person 2 (adult, with carried child shape) -->
+          <circle cx="340" cy="818" r="14"/>
+          <path d="M 326 834 L 326 870 L 354 870 L 354 834 Z"/>
+          <!-- person 3 (adult with arm raised) -->
+          <circle cx="430" cy="814" r="15"/>
+          <path d="M 415 832 L 415 870 L 445 870 L 445 832 Z"/>
+          <path d="M 444 836 Q 460 820, 466 800" stroke="#14322A" stroke-width="6" fill="none" stroke-linecap="round"/>
+          <!-- person 4 (central, slightly larger — community lead) -->
+          <circle cx="512" cy="810" r="16"/>
+          <path d="M 496 828 L 496 870 L 528 870 L 528 828 Z"/>
+          <!-- person 5 -->
+          <circle cx="594" cy="814" r="15"/>
+          <path d="M 579 832 L 579 870 L 609 870 L 609 832 Z"/>
+          <!-- person 6 -->
+          <circle cx="684" cy="818" r="14"/>
+          <path d="M 670 834 L 670 870 L 698 870 L 698 834 Z"/>
+          <!-- person 7 (small) -->
+          <circle cx="754" cy="828" r="12"/>
+          <path d="M 742 842 L 742 870 L 766 870 L 766 842 Z"/>
+
+          <!-- connection lines between figures (community / coletivo) -->
+          <line x1="282" y1="852" x2="326" y2="852" stroke="#14322A" stroke-width="2" opacity="0.6"/>
+          <line x1="354" y1="852" x2="415" y2="852" stroke="#14322A" stroke-width="2" opacity="0.6"/>
+          <line x1="445" y1="852" x2="496" y2="852" stroke="#14322A" stroke-width="2" opacity="0.6"/>
+          <line x1="528" y1="852" x2="579" y2="852" stroke="#14322A" stroke-width="2" opacity="0.6"/>
+          <line x1="609" y1="852" x2="670" y2="852" stroke="#14322A" stroke-width="2" opacity="0.6"/>
+          <line x1="698" y1="852" x2="742" y2="852" stroke="#14322A" stroke-width="2" opacity="0.6"/>
+        </g>
+
+        <!-- ground line -->
+        <line x1="180" y1="884" x2="844" y2="884" stroke="#14322A" stroke-width="2" opacity="0.6"/>
+
+        <!-- Wordmark -->
+        <text x="512" y="952" text-anchor="middle"
+              font-family="Newsreader, Georgia, serif" font-weight="500" font-size="80"
+              fill="#14322A" letter-spacing="-1">SACS<tspan fill="#B85A1F" font-style="italic">·</tspan>Amazônia</text>
+        <text x="512" y="990" text-anchor="middle"
+              font-family="IBM Plex Mono, monospace" font-size="20"
+              fill="#6B7A6B" letter-spacing="6">CALOR · CLIMA · SAÚDE COLETIVA</text>
+      </svg>
+    </div>
+  </div>
+
+  <!-- =========== LOGO 2 — MÃO/FOLHA/PADRÃO INDÍGENA · alternativa =========== -->
+  <div class="logo-card">
+    <div class="label">02 — Mão protetora &amp; grafismo · alternativa</div>
+    <div class="logo-frame">
+      <svg id="logo2" viewBox="0 0 1024 1024" width="1024" height="1024" xmlns="http://www.w3.org/2000/svg">
+        <!-- Concept: a stylized cupped hand (saúde coletiva, cuidado) holding a leaf
+             with a heat-pulse line + sun.  The wrist transitions into a kene/grafismo band
+             that wraps the bottom (povos tradicionais).  Reads as: a coletividade segura
+             a vida, sob ameaça do calor. -->
+
+        <!-- climatology ring -->
+        <circle cx="512" cy="468" r="370" fill="none" stroke="#14322A" stroke-width="1.5" stroke-dasharray="2 8" opacity="0.35"/>
+
+        <!-- SUN with heat waves above -->
+        <g>
+          <path d="M 350 220 Q 400 196, 450 220 T 550 220 T 650 220 T 700 220"
+                fill="none" stroke="#B85A1F" stroke-width="4" stroke-linecap="round" opacity="0.5"/>
+          <circle cx="512" cy="276" r="64" fill="#B85A1F"/>
+          <!-- ondas de calor pequenas saindo do sol -->
+          <g stroke="#B85A1F" stroke-width="6" stroke-linecap="round" opacity="0.85">
+            <line x1="512" y1="180" x2="512" y2="200"/>
+            <line x1="436" y1="240" x2="450" y2="248"/>
+            <line x1="588" y1="240" x2="574" y2="248"/>
+            <line x1="416" y1="306" x2="436" y2="306"/>
+            <line x1="608" y1="306" x2="588" y2="306"/>
+          </g>
+        </g>
+
+        <!-- HAND cupped — saúde coletiva, cuidado -->
+        <!-- We draw an open palm shape facing up -->
+        <g fill="#14322A">
+          <!-- palm base -->
+          <path d="M 320 580
+                   Q 320 500, 380 480
+                   Q 400 470, 420 478
+                   L 420 440
+                   Q 420 416, 444 412
+                   Q 468 408, 470 432
+                   L 470 470
+                   L 484 466
+                   L 484 420
+                   Q 484 396, 508 392
+                   Q 532 388, 534 412
+                   L 534 460
+                   L 548 460
+                   L 548 432
+                   Q 548 408, 572 404
+                   Q 596 400, 598 424
+                   L 598 466
+                   L 612 470
+                   L 612 444
+                   Q 612 420, 636 416
+                   Q 660 412, 662 436
+                   L 662 488
+                   Q 700 478, 720 510
+                   Q 736 540, 720 580
+                   L 720 640
+                   Q 720 700, 660 720
+                   L 380 720
+                   Q 320 700, 320 640 Z"/>
+        </g>
+        <!-- subtle palm interior shading (warm light catching the cup) -->
+        <path d="M 360 600
+                 Q 360 540, 410 530
+                 L 660 530
+                 Q 700 540, 700 600
+                 L 700 640
+                 Q 700 680, 650 690
+                 L 380 690
+                 Q 350 680, 360 640 Z"
+              fill="#1F4A3D"/>
+
+        <!-- LEAF resting in the palm -->
+        <g>
+          <path d="M 512 360
+                   Q 590 380, 612 460
+                   Q 612 540, 512 580
+                   Q 412 540, 412 460
+                   Q 434 380, 512 360 Z"
+                fill="#5C8A3A"/>
+          <!-- leaf central vein -->
+          <path d="M 512 360 L 512 580" stroke="#14322A" stroke-width="3" opacity="0.55"/>
+          <!-- leaf side veins -->
+          <g stroke="#14322A" stroke-width="2" fill="none" opacity="0.4" stroke-linecap="round">
+            <path d="M 512 410 Q 470 414, 446 408"/>
+            <path d="M 512 410 Q 554 414, 578 408"/>
+            <path d="M 512 460 Q 460 466, 422 462"/>
+            <path d="M 512 460 Q 564 466, 602 462"/>
+            <path d="M 512 510 Q 466 516, 432 514"/>
+            <path d="M 512 510 Q 558 516, 592 514"/>
+          </g>
+          <!-- PULSE LINE through leaf — saúde coletiva -->
+          <polyline points="430,470 460,470 478,448 498,492 518,432 540,500 562,464 580,470 596,470"
+                    fill="none" stroke="#F4EFE3" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+        </g>
+
+        <!-- KENE / grafismo indígena band wrapping the bottom (povos e comunidades tradicionais) -->
+        <g transform="translate(130, 760)">
+          <rect x="0" y="0" width="764" height="56" fill="#14322A"/>
+          <!-- pattern: alternating diamonds and stepped chevrons -->
+          <g fill="#C9A036">
+            <path d="M 32 28 L 60 4 L 88 28 L 60 52 Z"/>
+            <path d="M 144 28 L 172 4 L 200 28 L 172 52 Z"/>
+            <path d="M 256 28 L 284 4 L 312 28 L 284 52 Z"/>
+            <path d="M 368 28 L 396 4 L 424 28 L 396 52 Z"/>
+            <path d="M 480 28 L 508 4 L 536 28 L 508 52 Z"/>
+            <path d="M 592 28 L 620 4 L 648 28 L 620 52 Z"/>
+            <path d="M 704 28 L 732 4 L 760 28 L 732 52 Z"/>
+          </g>
+          <g fill="#B85A1F">
+            <path d="M 88 28 L 116 8 L 116 48 Z"/>
+            <path d="M 144 28 L 116 8 L 116 48 Z" opacity="0"/>
+            <path d="M 200 28 L 228 8 L 228 48 Z"/>
+            <path d="M 312 28 L 340 8 L 340 48 Z"/>
+            <path d="M 424 28 L 452 8 L 452 48 Z"/>
+            <path d="M 536 28 L 564 8 L 564 48 Z"/>
+            <path d="M 648 28 L 676 8 L 676 48 Z"/>
+          </g>
+          <g fill="#5C8A3A">
+            <circle cx="60" cy="28" r="6"/>
+            <circle cx="172" cy="28" r="6"/>
+            <circle cx="284" cy="28" r="6"/>
+            <circle cx="396" cy="28" r="6"/>
+            <circle cx="508" cy="28" r="6"/>
+            <circle cx="620" cy="28" r="6"/>
+            <circle cx="732" cy="28" r="6"/>
+          </g>
+          <line x1="0" y1="2" x2="764" y2="2" stroke="#5C8A3A" stroke-width="2"/>
+          <line x1="0" y1="54" x2="764" y2="54" stroke="#5C8A3A" stroke-width="2"/>
+        </g>
+
+        <!-- Wordmark -->
+        <text x="512" y="884" text-anchor="middle"
+              font-family="Newsreader, Georgia, serif" font-weight="500" font-size="76"
+              fill="#14322A" letter-spacing="-1">SACS<tspan fill="#B85A1F">·</tspan>Amazônia</text>
+        <text x="512" y="930" text-anchor="middle"
+              font-family="IBM Plex Mono, monospace" font-size="20"
+              fill="#6B7A6B" letter-spacing="5">SISTEMA DE ALERTA · CALOR &amp; SAÚDE</text>
+      </svg>
+    </div>
+  </div>
+
+  <!-- =========== LOGO 3 — SELO INSTITUCIONAL =========== -->
+  <div class="logo-card">
+    <div class="label">03 — Selo institucional · uso oficial</div>
+    <div class="logo-frame dark">
+      <svg id="logo3" viewBox="0 0 1024 1024" width="1024" height="1024" xmlns="http://www.w3.org/2000/svg">
+        <!-- Concept: circular institutional seal with arc text.
+             Inside, a layered emblem: the AMAZON RIVER curve (the "S" shape) carrying a community of figures,
+             with a SUN above (heat) and a LEAF behind (forest), all framed by a kene grafismo arc. -->
+
+        <!-- outer rings -->
+        <circle cx="512" cy="512" r="436" fill="none" stroke="#F4EFE3" stroke-width="2"/>
+        <circle cx="512" cy="512" r="408" fill="none" stroke="#F4EFE3" stroke-width="1" opacity="0.4"/>
+
+        <!-- arc text top -->
+        <defs>
+          <path id="arc-top-3" d="M 116 512 A 396 396 0 0 1 908 512" fill="none"/>
+          <path id="arc-bot-3" d="M 908 512 A 396 396 0 0 1 116 512" fill="none"/>
+        </defs>
+        <text font-family="IBM Plex Mono, monospace" font-size="30" letter-spacing="12" fill="#F4EFE3">
+          <textPath href="#arc-top-3" startOffset="50%" text-anchor="middle">CALOR · CLIMA · SAÚDE COLETIVA</textPath>
+        </text>
+        <text font-family="IBM Plex Mono, monospace" font-size="26" letter-spacing="20" fill="#5C8A3A">
+          <textPath href="#arc-bot-3" startOffset="50%" text-anchor="middle">AMAZÔNIA · POVOS · TERRITÓRIOS</textPath>
+        </text>
+
+        <!-- 4 cardinal markers (4 níveis de alerta) -->
+        <g>
+          <circle cx="512" cy="76" r="9" fill="#5C8A3A"/>
+          <circle cx="948" cy="512" r="9" fill="#C9A036"/>
+          <circle cx="512" cy="948" r="9" fill="#B85A1F"/>
+          <circle cx="76" cy="512" r="9" fill="#5A1F0E"/>
+        </g>
+
+        <!-- inner medallion -->
+        <circle cx="512" cy="512" r="270" fill="#1F4A3D"/>
+        <circle cx="512" cy="512" r="270" fill="none" stroke="#F4EFE3" stroke-width="1.5" opacity="0.6"/>
+
+        <!-- Sun — top of medallion -->
+        <g>
+          <circle cx="512" cy="412" r="48" fill="#B85A1F"/>
+          <!-- ondas de calor curtas -->
+          <g stroke="#B85A1F" stroke-width="4" stroke-linecap="round">
+            <line x1="512" y1="346" x2="512" y2="358"/>
+            <line x1="450" y1="376" x2="460" y2="384"/>
+            <line x1="574" y1="376" x2="564" y2="384"/>
+            <line x1="430" y1="412" x2="446" y2="412"/>
+            <line x1="594" y1="412" x2="578" y2="412"/>
+          </g>
+        </g>
+
+        <!-- Leaf — backing the river -->
+        <path d="M 512 392
+                 Q 660 460, 660 562
+                 Q 660 660, 512 700
+                 Q 364 660, 364 562
+                 Q 364 460, 512 392 Z"
+              fill="#5C8A3A" opacity="0.42"/>
+
+        <!-- River — meandering S curve -->
+        <path d="M 380 470
+                 Q 480 500, 480 540
+                 Q 480 580, 560 600
+                 Q 640 620, 640 660"
+              fill="none" stroke="#F4EFE3" stroke-width="14" stroke-linecap="round" opacity="0.95"/>
+        <path d="M 380 470
+                 Q 480 500, 480 540
+                 Q 480 580, 560 600
+                 Q 640 620, 640 660"
+              fill="none" stroke="#14322A" stroke-width="2" stroke-linecap="round" opacity="0.4"/>
+
+        <!-- Community of 5 figures along the lower curve -->
+        <g fill="#F4EFE3">
+          <!-- left small -->
+          <circle cx="412" cy="612" r="9"/>
+          <path d="M 403 622 L 403 644 L 421 644 L 421 622 Z"/>
+          <!-- next -->
+          <circle cx="458" cy="624" r="10"/>
+          <path d="M 448 636 L 448 660 L 468 660 L 468 636 Z"/>
+          <!-- center -->
+          <circle cx="512" cy="630" r="12"/>
+          <path d="M 500 644 L 500 672 L 524 672 L 524 644 Z"/>
+          <!-- next -->
+          <circle cx="566" cy="624" r="10"/>
+          <path d="M 556 636 L 556 660 L 576 660 L 576 636 Z"/>
+          <!-- right small -->
+          <circle cx="612" cy="612" r="9"/>
+          <path d="M 603 622 L 603 644 L 621 644 L 621 622 Z"/>
+        </g>
+        <!-- connection thread -->
+        <path d="M 421 638 L 448 644 M 468 648 L 500 654 M 524 654 L 556 648 M 576 644 L 603 638"
+              stroke="#F4EFE3" stroke-width="1.5" opacity="0.7"/>
+
+        <!-- pulse line — saúde coletiva — as a thin arc above the community -->
+        <polyline points="400,720 440,720 458,704 478,736 498,696 520,742 542,696 562,736 582,704 600,720 624,720"
+                  fill="none" stroke="#F4EFE3" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" opacity="0.9"/>
+
+        <!-- kene/grafismo arc band along the inner medallion edge bottom -->
+        <g>
+          <!-- small diamonds on inner ring -->
+          <g fill="#C9A036">
+            <path d="M 304 612 l 12 -12 l 12 12 l -12 12 z"/>
+            <path d="M 348 660 l 12 -12 l 12 12 l -12 12 z"/>
+            <path d="M 408 712 l 12 -12 l 12 12 l -12 12 z"/>
+            <path d="M 480 744 l 12 -12 l 12 12 l -12 12 z"/>
+            <path d="M 552 744 l 12 -12 l 12 12 l -12 12 z"/>
+            <path d="M 624 712 l 12 -12 l 12 12 l -12 12 z"/>
+            <path d="M 684 660 l 12 -12 l 12 12 l -12 12 z"/>
+            <path d="M 728 612 l 12 -12 l 12 12 l -12 12 z"/>
+          </g>
+        </g>
+
+        <!-- Center wordmark -->
+        <text x="512" y="856" text-anchor="middle"
+              font-family="Newsreader, Georgia, serif" font-weight="500" font-size="100"
+              fill="#F4EFE3" letter-spacing="-1">SACS</text>
+        <text x="512" y="894" text-anchor="middle"
+              font-family="IBM Plex Mono, monospace" font-size="22"
+              fill="#5C8A3A" letter-spacing="6">AMAZÔNIA</text>
+      </svg>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,821 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8" />
+<title>climaSUS — Visão geral</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=IBM+Plex+Sans:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script type="application/json" id="speaker-notes">
+[
+  "Bom dia. O climaSUS é um ecossistema brasileiro de código aberto que conecta ciência atmosférica, dados ambientais e saúde pública. Ele nasce para responder a uma pergunta concreta dos gestores do SUS: como antecipar, em escala municipal, os impactos do clima sobre a saúde da população, especialmente nos territórios mais vulneráveis. Nos próximos cinco minutos, eu vou apresentar a arquitetura do sistema e os três alertas que estão em operação na Amazônia.",
+  "O climaSUS tem quatro componentes que se sustentam mutuamente. As bibliotecas climasus4r e climasus4py são a infraestrutura científica — código aberto que permite a qualquer pesquisador, vigilância epidemiológica ou secretaria de saúde integrar e modelar dados de clima, ambiente e saúde com reprodutibilidade. O climasusEduca é a camada de capacitação, porque tecnologia sem capilaridade institucional não vira política pública. E o climasusAlerta, foco da nossa conversa hoje, é a plataforma operacional de alertas.",
+  "O climasusAlerta opera na interseção entre ciência atmosférica de alta resolução e governança pública. Ele não é um sistema único — é uma plataforma desenhada para suportar múltiplos sistemas de alerta especializados, cada um voltado a um perigo climático distinto. A premissa é que riscos diferentes exigem ciência, sensores e cadeias de resposta diferentes — mas todos compartilham a mesma arquitetura de governança.",
+  "Toda a arquitetura se ancora nos quatro pilares do MHEWS, o framework multi-perigo da Organização Meteorológica Mundial. Conhecimento do risco — entender quem está exposto e por quê. Monitoramento e previsão — a ciência que detecta e antecipa o perigo. Disseminação de alertas — chegar a quem precisa, no tempo certo, na linguagem certa. E capacidade de resposta institucional e comunitária — porque um alerta sem resposta é apenas um aviso. Cada um dos três sistemas que vou apresentar a seguir cumpre esses quatro pilares.",
+  "O primeiro sistema é o SACS — Sistema de Monitoramento e Alerta de Calor da Amazônia. Seu fundamento é a biometeorologia. Em vez de usar apenas a temperatura do ar, o SACS calcula a Temperatura Percebida, que processa o balanço térmico do corpo humano considerando umidade, vento e radiação. Isso é decisivo na Amazônia, onde a umidade altíssima cria um risco térmico que o termômetro comum não enxerga. O SACS torna visível um risco de saúde que hoje é, literalmente, invisível para a vigilância.",
+  "O segundo sistema é o SAQS — qualidade do ar. A inovação aqui é a densidade. Em vez de depender de poucas estações de referência caras, o SAQS usa redes densas de sensores IoT de baixo custo para fazer monitoramento hiperlocal de material particulado fino, o PM 2.5, e gases tóxicos. Durante incêndios florestais, isso muda tudo: o algoritmo NowCast permite emitir alertas imediatos, bairro a bairro, em vez de uma média municipal que esconde os picos. É vigilância em tempo real onde antes não havia dado.",
+  "O terceiro sistema é o SASS — secas. Aqui o desafio é oposto: a seca é um perigo de início lento, que se desenvolve por meses. O SASS monitora secas protraídas e integra previsões em escala sazonal e sub-sazonal — o que chamamos de S2S — para antecipar impactos sobre saúde, segurança alimentar e sistemas produtivos. É um alerta de horizonte longo, que dá ao gestor tempo de planejar resposta antes do dano se consolidar. Os três sistemas, juntos, formam uma cobertura completa: do calor agudo ao ar contaminado, da hora seguinte à estação seguinte. Obrigado."
+]
+</script>
+<style>
+  :root {
+    --ink: #0B1F3A;          /* deep navy */
+    --ink-2: #14304F;
+    --paper: #F5F2EB;        /* warm off-white */
+    --paper-2: #ECE6D8;
+    --rule: #1A3553;
+    --muted: #5B6B7E;
+    --accent: #C8451E;       /* terracotta — institutional but warm */
+    --accent-2: #1F6B5E;     /* SUS-adjacent teal-green */
+    --gold: #B8923A;
+
+    --type-title: 92px;
+    --type-section: 132px;
+    --type-h1: 72px;
+    --type-h2: 56px;
+    --type-body: 32px;
+    --type-small: 26px;
+    --type-eyebrow: 26px;
+    --type-mega: 220px;
+
+    --pad-top: 96px;
+    --pad-bottom: 96px;
+    --pad-x: 120px;
+    --gap-title: 56px;
+    --gap-item: 28px;
+  }
+
+  html, body { margin: 0; padding: 0; background: #0a0a0a; }
+  body { font-family: "IBM Plex Sans", system-ui, sans-serif; color: var(--ink); }
+
+  deck-stage section {
+    background: var(--paper);
+    color: var(--ink);
+    overflow: hidden;
+    position: relative;
+  }
+
+  /* Shared chrome */
+  .chrome-tl, .chrome-br {
+    position: absolute;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 24px;
+    color: var(--muted);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .chrome-tl { top: 56px; left: var(--pad-x); }
+  .chrome-br { bottom: 56px; right: var(--pad-x); }
+
+  .wordmark {
+    font-family: "Newsreader", serif;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+  }
+  .wordmark .alt { font-style: italic; color: var(--accent); font-weight: 400; }
+
+  .eyebrow {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: var(--type-eyebrow);
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    color: var(--muted);
+  }
+
+  .rule {
+    height: 1px;
+    background: var(--ink);
+    opacity: 0.18;
+    width: 100%;
+  }
+
+  .h-title {
+    font-family: "Newsreader", serif;
+    font-weight: 500;
+    font-size: var(--type-h1);
+    line-height: 1.02;
+    letter-spacing: -0.02em;
+    margin: 0;
+    color: var(--ink);
+  }
+  .h-title .it { font-style: italic; font-weight: 400; color: var(--accent); }
+
+  .body { font-size: var(--type-body); line-height: 1.4; color: var(--ink-2); margin: 0; }
+  .small { font-size: var(--type-small); line-height: 1.4; color: var(--muted); margin: 0; }
+
+  /* ============ SLIDE 1 — CAPA ============ */
+  .s-cover {
+    padding: var(--pad-top) var(--pad-x) var(--pad-bottom);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .s-cover .cover-wordmark {
+    font-size: 280px;
+    line-height: 0.92;
+    letter-spacing: -0.04em;
+  }
+  .s-cover .cover-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 80px;
+  }
+  .s-cover .cover-tagline {
+    font-family: "Newsreader", serif;
+    font-style: italic;
+    font-size: 44px;
+    line-height: 1.2;
+    color: var(--ink-2);
+    max-width: 900px;
+    font-weight: 400;
+  }
+  .s-cover .cover-org {
+    text-align: right;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 22px;
+    color: var(--muted);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    line-height: 1.6;
+  }
+
+  /* ============ SLIDE 2 — ECOSSISTEMA ============ */
+  .s-eco {
+    padding: var(--pad-top) var(--pad-x) var(--pad-bottom);
+    display: flex;
+    flex-direction: column;
+    gap: 60px;
+  }
+  .s-eco .head { display: flex; justify-content: space-between; align-items: baseline; }
+  .s-eco .grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 28px;
+    flex: 1;
+  }
+  .eco-card {
+    border: 1px solid rgba(11,31,58,0.18);
+    background: rgba(255,255,255,0.5);
+    padding: 44px 36px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 540px;
+  }
+  .eco-card .num {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 24px;
+    color: var(--muted);
+    letter-spacing: 0.12em;
+  }
+  .eco-card h3 {
+    font-family: "Newsreader", serif;
+    font-weight: 500;
+    font-size: 44px;
+    line-height: 1.05;
+    margin: 0 0 18px;
+    letter-spacing: -0.015em;
+  }
+  .eco-card h3 .it { font-style: italic; color: var(--accent); font-weight: 400; }
+  .eco-card .desc { font-size: 24px; line-height: 1.4; color: var(--ink-2); }
+  .eco-card .tag {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 24px;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--accent-2);
+    border-top: 1px solid rgba(11,31,58,0.18);
+    padding-top: 18px;
+  }
+  .eco-card.featured {
+    background: var(--ink);
+    color: var(--paper);
+    border-color: var(--ink);
+  }
+  .eco-card.featured .num { color: rgba(245,242,235,0.6); }
+  .eco-card.featured h3 { color: var(--paper); }
+  .eco-card.featured h3 .it { color: #E6A87A; }
+  .eco-card.featured .desc { color: rgba(245,242,235,0.8); }
+  .eco-card.featured .tag { color: #E6A87A; border-color: rgba(245,242,235,0.2); }
+
+  /* ============ SLIDE 3 — ALERTA DEFINIÇÃO ============ */
+  .s-alerta {
+    padding: var(--pad-top) var(--pad-x) var(--pad-bottom);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 100px;
+    align-items: center;
+  }
+  .s-alerta .left { display: flex; flex-direction: column; gap: 40px; }
+  .s-alerta .quote {
+    font-family: "Newsreader", serif;
+    font-weight: 400;
+    font-size: 60px;
+    line-height: 1.15;
+    letter-spacing: -0.015em;
+    color: var(--ink);
+  }
+  .s-alerta .quote .em { font-style: italic; color: var(--accent); }
+  .s-alerta .right { display: flex; align-items: center; justify-content: center; }
+
+  /* ============ SLIDE 4 — 4 PILARES ============ */
+  .s-pilares {
+    padding: var(--pad-top) var(--pad-x) var(--pad-bottom);
+    display: flex;
+    flex-direction: column;
+    gap: 60px;
+  }
+  .s-pilares .head { display: flex; justify-content: space-between; align-items: baseline; }
+  .s-pilares .grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    flex: 1;
+    border-top: 1px solid var(--ink);
+    border-bottom: 1px solid var(--ink);
+  }
+  .pilar {
+    padding: 44px 36px 44px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    border-right: 1px solid rgba(11,31,58,0.18);
+  }
+  .pilar:last-child { border-right: none; }
+  .pilar:not(:first-child) { padding-left: 36px; }
+  .pilar .num {
+    font-family: "Newsreader", serif;
+    font-weight: 400;
+    font-style: italic;
+    font-size: 96px;
+    line-height: 1;
+    color: var(--accent);
+  }
+  .pilar h4 {
+    font-family: "Newsreader", serif;
+    font-weight: 500;
+    font-size: 38px;
+    line-height: 1.1;
+    margin: 0;
+    letter-spacing: -0.01em;
+  }
+  .pilar p {
+    font-size: 24px;
+    line-height: 1.4;
+    color: var(--ink-2);
+    margin: 0;
+  }
+
+  /* ============ SLIDES 5-7 — SISTEMAS ============ */
+  .s-sistema {
+    padding: var(--pad-top) var(--pad-x) var(--pad-bottom);
+    display: grid;
+    grid-template-columns: 1.05fr 1fr;
+    gap: 100px;
+    align-items: stretch;
+  }
+  .sistema-left {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    justify-content: space-between;
+  }
+  .sistema-code {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 24px;
+    color: var(--accent);
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+  .sistema-name {
+    font-family: "Newsreader", serif;
+    font-weight: 500;
+    font-size: 84px;
+    line-height: 1;
+    letter-spacing: -0.02em;
+    margin: 0;
+  }
+  .sistema-name .it { font-style: italic; color: var(--accent); font-weight: 400; }
+  .sistema-sub {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 22px;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--muted);
+  }
+  .sistema-lede {
+    font-family: "Newsreader", serif;
+    font-weight: 400;
+    font-size: 38px;
+    line-height: 1.3;
+    color: var(--ink);
+    letter-spacing: -0.005em;
+  }
+  .sistema-lede .em { font-style: italic; color: var(--accent); }
+
+  .sistema-attrs {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    border-top: 1px solid rgba(11,31,58,0.2);
+  }
+  .attr-row {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 32px;
+    padding: 22px 0;
+    border-bottom: 1px solid rgba(11,31,58,0.12);
+  }
+  .attr-key {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 24px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--muted);
+    padding-top: 4px;
+  }
+  .attr-val {
+    font-size: 26px;
+    line-height: 1.35;
+    color: var(--ink);
+  }
+
+  .sistema-right {
+    background: var(--paper-2);
+    border: 1px solid rgba(11,31,58,0.12);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 48px;
+    position: relative;
+  }
+  .sistema-right.dark {
+    background: var(--ink);
+    border-color: var(--ink);
+    color: var(--paper);
+  }
+  .sistema-right .caption {
+    position: absolute;
+    bottom: 28px;
+    left: 32px;
+    right: 32px;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 24px;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  .sistema-right.dark .caption { color: rgba(245,242,235,0.55); }
+
+  .sistema-bignum {
+    font-family: "Newsreader", serif;
+    font-weight: 400;
+    font-style: italic;
+    font-size: 320px;
+    line-height: 0.9;
+    color: var(--accent);
+    letter-spacing: -0.04em;
+  }
+
+  /* SVG diagram common */
+  svg .ink { stroke: #0B1F3A; }
+  svg .ink-fill { fill: #0B1F3A; }
+  svg .accent { stroke: #C8451E; }
+  svg .accent-fill { fill: #C8451E; }
+  svg .accent2 { stroke: #1F6B5E; }
+  svg .accent2-fill { fill: #1F6B5E; }
+  svg text { font-family: "IBM Plex Mono", monospace; fill: #0B1F3A; }
+
+  /* validators */
+  [data-om-validate-min-font="24"] { /* sentinel */ }
+</style>
+</head>
+<body>
+
+<deck-stage width="1920" height="1080">
+
+  <!-- =========================================================
+       SLIDE 1 — CAPA
+       ========================================================= -->
+  <section data-label="01 Capa" class="s-cover">
+    <div>
+      <div class="chrome-tl" style="position:static; padding:0; font-size:26px;">
+        <span style="display:inline-flex; align-items:center; gap:14px;">
+          <span style="display:inline-block; width:14px; height:14px; background:var(--accent); border-radius:50%;"></span>
+          <span>CLIMASUS &nbsp;/&nbsp; VISÃO GERAL &nbsp;/&nbsp; 2026</span>
+        </span>
+      </div>
+    </div>
+
+    <div class="wordmark cover-wordmark">
+      clima<span class="alt">SUS</span>
+    </div>
+
+    <div class="cover-meta">
+      <div class="cover-tagline">
+        Ciência do clima, do ambiente <br/>
+        e da saúde pública brasileira.
+      </div>
+      <div class="cover-org" style="font-size:26px;">
+        Apresentação para gestores<br/>
+        do Sistema Único de Saúde
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================
+       SLIDE 2 — ECOSSISTEMA
+       ========================================================= -->
+  <section data-label="02 Ecossistema" class="s-eco">
+    <div class="head">
+      <div>
+        <div class="eyebrow" style="margin-bottom: 18px;">§ 01 &nbsp;·&nbsp; Ecossistema</div>
+        <h2 class="h-title">Quatro componentes, <br/>uma arquitetura aberta.</h2>
+      </div>
+      <div class="small" style="max-width: 460px; text-align: right;">
+        Tudo é código aberto e reprodutível,<br/>desenhado para integração com<br/>a vigilância em saúde no SUS.
+      </div>
+    </div>
+
+    <div class="grid">
+      <div class="eco-card">
+        <div>
+          <div class="num">01 &nbsp;·&nbsp; BIBLIOTECA R</div>
+          <h3 style="margin-top: 28px;">climasus<span class="it">4r</span></h3>
+          <div class="desc">Integração, análise e modelagem de dados de clima, ambiente e saúde em R.</div>
+        </div>
+        <div class="tag">Pesquisa &nbsp;·&nbsp; Vigilância</div>
+      </div>
+
+      <div class="eco-card">
+        <div>
+          <div class="num">02 &nbsp;·&nbsp; BIBLIOTECA PYTHON</div>
+          <h3 style="margin-top: 28px;">climasus<span class="it">4py</span></h3>
+          <div class="desc">Mesmo arcabouço científico em Python, para pipelines e aprendizado de máquina.</div>
+        </div>
+        <div class="tag">Modelagem &nbsp;·&nbsp; ML</div>
+      </div>
+
+      <div class="eco-card">
+        <div>
+          <div class="num">03 &nbsp;·&nbsp; CAPACITAÇÃO</div>
+          <h3 style="margin-top: 28px;">climasus<span class="it">Educa</span></h3>
+          <div class="desc">Formação de gestores, técnicos do SUS e pesquisadores em clima e saúde.</div>
+        </div>
+        <div class="tag">Capilaridade institucional</div>
+      </div>
+
+      <div class="eco-card featured">
+        <div>
+          <div class="num">04 &nbsp;·&nbsp; PLATAFORMA OPERACIONAL</div>
+          <h3 style="margin-top: 28px;">climasus<span class="it">Alerta</span></h3>
+          <div class="desc">Sistemas de alerta multi-perigo na interseção entre ciência atmosférica e governança.</div>
+        </div>
+        <div class="tag">Foco desta apresentação</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================
+       SLIDE 3 — climasusAlerta
+       ========================================================= -->
+  <section data-label="03 climasusAlerta" class="s-alerta">
+    <div class="left">
+      <div class="eyebrow">§ 02 &nbsp;·&nbsp; climasusAlerta</div>
+      <div class="quote">
+        Uma plataforma para suportar <span class="em">múltiplos sistemas de alerta</span>, na interseção entre ciência atmosférica de alta resolução e governança pública.
+      </div>
+      <div class="rule" style="width: 280px;"></div>
+      <div class="small" style="font-size: 28px; max-width: 640px;">
+        Não é um sistema único. É a infraestrutura que permite operar, em conjunto, alertas especializados para perigos climáticos distintos.
+      </div>
+    </div>
+    <div class="right">
+      <!-- Diagram: a hub with three orbiting nodes -->
+      <svg viewBox="0 0 720 720" width="100%" height="100%" style="max-width: 720px;">
+        <defs>
+          <pattern id="dots" width="14" height="14" patternUnits="userSpaceOnUse">
+            <circle cx="1.5" cy="1.5" r="1" fill="#0B1F3A" opacity="0.18"/>
+          </pattern>
+        </defs>
+        <rect x="0" y="0" width="720" height="720" fill="url(#dots)"/>
+
+        <!-- orbit -->
+        <circle cx="360" cy="360" r="240" fill="none" class="ink" stroke-width="1" stroke-dasharray="2 6" opacity="0.5"/>
+
+        <!-- center -->
+        <circle cx="360" cy="360" r="120" fill="#0B1F3A"/>
+        <text x="360" y="346" text-anchor="middle" font-size="22" fill="#F5F2EB" font-family="IBM Plex Mono" letter-spacing="2">CLIMA</text>
+        <text x="360" y="388" text-anchor="middle" font-size="32" fill="#F5F2EB" font-family="Newsreader" font-style="italic">Alerta</text>
+
+        <!-- top node — calor -->
+        <g>
+          <line x1="360" y1="240" x2="360" y2="180" class="ink" stroke-width="1.5"/>
+          <circle cx="360" cy="140" r="60" fill="#F5F2EB" stroke="#C8451E" stroke-width="2"/>
+          <text x="360" y="138" text-anchor="middle" font-size="20" font-family="IBM Plex Mono" fill="#C8451E" letter-spacing="2">SACS</text>
+          <text x="360" y="160" text-anchor="middle" font-size="14" font-family="IBM Plex Mono" fill="#5B6B7E" letter-spacing="1">CALOR</text>
+        </g>
+
+        <!-- bottom-left node — qualidade do ar -->
+        <g>
+          <line x1="256" y1="420" x2="200" y2="500" class="ink" stroke-width="1.5"/>
+          <circle cx="160" cy="540" r="60" fill="#F5F2EB" stroke="#1F6B5E" stroke-width="2"/>
+          <text x="160" y="538" text-anchor="middle" font-size="20" font-family="IBM Plex Mono" fill="#1F6B5E" letter-spacing="2">SAQS</text>
+          <text x="160" y="560" text-anchor="middle" font-size="14" font-family="IBM Plex Mono" fill="#5B6B7E" letter-spacing="1">AR</text>
+        </g>
+
+        <!-- bottom-right node — secas -->
+        <g>
+          <line x1="464" y1="420" x2="520" y2="500" class="ink" stroke-width="1.5"/>
+          <circle cx="560" cy="540" r="60" fill="#F5F2EB" stroke="#B8923A" stroke-width="2"/>
+          <text x="560" y="538" text-anchor="middle" font-size="20" font-family="IBM Plex Mono" fill="#B8923A" letter-spacing="2">SASS</text>
+          <text x="560" y="560" text-anchor="middle" font-size="14" font-family="IBM Plex Mono" fill="#5B6B7E" letter-spacing="1">SECA</text>
+        </g>
+      </svg>
+    </div>
+  </section>
+
+  <!-- =========================================================
+       SLIDE 4 — QUATRO PILARES MHEWS
+       ========================================================= -->
+  <section data-label="04 Quatro Pilares" class="s-pilares">
+    <div class="head">
+      <div>
+        <div class="eyebrow" style="margin-bottom: 18px;">§ 03 &nbsp;·&nbsp; Fundamentos MHEWS</div>
+        <h2 class="h-title">Quatro pilares <br/>técnicos e operacionais.</h2>
+      </div>
+      <div class="small" style="max-width: 480px; text-align: right;">
+        Multi-Hazard Early Warning System.<br/>
+        Framework da Organização<br/>Meteorológica Mundial (WMO).
+      </div>
+    </div>
+
+    <div class="grid">
+      <div class="pilar">
+        <div class="num">01</div>
+        <h4>Conhecimento <br/>do risco</h4>
+        <p>Mapeamento de exposição, vulnerabilidade e capacidade adaptativa nos territórios.</p>
+      </div>
+      <div class="pilar">
+        <div class="num">02</div>
+        <h4>Monitoramento <br/>e previsão</h4>
+        <p>Detecção contínua e modelagem antecipatória do perigo, em alta resolução.</p>
+      </div>
+      <div class="pilar">
+        <div class="num">03</div>
+        <h4>Disseminação <br/>de alertas</h4>
+        <p>Mensagens chegando a quem precisa, no tempo certo e na linguagem certa.</p>
+      </div>
+      <div class="pilar">
+        <div class="num">04</div>
+        <h4>Capacidade <br/>de resposta</h4>
+        <p>Resposta institucional do SUS e ação comunitária preparada e coordenada.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================
+       SLIDE 5 — SACS (CALOR)
+       ========================================================= -->
+  <section data-label="05 SACS Calor" class="s-sistema">
+    <div class="sistema-left">
+      <div>
+        <div class="sistema-code">§ 04 &nbsp;·&nbsp; Sistema 01 / 03</div>
+        <div class="sistema-sub" style="margin-top: 28px;">Amazônia &nbsp;·&nbsp; Calor</div>
+        <h2 class="sistema-name" style="margin-top: 16px;">SACS</h2>
+      </div>
+
+      <div class="sistema-lede">
+        Biometeorologia aplicada à <span class="em">Temperatura Percebida</span> — o balanço térmico humano que o termômetro não enxerga.
+      </div>
+
+      <div class="sistema-attrs">
+        <div class="attr-row">
+          <div class="attr-key">Perigo</div>
+          <div class="attr-val">Estresse térmico em climas úmidos tropicais</div>
+        </div>
+        <div class="attr-row">
+          <div class="attr-key">Método</div>
+          <div class="attr-val">Balanço térmico humano: temperatura, umidade, vento, radiação</div>
+        </div>
+        <div class="attr-row">
+          <div class="attr-key">Saúde</div>
+          <div class="attr-val">Mortalidade evitável, exaustão, agravamento cardiovascular</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sistema-right dark">
+      <!-- Diagram: PT vs T_air showing the gap -->
+      <svg viewBox="0 0 600 700" width="100%" height="100%" style="max-width: 560px;">
+        <!-- thermometer / vertical scale -->
+        <line x1="120" y1="80" x2="120" y2="600" stroke="#F5F2EB" stroke-width="1" opacity="0.4"/>
+        <line x1="480" y1="80" x2="480" y2="600" stroke="#F5F2EB" stroke-width="1" opacity="0.4"/>
+
+        <!-- T_ar bar -->
+        <rect x="100" y="380" width="40" height="220" fill="#F5F2EB" opacity="0.35"/>
+        <text x="120" y="635" text-anchor="middle" font-size="16" fill="#F5F2EB" opacity="0.7" letter-spacing="2" font-family="IBM Plex Mono">T_AR</text>
+        <text x="120" y="365" text-anchor="middle" font-size="22" fill="#F5F2EB" font-family="Newsreader">32°C</text>
+
+        <!-- T_percebida bar -->
+        <rect x="460" y="180" width="40" height="420" fill="#C8451E"/>
+        <text x="480" y="635" text-anchor="middle" font-size="16" fill="#F5F2EB" opacity="0.9" letter-spacing="2" font-family="IBM Plex Mono">T_PERCEBIDA</text>
+        <text x="480" y="165" text-anchor="middle" font-size="22" fill="#F5F2EB" font-family="Newsreader">41°C</text>
+
+        <!-- gap arrow -->
+        <line x1="200" y1="380" x2="420" y2="180" stroke="#F5F2EB" stroke-width="1" stroke-dasharray="4 4" opacity="0.5"/>
+        <text x="310" y="290" text-anchor="middle" font-size="20" fill="#F5F2EB" font-family="Newsreader" font-style="italic">o que o corpo sente</text>
+        <text x="310" y="320" text-anchor="middle" font-size="14" fill="#F5F2EB" opacity="0.6" letter-spacing="2" font-family="IBM Plex Mono">UMIDADE + RADIAÇÃO + VENTO</text>
+
+        <!-- title chip -->
+        <text x="300" y="50" text-anchor="middle" font-size="16" fill="#F5F2EB" opacity="0.6" letter-spacing="3" font-family="IBM Plex Mono">RISCO INVISÍVEL → RISCO MENSURÁVEL</text>
+      </svg>
+      <div class="caption">Fig. — gap entre temperatura do ar e temperatura percebida</div>
+    </div>
+  </section>
+
+  <!-- =========================================================
+       SLIDE 6 — SAQS (QUALIDADE DO AR)
+       ========================================================= -->
+  <section data-label="06 SAQS Ar" class="s-sistema">
+    <div class="sistema-left">
+      <div>
+        <div class="sistema-code">§ 04 &nbsp;·&nbsp; Sistema 02 / 03</div>
+        <div class="sistema-sub" style="margin-top: 28px;">Amazônia &nbsp;·&nbsp; Qualidade do ar</div>
+        <h2 class="sistema-name" style="margin-top: 16px;">SAQS</h2>
+      </div>
+
+      <div class="sistema-lede">
+        Redes densas de <span class="em">sensores IoT de baixo custo</span> para vigilância hiperlocal de PM 2.5 e gases tóxicos.
+      </div>
+
+      <div class="sistema-attrs">
+        <div class="attr-row">
+          <div class="attr-key">Perigo</div>
+          <div class="attr-val">Material particulado fino (PM 2.5) e gases — incêndios florestais</div>
+        </div>
+        <div class="attr-row">
+          <div class="attr-key">Método</div>
+          <div class="attr-val">Algoritmo NowCast para alertas imediatos em escala de bairro</div>
+        </div>
+        <div class="attr-row">
+          <div class="attr-key">Saúde</div>
+          <div class="attr-val">Doenças respiratórias agudas, asma, exacerbação cardiopulmonar</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sistema-right">
+      <!-- Diagram: dense sensor grid -->
+      <svg viewBox="0 0 600 700" width="100%" height="100%" style="max-width: 560px;">
+        <!-- map-ish outline -->
+        <path d="M 60 120 Q 180 80, 320 110 T 540 140 L 560 320 Q 520 460, 420 540 T 200 600 Q 100 580, 80 460 T 60 120 Z"
+              fill="none" stroke="#0B1F3A" stroke-width="1.5" opacity="0.5"/>
+        <!-- river -->
+        <path d="M 80 280 Q 220 260, 320 320 T 540 360"
+              fill="none" stroke="#1F6B5E" stroke-width="2" opacity="0.45"/>
+
+        <!-- sensor grid -->
+        <g id="sensors">
+          <!-- We'll draw a grid of dots, varying by intensity -->
+        </g>
+        <script>
+          // Will fill from external below
+        </script>
+        <!-- fixed sensor dots (static markup) -->
+        <!-- low intensity -->
+        <circle cx="140" cy="200" r="5" fill="#1F6B5E"/>
+        <circle cx="200" cy="180" r="5" fill="#1F6B5E"/>
+        <circle cx="260" cy="200" r="5" fill="#B8923A"/>
+        <circle cx="320" cy="180" r="6" fill="#B8923A"/>
+        <circle cx="380" cy="200" r="6" fill="#C8451E"/>
+        <circle cx="440" cy="180" r="7" fill="#C8451E"/>
+        <circle cx="500" cy="220" r="5" fill="#B8923A"/>
+
+        <circle cx="120" cy="260" r="5" fill="#1F6B5E"/>
+        <circle cx="180" cy="280" r="6" fill="#B8923A"/>
+        <circle cx="240" cy="260" r="7" fill="#C8451E"/>
+        <circle cx="300" cy="280" r="9" fill="#C8451E"/>
+        <circle cx="360" cy="260" r="9" fill="#C8451E"/>
+        <circle cx="420" cy="280" r="8" fill="#C8451E"/>
+        <circle cx="480" cy="280" r="6" fill="#B8923A"/>
+
+        <circle cx="140" cy="340" r="5" fill="#1F6B5E"/>
+        <circle cx="200" cy="360" r="6" fill="#B8923A"/>
+        <circle cx="260" cy="340" r="8" fill="#C8451E"/>
+        <circle cx="320" cy="360" r="11" fill="#C8451E"/>
+        <circle cx="380" cy="340" r="9" fill="#C8451E"/>
+        <circle cx="440" cy="360" r="7" fill="#C8451E"/>
+        <circle cx="500" cy="340" r="5" fill="#B8923A"/>
+
+        <circle cx="120" cy="420" r="5" fill="#1F6B5E"/>
+        <circle cx="180" cy="440" r="5" fill="#B8923A"/>
+        <circle cx="240" cy="420" r="6" fill="#B8923A"/>
+        <circle cx="300" cy="440" r="7" fill="#C8451E"/>
+        <circle cx="360" cy="420" r="6" fill="#B8923A"/>
+        <circle cx="420" cy="440" r="5" fill="#1F6B5E"/>
+        <circle cx="480" cy="420" r="5" fill="#1F6B5E"/>
+
+        <circle cx="140" cy="500" r="5" fill="#1F6B5E"/>
+        <circle cx="200" cy="480" r="5" fill="#1F6B5E"/>
+        <circle cx="260" cy="500" r="5" fill="#1F6B5E"/>
+        <circle cx="320" cy="480" r="5" fill="#1F6B5E"/>
+        <circle cx="380" cy="500" r="5" fill="#1F6B5E"/>
+
+        <!-- legend -->
+        <g transform="translate(60, 620)">
+          <circle cx="6" cy="0" r="5" fill="#1F6B5E"/>
+          <text x="20" y="5" font-size="14" font-family="IBM Plex Mono" fill="#0B1F3A" letter-spacing="1">BOM</text>
+          <circle cx="100" cy="0" r="6" fill="#B8923A"/>
+          <text x="116" y="5" font-size="14" font-family="IBM Plex Mono" fill="#0B1F3A" letter-spacing="1">MODERADO</text>
+          <circle cx="260" cy="0" r="9" fill="#C8451E"/>
+          <text x="276" y="5" font-size="14" font-family="IBM Plex Mono" fill="#0B1F3A" letter-spacing="1">CRÍTICO — NOWCAST</text>
+        </g>
+
+        <!-- title -->
+        <text x="300" y="80" text-anchor="middle" font-size="16" fill="#5B6B7E" letter-spacing="3" font-family="IBM Plex Mono">REDE HIPERLOCAL · PM 2.5</text>
+      </svg>
+      <div class="caption">Fig. — pluma de PM 2.5 detectada por rede densa de sensores</div>
+    </div>
+  </section>
+
+  <!-- =========================================================
+       SLIDE 7 — SASS (SECAS)
+       ========================================================= -->
+  <section data-label="07 SASS Secas" class="s-sistema">
+    <div class="sistema-left">
+      <div>
+        <div class="sistema-code">§ 04 &nbsp;·&nbsp; Sistema 03 / 03</div>
+        <div class="sistema-sub" style="margin-top: 28px;">Amazônia &nbsp;·&nbsp; Secas</div>
+        <h2 class="sistema-name" style="margin-top: 16px;">SASS</h2>
+      </div>
+
+      <div class="sistema-lede">
+        Perigos de <span class="em">início lento</span> integrados a previsões em escala sazonal e sub-sazonal — S2S.
+      </div>
+
+      <div class="sistema-attrs">
+        <div class="attr-row">
+          <div class="attr-key">Perigo</div>
+          <div class="attr-val">Secas protraídas, déficit hídrico cumulativo</div>
+        </div>
+        <div class="attr-row">
+          <div class="attr-key">Método</div>
+          <div class="attr-val">Previsões S2S — semanas a meses de antecedência</div>
+        </div>
+        <div class="attr-row">
+          <div class="attr-key">Saúde</div>
+          <div class="attr-val">Segurança alimentar, doenças transmitidas pela água, sistemas produtivos</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sistema-right">
+      <!-- Diagram: timeline of S2S forecasting horizon -->
+      <svg viewBox="0 0 600 700" width="100%" height="100%" style="max-width: 560px;">
+        <!-- title -->
+        <text x="300" y="60" text-anchor="middle" font-size="16" fill="#5B6B7E" letter-spacing="3" font-family="IBM Plex Mono">HORIZONTE DE ANTECIPAÇÃO</text>
+
+        <!-- vertical timeline -->
+        <line x1="180" y1="120" x2="180" y2="600" stroke="#0B1F3A" stroke-width="1.5"/>
+
+        <!-- now -->
+        <circle cx="180" cy="140" r="9" fill="#0B1F3A"/>
+        <text x="210" y="138" font-size="22" font-family="Newsreader" font-style="italic" fill="#0B1F3A">hoje</text>
+        <text x="210" y="162" font-size="14" font-family="IBM Plex Mono" fill="#5B6B7E" letter-spacing="2">T = 0</text>
+
+        <!-- weather scale -->
+        <circle cx="180" cy="240" r="6" fill="#0B1F3A"/>
+        <text x="210" y="238" font-size="22" font-family="Newsreader" fill="#0B1F3A">dias</text>
+        <text x="210" y="262" font-size="14" font-family="IBM Plex Mono" fill="#5B6B7E" letter-spacing="2">PREVISÃO METEOROLÓGICA</text>
+
+        <!-- subseasonal -->
+        <circle cx="180" cy="360" r="8" fill="#B8923A"/>
+        <text x="210" y="358" font-size="22" font-family="Newsreader" fill="#0B1F3A">semanas</text>
+        <text x="210" y="382" font-size="14" font-family="IBM Plex Mono" fill="#B8923A" letter-spacing="2">SUB-SAZONAL · S</text>
+
+        <!-- seasonal -->
+        <circle cx="180" cy="480" r="10" fill="#C8451E"/>
+        <text x="210" y="478" font-size="22" font-family="Newsreader" fill="#0B1F3A">meses</text>
+        <text x="210" y="502" font-size="14" font-family="IBM Plex Mono" fill="#C8451E" letter-spacing="2">SAZONAL · 2S</text>
+
+        <!-- horizon end -->
+        <line x1="170" y1="600" x2="190" y2="600" stroke="#0B1F3A" stroke-width="2"/>
+
+        <!-- bracket on right -->
+        <path d="M 470 360 L 490 360 L 490 480 L 470 480" fill="none" stroke="#C8451E" stroke-width="1.5"/>
+        <text x="500" y="425" font-size="18" font-family="Newsreader" font-style="italic" fill="#C8451E">S2S</text>
+        <text x="500" y="448" font-size="12" font-family="IBM Plex Mono" fill="#5B6B7E" letter-spacing="1">JANELA DE</text>
+        <text x="500" y="464" font-size="12" font-family="IBM Plex Mono" fill="#5B6B7E" letter-spacing="1">PLANEJAMENTO</text>
+      </svg>
+      <div class="caption">Fig. — janela S2S como horizonte de planejamento em saúde</div>
+    </div>
+  </section>
+
+</deck-stage>
+
+<script src="deck-stage.js"></script>
+</body>
+</html>

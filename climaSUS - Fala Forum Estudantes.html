@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>climaSUS · Roteiro de fala — Fórum com estudantes</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,500&family=IBM+Plex+Sans:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="doc-page.js"></script>
+<style>
+:root{--ink:#14322A;--ink-2:#3A5A50;--muted:#7C9188;--paper:#FCFBF7;--accent:#0E7A5F;--accent-2:#C2603A;--rule:rgba(20,50,42,0.14)}
+body{margin:0;font-family:"IBM Plex Sans",system-ui,sans-serif;color:var(--ink);background:var(--paper)}
+doc-page{--doc-background:var(--paper)}
+h1,h2,h3,h4{margin:0}
+.kicker{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);display:flex;align-items:center;gap:12px}
+.kicker .bar{width:28px;height:1px;background:var(--accent)}
+.cover{padding:0 0 44px;border-bottom:2px solid var(--ink);margin-bottom:40px}
+.cover h1{font-family:"Newsreader",serif;font-weight:500;font-size:62px;line-height:1.02;letter-spacing:-.02em;margin:26px 0 18px}
+.cover h1 .it{font-style:italic;color:var(--accent);font-weight:400}
+.cover .deck{font-family:"Newsreader",serif;font-style:italic;font-size:21px;line-height:1.45;color:var(--ink-2);max-width:34em}
+.meta{display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin-top:34px;border-top:1px solid var(--rule);padding-top:20px}
+.meta div{padding-right:20px}
+.meta h4{font-family:"IBM Plex Mono",monospace;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:7px}
+.meta p{font-family:"Newsreader",serif;font-size:17px;line-height:1.35;margin:0}
+h2.sec{font-family:"Newsreader",serif;font-weight:500;font-size:34px;line-height:1.1;letter-spacing:-.01em;margin:0 0 6px}
+h2.sec .it{font-style:italic;color:var(--accent);font-weight:400}
+.block{margin:0 0 38px;break-inside:avoid}
+.block .head{display:flex;align-items:baseline;gap:18px;border-bottom:1px solid var(--ink);padding-bottom:12px;margin-bottom:18px}
+.block .head .n{font-family:"Newsreader",serif;font-style:italic;font-size:40px;line-height:.9;color:var(--accent);min-width:52px}
+.block .head .t{flex:1}
+.block .head .time{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.12em;color:var(--muted);white-space:nowrap}
+.goal{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent-2);margin-bottom:14px}
+p{font-family:"Newsreader",serif;font-size:17.5px;line-height:1.52;color:var(--ink-2);margin:0 0 13px;max-width:38em;text-wrap:pretty}
+p .em{font-style:italic;color:var(--accent);font-weight:500}
+ul{list-style:none;padding:0;margin:0 0 14px}
+li{font-family:"Newsreader",serif;font-size:17px;line-height:1.45;color:var(--ink-2);padding:9px 0 9px 26px;position:relative;border-bottom:1px solid var(--rule);max-width:38em}
+li:before{content:"→";position:absolute;left:0;color:var(--accent);font-style:italic}
+li:last-child{border-bottom:none}
+.say{border-left:3px solid var(--accent);padding:2px 0 2px 24px;margin:16px 0 20px;max-width:34em}
+.say .label{font-family:"IBM Plex Mono",monospace;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:9px}
+.say p{font-family:"Newsreader",serif;font-style:italic;font-size:21px;line-height:1.42;color:var(--ink);margin:0 0 10px}
+.say p:last-child{margin-bottom:0}
+.note{background:rgba(14,122,95,.06);border-radius:4px;padding:16px 20px;margin:14px 0 0;max-width:38em}
+.note .label{font-family:"IBM Plex Mono",monospace;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:7px}
+.note p{font-size:15.5px;line-height:1.45;margin:0;font-family:"IBM Plex Sans",sans-serif}
+.q{counter-reset:q}
+.q li{padding-left:38px;font-size:17.5px}
+.q li:before{counter-increment:q;content:counter(q,decimal-leading-zero);font-family:"IBM Plex Mono",monospace;font-size:12px;font-style:normal;color:var(--accent);top:12px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:0 34px}
+.grid2 .col h4{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent-2);margin-bottom:10px}
+.grid2 li{font-size:16px}
+.foot{display:flex;justify-content:space-between;font-family:"IBM Plex Mono",monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);border-top:1px solid var(--rule);padding-top:12px}
+a{color:var(--accent)}a:hover{color:var(--accent-2)}
+</style>
+</head>
+<body>
+<template id="__bundler_thumbnail"><svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg"><rect width="400" height="300" fill="#0E7A5F"/><text x="200" y="170" font-family="Georgia,serif" font-size="110" fill="#FCFBF7" text-anchor="middle">cS</text></svg></template>
+
+<doc-page size="a4">
+<div slot="header" class="foot"><span>climaSUS · roteiro de fala</span><span>Fórum de debate com estudantes</span></div>
+
+<div class="cover">
+  <span class="kicker"><span class="bar"></span>Roteiro de fala · uso do palestrante</span>
+  <h1>O clima já mudou.<br>A saúde <span class="it">ainda não</span> respondeu.</h1>
+  <p class="deck">Estrutura de fala para fórum de debate com estudantes, construída para provocar discussão em vez de encerrá-la: 25 minutos de exposição, 25 de debate aberto.</p>
+  <div class="meta">
+    <div><h4>Formato</h4><p>Fala + debate<br>50 min no total</p></div>
+    <div><h4>Público</h4><p>Estudantes de graduação<br>saúde, ambiente, dados</p></div>
+    <div><h4>Objetivo</h4><p>Sair com perguntas melhores,<br>não com respostas prontas</p></div>
+  </div>
+</div>
+
+<h2 class="sec">A curva da fala</h2>
+<p>Sete blocos. Os três primeiros abrem uma ferida, os três seguintes mostram o que se pode fazer com ela, e o último devolve o problema para a plateia. O climaSUS entra no meio, como exemplo — nunca como o assunto.</p>
+
+<div class="block">
+  <div class="head"><span class="n">01</span><span class="t"><h2 class="sec">Abrir com um <span class="it">corpo</span>, não com um gráfico</h2></span><span class="time">3 min</span></div>
+  <div class="goal">Objetivo · deslocar a mudança climática do abstrato para o clínico</div>
+  <p>Comece com um caso concreto e verificável da sua própria experiência de campo: um idoso internado numa semana de calor extremo, uma criança com crise respiratória em mês de queimada, uma UBS que ficou sem energia durante um evento extremo. Uma pessoa, uma data, um lugar. Nenhum número ainda.</p>
+  <div class="say"><span class="label">Fio condutor</span><p>“Nenhuma dessas pessoas foi registrada como vítima da mudança do clima. Elas entraram no sistema como cardiopatia, como asma, como diarreia. O clima não aparece no prontuário — mas estava lá.”</p></div>
+  <div class="note"><span class="label">Preparar antes</span><p>Escolha um caso que você possa contar em 90 segundos e que não exija dados que você não tenha. Fale devagar. É o único momento da fala em que o silêncio trabalha a seu favor.</p></div>
+</div>
+
+<div class="block">
+  <div class="head"><span class="n">02</span><span class="t"><h2 class="sec">O problema não é <span class="it">falta de ciência</span></h2></span><span class="time">4 min</span></div>
+  <div class="goal">Objetivo · desmontar a explicação confortável</div>
+  <p>Aqui você contraria a expectativa da plateia. Estudantes chegam ao debate esperando ouvir que precisamos de mais pesquisa, mais modelos, mais evidência. Diga o contrário: a relação entre calor extremo e mortalidade, entre fumaça e internação respiratória, entre seca e insegurança hídrica está descrita há décadas na literatura.</p>
+  <p>O que falta é <span class="em">infraestrutura de decisão</span>. Os dados existem, mas moram em bases que não conversam: notificações de saúde num lugar, séries meteorológicas em outro, sensoriamento remoto em outro, censo em outro. Nenhum gestor municipal tem tempo, equipe ou ferramenta para atravessar isso na segunda-feira de manhã.</p>
+  <div class="say"><span class="label">Provocação</span><p>“Se amanhã publicássemos mais mil artigos sobre clima e saúde no Brasil, quantas mortes seriam evitadas? Talvez nenhuma. E isso deveria nos incomodar mais do que incomoda.”</p></div>
+</div>
+
+<div class="block">
+  <div class="head"><span class="n">03</span><span class="t"><h2 class="sec">Vulnerabilidade é uma <span class="it">escolha</span> anterior</h2></span><span class="time">4 min</span></div>
+  <div class="goal">Objetivo · politizar o tema sem discursar</div>
+  <p>O mesmo evento climático produz consequências radicalmente diferentes em dois bairros da mesma cidade. Onde há arborização, saneamento, ar-condicionado, laje isolada, transporte e uma UBS a dez minutos, o calor é desconforto. Onde não há, o calor é risco de morte.</p>
+  <p>Isso significa que a vulnerabilidade climática foi construída — por décadas de decisões sobre onde investir, quem urbanizar, quais territórios contar. A Amazônia concentra a sobreposição mais dura: exposição alta, serviços frágeis e histórico de invisibilidade estatística. Quando o dado não existe, o problema oficialmente não existe.</p>
+  <div class="say"><span class="label">Provocação</span><p>“A mudança do clima não é democrática. Ela encontra desigualdades prontas e as aprofunda. Adaptação sem justiça é apenas proteger quem já estava protegido.”</p></div>
+</div>
+
+<div class="block">
+  <div class="head"><span class="n">04</span><span class="t"><h2 class="sec">O que tentamos fazer — e <span class="it">por quê</span></h2></span><span class="time">6 min</span></div>
+  <div class="goal">Objetivo · mostrar o climaSUS como resposta a um diagnóstico, não como produto</div>
+  <p>Só agora entre no climaSUS, e entre pelo problema, não pela arquitetura. A pergunta que organizou o projeto foi simples: o que precisa existir para que um gestor de saúde de um município amazônico saiba, na quinta-feira, que na semana seguinte haverá risco?</p>
+  <ul>
+    <li><strong>Bibliotecas abertas</strong> (climasus4r, climasus4py) — porque a análise precisa ser reproduzível e auditável por qualquer pessoa, não uma caixa-preta.</li>
+    <li><strong>climasus+ Studio</strong> — porque a maioria de quem decide não programa, e exigir código é excluir.</li>
+    <li><strong>climasusDB</strong> — porque sem dados integrados e com metadados persistentes, cada estudo recomeça do zero.</li>
+    <li><strong>Sistemas de alerta</strong> (calor, ar, seca, eventos combinados) — porque previsão só vale se virar aviso a tempo.</li>
+    <li><strong>climaSUS Gestor</strong> — porque o alerta tem de chegar ao celular de quem age, em linguagem de decisão.</li>
+    <li><strong>climaSUS EDUCA</strong> — porque tecnologia sem formação e sem rede não sobrevive à troca de gestão.</li>
+  </ul>
+  <div class="note"><span class="label">Cuidado de tom</span><p>Este é o bloco em que é mais fácil perder a plateia. Não descreva funcionalidades: descreva a decisão que cada peça viabiliza. Se puder, mostre uma tela do Gestor por dez segundos e siga adiante.</p></div>
+</div>
+
+<div class="block">
+  <div class="head"><span class="n">05</span><span class="t"><h2 class="sec">O que <span class="it">não</span> funcionou</h2></span><span class="time">4 min</span></div>
+  <div class="goal">Objetivo · ganhar credibilidade e abrir espaço real para o debate</div>
+  <p>Este é o bloco mais valioso da fala, e o que quase ninguém apresenta. Estudantes desconfiam de projetos que só têm resultados positivos. Conte os limites com precisão:</p>
+  <ul>
+    <li>Bases nacionais que não conversam entre si, com códigos de município incompatíveis e séries interrompidas.</li>
+    <li>Calibrar limiares de alerta em territórios com subnotificação — o dado que falta enviesa o modelo que decide.</li>
+    <li>Interfaces desenhadas a partir da lógica do pesquisador, refeitas depois de ver como o gestor realmente trabalha.</li>
+    <li>Alertas que chegam mas não são usados, porque não havia protocolo, orçamento ou equipe para responder a eles.</li>
+  </ul>
+  <div class="say"><span class="label">Frase-chave</span><p>“Um sistema de alerta não reduz risco. Reduz risco quando existe alguém do outro lado com mandato, verba e protocolo para agir. Essa parte não é tecnológica.”</p></div>
+</div>
+
+<div class="block">
+  <div class="head"><span class="n">06</span><span class="t"><h2 class="sec">O que isso tem a ver com <span class="it">eles</span></h2></span><span class="time">3 min</span></div>
+  <div class="goal">Objetivo · transformar tema em trajetória profissional</div>
+  <p>Não termine em apelo genérico. Mostre onde o trabalho está faltando, com nomes de competências que os estudantes reconheçam em si mesmos: quem consegue ler dados, quem consegue conversar com uma comunidade, quem consegue escrever uma nota técnica que um secretário leia, quem consegue programar, quem consegue ensinar.</p>
+  <p>Diga também o que este campo exige e raramente se admite: paciência institucional, disposição para trabalho não citável, e tolerância a resultados lentos. Quem entra esperando publicar rápido desiste no primeiro ano.</p>
+  <div class="say"><span class="label">Fechamento</span><p>“A geração de vocês não vai escolher se enfrenta a crise climática na saúde. Vai escolher apenas de que lado da decisão vai estar: quem produz o dado, quem usa o dado, ou quem é contado por ele.”</p></div>
+</div>
+
+<div class="block">
+  <div class="head"><span class="n">07</span><span class="t"><h2 class="sec">Abrir o <span class="it">debate</span></h2></span><span class="time">25 min</span></div>
+  <div class="goal">Objetivo · conduzir sem responder tudo</div>
+  <p>Abra você mesmo com uma pergunta em vez de esperar a primeira mão levantada. Escolha duas ou três da lista abaixo conforme o perfil da turma, e resista à tentação de responder cada uma — devolva à plateia.</p>
+  <ul class="q">
+    <li>Se você tivesse que escolher entre investir em previsão climática de alta precisão ou em capacidade de resposta dos municípios, com o mesmo orçamento, o que escolheria?</li>
+    <li>Um algoritmo prevê risco de morte por calor usando dados de um território subnotificado. Ele é útil ou perigoso?</li>
+    <li>Quem deveria ser responsabilizado quando um alerta é emitido, ignorado, e alguém morre?</li>
+    <li>Dados abertos de saúde protegem a população ou expõem os mais vulneráveis? Onde está o limite?</li>
+    <li>A adaptação climática pode virar mais uma política que chega primeiro a quem menos precisa. Como evitar isso?</li>
+    <li>Se o clima passasse a constar no prontuário como determinante de saúde, o que mudaria na sua formação?</li>
+  </ul>
+  <div class="note"><span class="label">Condução</span><p>Quando a discussão travar em pessimismo, traga de volta ao concreto: “o que dá para fazer em Rondônia no ano que vem, com o que já existe?”. Quando escorregar para otimismo tecnológico, volte ao bloco 05.</p></div>
+</div>
+
+<h2 class="sec">Sustentação e material de apoio</h2>
+<div class="grid2">
+  <div class="col">
+    <h4>Levar impresso ou no celular</h4>
+    <ul>
+      <li>Uma tela do climaSUS Gestor com alerta real de um município.</li>
+      <li>Um mapa de vulnerabilidade com dois bairros contrastantes.</li>
+      <li>O endereço do painel para quem quiser explorar depois.</li>
+    </ul>
+  </div>
+  <div class="col">
+    <h4>Verificar antes de subir</h4>
+    <ul>
+      <li>Todo número citado deve ter fonte e ano que você saiba de cabeça.</li>
+      <li>Nenhum caso clínico identificável sem autorização.</li>
+      <li>Slides: no máximo seis, um por bloco. A fala é o material.</li>
+    </ul>
+  </div>
+</div>
+
+<div slot="footer" class="foot"><span>climaSUS · clima, ambiente e saúde única sustentável</span><span>climasus.app.br</span></div>
+</doc-page>
+</body>
+</html>

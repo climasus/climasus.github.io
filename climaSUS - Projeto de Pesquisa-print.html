@@ -1,0 +1,2530 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>climaSUS · Projeto de Pesquisa — Proposta de financiamento</title>
+<link rel="icon" href="favicon.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;0,6..72,700;1,6..72,400;1,6..72,500&family=IBM+Plex+Sans:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --ink: #14322A;
+    --ink-2: #1F4A3D;
+    --ink-3: #2A5C4D;
+    --paper: #F4EFE3;
+    --paper-2: #E6DEC8;
+    --paper-3: #FAF6EC;
+    --rule: rgba(20,50,42,0.18);
+    --rule-strong: rgba(20,50,42,0.4);
+    --muted: #6B7A6B;
+    --muted-2: #4A5C4A;
+    --accent: #B85A1F;
+    --accent-2: #5C8A3A;
+    --gold: #C9A036;
+    --teal: #1F6B5E;
+    --red: #8C2A1E;
+  }
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: "IBM Plex Sans", system-ui, sans-serif;
+    color: var(--ink);
+    background: var(--paper);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    font-size: 16px;
+    line-height: 1.55;
+  }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  /* ============ DOCUMENT FRAME ============ */
+  .doc {
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: 0;
+    background: var(--paper);
+  }
+
+  /* ============ DOCUMENT HEADER ============ */
+  .doc-meta-bar {
+    background: var(--ink);
+    color: rgba(244,239,227,0.7);
+    padding: 10px 56px;
+    display: flex;
+    justify-content: space-between;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+  .doc-meta-bar .left { display: flex; gap: 28px; }
+  .doc-meta-bar .right { display: flex; gap: 20px; }
+
+  /* ============ COVER PAGE ============ */
+  .cover {
+    padding: 100px 56px 80px;
+    border-bottom: 1px solid var(--ink);
+    position: relative;
+  }
+  .cover-eyebrow {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 13px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--accent);
+    display: inline-flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 36px;
+  }
+  .cover-eyebrow .bar { display: inline-block; width: 32px; height: 1px; background: var(--accent); }
+  .cover h1 {
+    font-family: "Newsreader", serif;
+    font-weight: 500;
+    font-size: 108px;
+    line-height: 0.92;
+    letter-spacing: -0.03em;
+    margin: 0 0 28px;
+    max-width: 1000px;
+  }
+  .cover h1 .it { font-style: italic; color: var(--accent); font-weight: 400; }
+  .cover .deck {
+    font-family: "Newsreader", serif;
+    font-style: italic;
+    font-size: 30px;
+    line-height: 1.35;
+    color: var(--ink-2);
+    max-width: 880px;
+    margin: 0 0 60px;
+    font-weight: 400;
+  }
+  .cover-stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    border-top: 1px solid var(--ink);
+    border-bottom: 1px solid var(--ink);
+  }
+  .cover-stat {
+    padding: 28px 24px 28px 0;
+    border-right: 1px solid var(--rule);
+  }
+  .cover-stat:last-child { border-right: none; }
+  .cover-stat:not(:first-child) { padding-left: 24px; }
+  .cover-stat .num {
+    font-family: "Newsreader", serif;
+    font-weight: 400;
+    font-style: italic;
+    font-size: 64px;
+    line-height: 1;
+    letter-spacing: -0.02em;
+    color: var(--accent);
+  }
+  .cover-stat .num .sub {
+    font-family: "IBM Plex Sans";
+    font-style: normal;
+    font-size: 0.32em;
+    font-weight: 500;
+    color: var(--ink-2);
+    margin-left: 8px;
+    vertical-align: 0.5em;
+    letter-spacing: 0.05em;
+  }
+  .cover-stat .lbl {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-top: 14px;
+  }
+  .cover-meta-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 0;
+    margin-top: 60px;
+  }
+  .cover-meta-grid .col {
+    padding-right: 32px;
+    border-right: 1px solid var(--rule);
+  }
+  .cover-meta-grid .col:last-child { border-right: none; padding-left: 32px; padding-right: 0; }
+  .cover-meta-grid .col:nth-child(2) { padding-left: 32px; }
+  .cover-meta-grid h4 {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin: 0 0 14px;
+    font-weight: 600;
+  }
+  .cover-meta-grid p {
+    font-family: "Newsreader", serif;
+    font-size: 20px;
+    line-height: 1.35;
+    color: var(--ink);
+    margin: 0;
+  }
+
+  /* ============ TOC ============ */
+  .toc {
+    padding: 80px 56px;
+    background: var(--paper-3);
+    border-bottom: 1px solid var(--rule);
+  }
+  .toc-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 40px;
+    border-bottom: 1px solid var(--ink);
+    padding-bottom: 28px;
+  }
+  .toc-head h2 {
+    font-family: "Newsreader", serif;
+    font-weight: 500;
+    font-size: 56px;
+    line-height: 1;
+    margin: 0;
+    letter-spacing: -0.02em;
+  }
+  .toc-head h2 .it { font-style: italic; color: var(--accent); font-weight: 400; }
+  .toc-head .meta {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 12px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-align: right;
+    line-height: 1.6;
+  }
+  .toc-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0 80px;
+  }
+  .toc-item {
+    display: grid;
+    grid-template-columns: 60px 1fr auto;
+    gap: 16px;
+    align-items: baseline;
+    padding: 14px 0;
+    border-bottom: 1px dashed var(--rule);
+  }
+  .toc-item .num {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 12px;
+    letter-spacing: 0.14em;
+    color: var(--muted);
+  }
+  .toc-item .title {
+    font-family: "Newsreader", serif;
+    font-size: 19px;
+    line-height: 1.3;
+    color: var(--ink);
+  }
+  .toc-item .title .em { font-style: italic; color: var(--accent); }
+  .toc-item .pg {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 12px;
+    color: var(--muted);
+  }
+
+  /* ============ SECTION ============ */
+  section.chapter {
+    padding: 100px 56px 80px;
+    border-bottom: 1px solid var(--rule);
+    position: relative;
+  }
+  section.chapter.dark {
+    background: var(--ink);
+    color: var(--paper);
+    border-bottom: 1px solid rgba(244,239,227,0.1);
+  }
+  section.chapter.cream {
+    background: var(--paper-3);
+  }
+  .chapter-head {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 60px;
+    border-bottom: 1px solid var(--rule);
+    padding-bottom: 40px;
+    margin-bottom: 56px;
+  }
+  section.dark .chapter-head { border-color: rgba(244,239,227,0.15); }
+  .chapter-head .chap-marker {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 12px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+  section.dark .chapter-head .chap-marker { color: rgba(244,239,227,0.55); }
+  .chapter-head .chap-marker .big {
+    display: block;
+    font-family: "Newsreader", serif;
+    font-style: italic;
+    font-size: 60px;
+    color: var(--accent);
+    line-height: 1;
+    letter-spacing: -0.02em;
+    margin-bottom: 8px;
+    font-weight: 400;
+  }
+  section.dark .chap-marker .big { color: #E6A87A; }
+  .chapter-head h2 {
+    font-family: "Newsreader", serif;
+    font-weight: 500;
+    font-size: 64px;
+    line-height: 1;
+    letter-spacing: -0.025em;
+    margin: 0 0 18px;
+  }
+  section.dark .chapter-head h2 { color: var(--paper); }
+  .chapter-head h2 .it { font-style: italic; color: var(--accent); font-weight: 400; }
+  section.dark .chapter-head h2 .it { color: #E6A87A; }
+  .chapter-head .lede {
+    font-family: "Newsreader", serif;
+    font-style: italic;
+    font-size: 22px;
+    line-height: 1.4;
+    color: var(--ink-2);
+    margin: 0;
+    max-width: 760px;
+  }
+  section.dark .chapter-head .lede { color: rgba(244,239,227,0.8); }
+
+  /* ============ BODY TYPOGRAPHY ============ */
+  .prose { max-width: 880px; }
+  .prose.wide { max-width: none; }
+  .prose p {
+    font-family: "Newsreader", serif;
+    font-size: 19px;
+    line-height: 1.5;
+    color: var(--ink);
+    margin: 0 0 20px;
+  }
+  section.dark .prose p { color: rgba(244,239,227,0.85); }
+  .prose p.lede {
+    font-size: 24px;
+    line-height: 1.4;
+    color: var(--ink);
+    margin-bottom: 36px;
+    font-weight: 400;
+  }
+  .prose p .em { font-style: italic; color: var(--accent); font-weight: 500; }
+  .prose h3 {
+    font-family: "Newsreader", serif;
+    font-weight: 500;
+    font-size: 32px;
+    line-height: 1.1;
+    letter-spacing: -0.015em;
+    margin: 48px 0 16px;
+    color: var(--ink);
+  }
+  section.dark .prose h3 { color: var(--paper); }
+  .prose h3 .it { font-style: italic; color: var(--accent); font-weight: 400; }
+  .prose h4 {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 13px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin: 32px 0 12px;
+    font-weight: 600;
+  }
+  section.dark .prose h4 { color: #E6A87A; }
+  .prose ul {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 24px;
+  }
+  .prose ul li {
+    font-family: "Newsreader", serif;
+    font-size: 19px;
+    line-height: 1.45;
+    color: var(--ink);
+    padding: 6px 0 6px 32px;
+    position: relative;
+  }
+  section.dark .prose ul li { color: rgba(244,239,227,0.85); }
+  .prose ul li::before {
+    content: "→";
+    position: absolute;
+    left: 0;
+    top: 6px;
+    color: var(--accent);
+    font-style: italic;
+  }
+  .prose ul li .em { font-style: italic; color: var(--accent); }
+  .prose blockquote {
+    margin: 36px 0;
+    padding: 0 0 0 32px;
+    border-left: 3px solid var(--accent);
+    font-family: "Newsreader", serif;
+    font-style: italic;
+    font-size: 26px;
+    line-height: 1.35;
+    color: var(--ink);
+  }
+  section.dark .prose blockquote { color: var(--paper); }
+  .prose blockquote .cite {
+    display: block;
+    margin-top: 16px;
+    font-family: "IBM Plex Mono", monospace;
+    font-style: normal;
+    font-size: 13px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  /* ============ TWO-COLUMN BODY ============ */
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+  }
+  .three-col {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+  }
+
+  /* ============ PILLARS / FUNDAMENTOS ============ */
+  .pillars {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    border-top: 1px solid var(--ink);
+    border-bottom: 1px solid var(--ink);
+  }
+  section.dark .pillars { border-color: rgba(244,239,227,0.3); }
+  .pillar {
+    padding: 32px 24px 32px 0;
+    border-right: 1px solid var(--rule);
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  section.dark .pillar { border-right-color: rgba(244,239,227,0.15); }
+  .pillar:last-child { border-right: none; }
+  .pillar:not(:first-child) { padding-left: 24px; }
+  .pillar .pill-num {
+    font-family: "Newsreader", serif;
+    font-weight: 400;
+    font-style: italic;
+    font-size: 48px;
+    line-height: 1;
+    color: var(--accent);
+  }
+  section.dark .pillar .pill-num { color: #E6A87A; }
+  .pillar h5 {
+    font-family: "Newsreader", serif;
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 1.1;
+    margin: 0;
+    color: var(--ink);
+  }
+  section.dark .pillar h5 { color: var(--paper); }
+  .pillar p {
+    font-size: 14px;
+    line-height: 1.5;
+    color: var(--ink-2);
+    margin: 0;
+  }
+  section.dark .pillar p { color: rgba(244,239,227,0.75); }
+
+  /* ============ OBJECTIVES TABLE ============ */
+  .obj-table {
+    border-top: 2px solid var(--ink);
+    border-bottom: 2px solid var(--ink);
+    margin: 32px 0;
+  }
+  .obj-row {
+    display: grid;
+    grid-template-columns: 80px 1fr 360px;
+    gap: 32px;
+    padding: 24px 0;
+    border-bottom: 1px solid var(--rule);
+    align-items: baseline;
+  }
+  .obj-row:last-child { border-bottom: none; }
+  .obj-row .obj-num {
+    font-family: "Newsreader", serif;
+    font-style: italic;
+    font-weight: 400;
+    font-size: 36px;
+    line-height: 1;
+    color: var(--accent);
+  }
+  .obj-row .obj-title {
+    font-family: "Newsreader", serif;
+    font-size: 22px;
+    line-height: 1.3;
+    color: var(--ink);
+    margin: 0;
+  }
+  .obj-row .obj-title .em { font-style: italic; color: var(--accent); }
+  .obj-row .obj-tag {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 12px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    line-height: 1.5;
+  }
+
+  /* ============ WORK PACKAGES ============ */
+  .wp-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0;
+    border-top: 2px solid var(--ink);
+  }
+  .wp {
+    display: grid;
+    grid-template-columns: 220px 1fr 320px;
+    gap: 48px;
+    padding: 40px 0;
+    border-bottom: 1px solid var(--rule);
+    align-items: start;
+  }
+  .wp-id {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .wp-id .code {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 13px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .wp-id .wp-num {
+    font-family: "Newsreader", serif;
+    font-style: italic;
+    font-weight: 400;
+    font-size: 80px;
+    line-height: 0.9;
+    color: var(--accent);
+    letter-spacing: -0.02em;
+  }
+  .wp-id .product {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent-2);
+    padding: 5px 10px;
+    border: 1px solid var(--accent-2);
+    align-self: flex-start;
+  }
+  .wp-body h3 {
+    font-family: "Newsreader", serif;
+    font-weight: 500;
+    font-size: 36px;
+    line-height: 1.05;
+    letter-spacing: -0.015em;
+    margin: 0 0 16px;
+  }
+  .wp-body h3 .it { font-style: italic; color: var(--accent); font-weight: 400; }
+  .wp-body .wp-objective {
+    font-family: "Newsreader", serif;
+    font-style: italic;
+    font-size: 20px;
+    line-height: 1.4;
+    color: var(--ink-2);
+    margin: 0 0 24px;
+  }
+  .wp-body h4 {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin: 24px 0 10px;
+    font-weight: 600;
+  }
+  .wp-body ul {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 16px;
+  }
+  .wp-body ul li {
+    font-size: 15px;
+    line-height: 1.5;
+    color: var(--ink-2);
+    padding: 4px 0 4px 24px;
+    position: relative;
+  }
+  .wp-body ul li::before {
+    content: "·";
+    position: absolute;
+    left: 8px;
+    top: 4px;
+    color: var(--accent);
+    font-weight: 700;
+  }
+  .wp-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    padding: 20px;
+    background: var(--paper-3);
+    border: 1px solid var(--rule);
+  }
+  .wp-meta-row {
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--rule);
+  }
+  .wp-meta-row:last-child { padding-bottom: 0; border-bottom: none; }
+  .wp-meta-row .k {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .wp-meta-row .v {
+    font-family: "Newsreader", serif;
+    font-size: 17px;
+    color: var(--ink);
+    text-align: right;
+  }
+  .wp-meta-row .v .em { font-style: italic; color: var(--accent); }
+  .wp-meta-deliv {
+    font-family: "Newsreader", serif;
+    font-size: 15px;
+    line-height: 1.4;
+    color: var(--ink-2);
+    border-top: 1px dashed var(--rule);
+    padding-top: 14px;
+  }
+  .wp-meta-deliv .label {
+    display: block;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 6px;
+  }
+
+  /* ============ TIMELINE / GANTT ============ */
+  .gantt-wrap {
+    background: var(--paper-3);
+    border: 1px solid var(--rule);
+    padding: 32px;
+    margin: 32px 0;
+    overflow-x: auto;
+  }
+  .gantt {
+    display: grid;
+    grid-template-columns: 220px repeat(20, 1fr);
+    gap: 2px;
+    min-width: 900px;
+  }
+  .gantt-cell {
+    height: 32px;
+    display: flex;
+    align-items: center;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    padding: 0 6px;
+  }
+  .gantt-cell.year-head {
+    background: var(--ink);
+    color: var(--paper);
+    justify-content: center;
+    font-weight: 500;
+  }
+  .gantt-cell.q-head {
+    background: var(--paper-2);
+    justify-content: center;
+    color: var(--ink-2);
+    font-weight: 500;
+  }
+  .gantt-cell.wp-label {
+    background: transparent;
+    text-transform: none;
+    font-family: "Newsreader", serif;
+    font-style: italic;
+    font-size: 14px;
+    color: var(--ink);
+    letter-spacing: 0;
+    padding-left: 0;
+    padding-right: 12px;
+    height: 40px;
+  }
+  .gantt-cell.bar {
+    height: 40px;
+    background: rgba(20,50,42,0.06);
+    position: relative;
+  }
+  .gantt-bar-fill {
+    position: absolute;
+    top: 6px;
+    bottom: 6px;
+    background: var(--accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--paper);
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0 6px;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+  .gantt-bar-fill.alt { background: var(--ink); }
+  .gantt-bar-fill.green { background: var(--accent-2); }
+  .gantt-bar-fill.gold { background: var(--gold); color: var(--ink); }
+  .gantt-bar-fill.teal { background: var(--teal); }
+  .gantt-milestone {
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%) rotate(45deg);
+    width: 12px;
+    height: 12px;
+    background: var(--accent);
+    border: 2px solid var(--paper-3);
+  }
+
+  /* ============ BUDGET ============ */
+  .budget-table {
+    border-top: 2px solid var(--ink);
+    border-bottom: 2px solid var(--ink);
+    margin: 32px 0;
+  }
+  .budget-head {
+    display: grid;
+    grid-template-columns: 80px 1.5fr repeat(5, 1fr) 1fr;
+    gap: 16px;
+    padding: 16px 0;
+    border-bottom: 1px solid var(--ink);
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-weight: 600;
+  }
+  .budget-row {
+    display: grid;
+    grid-template-columns: 80px 1.5fr repeat(5, 1fr) 1fr;
+    gap: 16px;
+    padding: 18px 0;
+    border-bottom: 1px solid var(--rule);
+    align-items: baseline;
+  }
+  .budget-row.total {
+    border-top: 1px solid var(--ink);
+    border-bottom: none;
+    padding-top: 24px;
+  }
+  .budget-row .b-code {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 13px;
+    color: var(--muted);
+    letter-spacing: 0.12em;
+  }
+  .budget-row .b-cat {
+    font-family: "Newsreader", serif;
+    font-size: 18px;
+    color: var(--ink);
+  }
+  .budget-row .b-cat .em { font-style: italic; color: var(--accent); }
+  .budget-row .b-val {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 14px;
+    color: var(--ink-2);
+    text-align: right;
+  }
+  .budget-row.total .b-cat {
+    font-style: italic;
+    font-weight: 500;
+    color: var(--accent);
+  }
+  .budget-row.total .b-val {
+    font-weight: 600;
+    color: var(--ink);
+    font-size: 16px;
+  }
+  .budget-row .b-total {
+    font-family: "Newsreader", serif;
+    font-size: 22px;
+    color: var(--accent);
+    text-align: right;
+    font-style: italic;
+  }
+  .budget-row.total .b-total {
+    font-weight: 500;
+    font-size: 26px;
+    color: var(--ink);
+  }
+  .budget-bar {
+    height: 4px;
+    background: var(--rule);
+    margin-top: 6px;
+    position: relative;
+  }
+  .budget-bar-fill {
+    position: absolute;
+    top: 0; bottom: 0; left: 0;
+    background: var(--accent);
+  }
+
+  /* ============ TEAM / GOVERNANCE ============ */
+  .team-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+  }
+  .team-card {
+    padding: 28px 24px 28px 0;
+    border-right: 1px solid var(--rule);
+  }
+  .team-card:not(:first-child) { padding-left: 24px; }
+  .team-card:nth-child(3n) { border-right: none; }
+  .team-card .role {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 10px;
+  }
+  .team-card h5 {
+    font-family: "Newsreader", serif;
+    font-weight: 500;
+    font-size: 26px;
+    line-height: 1.1;
+    margin: 0 0 8px;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+  }
+  .team-card .inst {
+    font-family: "Newsreader", serif;
+    font-style: italic;
+    font-size: 15px;
+    color: var(--ink-2);
+    margin: 0 0 12px;
+  }
+  .team-card .bio {
+    font-size: 13px;
+    line-height: 1.5;
+    color: var(--muted-2);
+    margin: 0;
+  }
+
+  /* ============ RISK MATRIX ============ */
+  .risk-matrix {
+    display: grid;
+    grid-template-columns: 1fr 100px 100px 1.6fr;
+    gap: 0;
+    border-top: 1px solid var(--ink);
+    border-bottom: 1px solid var(--ink);
+  }
+  .risk-header {
+    display: contents;
+  }
+  .risk-header div {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+    padding: 14px 16px;
+    background: var(--paper-3);
+    border-bottom: 1px solid var(--ink);
+  }
+  .risk-row { display: contents; }
+  .risk-row > div {
+    padding: 20px 16px;
+    border-bottom: 1px solid var(--rule);
+    font-family: "Newsreader", serif;
+    font-size: 16px;
+    line-height: 1.4;
+  }
+  .risk-row .risk-title {
+    color: var(--ink);
+    font-size: 18px;
+  }
+  .risk-row .risk-lvl {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    text-align: center;
+    color: var(--paper);
+    align-self: start;
+    margin-top: 18px;
+    padding: 4px 8px;
+    width: max-content;
+    margin-left: 16px;
+  }
+  .risk-lvl.high { background: var(--red); }
+  .risk-lvl.med { background: var(--gold); color: var(--ink); }
+  .risk-lvl.low { background: var(--accent-2); }
+  .risk-row .risk-mit { color: var(--ink-2); font-style: italic; }
+
+  /* ============ IMPACT FRAMEWORK ============ */
+  .impact-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+    margin: 32px 0;
+  }
+  .impact-card {
+    padding: 32px 28px;
+    background: var(--paper-3);
+    border-top: 4px solid var(--accent);
+  }
+  .impact-card.scientific { border-top-color: var(--teal); }
+  .impact-card.policy { border-top-color: var(--accent); }
+  .impact-card.social { border-top-color: var(--accent-2); }
+  .impact-card .icon-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  .impact-card .pill {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+  .impact-card.scientific .pill { color: var(--teal); }
+  .impact-card.social .pill { color: var(--accent-2); }
+  .impact-card h4 {
+    font-family: "Newsreader", serif;
+    font-weight: 500;
+    font-size: 30px;
+    line-height: 1;
+    letter-spacing: -0.015em;
+    margin: 0 0 16px;
+  }
+  .impact-card h4 .it { font-style: italic; color: var(--accent); font-weight: 400; }
+  .impact-card.scientific h4 .it { color: var(--teal); }
+  .impact-card.social h4 .it { color: var(--accent-2); }
+  .impact-card ul {
+    list-style: none;
+    padding: 0;
+    margin: 16px 0 0;
+  }
+  .impact-card ul li {
+    font-size: 14px;
+    line-height: 1.5;
+    color: var(--ink-2);
+    padding: 6px 0 6px 18px;
+    position: relative;
+  }
+  .impact-card ul li::before {
+    content: "→";
+    position: absolute;
+    left: 0;
+    top: 6px;
+    color: var(--accent);
+    font-style: italic;
+  }
+
+  /* ============ KPIS ============ */
+  .kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    border-top: 1px solid rgba(244,239,227,0.3);
+    border-bottom: 1px solid rgba(244,239,227,0.3);
+  }
+  .kpi {
+    padding: 32px 24px 32px 0;
+    border-right: 1px solid rgba(244,239,227,0.15);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .kpi:not(:first-child) { padding-left: 24px; }
+  .kpi:nth-child(4n) { border-right: none; }
+  .kpi .v {
+    font-family: "Newsreader", serif;
+    font-weight: 400;
+    font-style: italic;
+    font-size: 56px;
+    line-height: 1;
+    letter-spacing: -0.02em;
+    color: #E6A87A;
+  }
+  .kpi .lbl {
+    font-family: "IBM Plex Sans", sans-serif;
+    font-size: 14px;
+    line-height: 1.3;
+    color: rgba(244,239,227,0.85);
+    font-weight: 400;
+  }
+  .kpi .sub {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: rgba(244,239,227,0.5);
+  }
+
+  /* ============ CALLOUT ============ */
+  .callout {
+    background: var(--ink);
+    color: var(--paper);
+    padding: 40px 44px;
+    margin: 48px 0;
+    border-left: 6px solid var(--accent);
+  }
+  section.dark .callout { background: rgba(244,239,227,0.06); border-left-color: #E6A87A; }
+  .callout .label {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #E6A87A;
+    margin-bottom: 12px;
+  }
+  .callout p {
+    font-family: "Newsreader", serif;
+    font-style: italic;
+    font-size: 24px;
+    line-height: 1.4;
+    color: var(--paper);
+    margin: 0;
+  }
+
+  /* ============ PROBLEM STATISTICS ============ */
+  .problem-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    margin: 40px 0;
+    border-top: 1px solid var(--ink);
+    border-bottom: 1px solid var(--ink);
+  }
+  .pstat {
+    padding: 32px 28px 32px 0;
+    border-right: 1px solid var(--rule);
+  }
+  .pstat:not(:first-child) { padding-left: 28px; }
+  .pstat:last-child { border-right: none; }
+  .pstat .v {
+    font-family: "Newsreader", serif;
+    font-weight: 400;
+    font-style: italic;
+    font-size: 80px;
+    line-height: 0.95;
+    color: var(--accent);
+    letter-spacing: -0.025em;
+  }
+  .pstat .v .unit {
+    font-family: "IBM Plex Sans";
+    font-style: normal;
+    font-size: 0.3em;
+    font-weight: 500;
+    color: var(--ink-2);
+    letter-spacing: 0.04em;
+    margin-left: 6px;
+  }
+  .pstat .desc {
+    font-family: "Newsreader", serif;
+    font-size: 17px;
+    line-height: 1.45;
+    color: var(--ink-2);
+    margin: 14px 0 0;
+  }
+  .pstat .src {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-top: 12px;
+  }
+
+  /* ============ FOOTER ============ */
+  .doc-foot {
+    background: var(--ink);
+    color: rgba(244,239,227,0.6);
+    padding: 48px 56px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+  .doc-foot .brand-foot {
+    font-family: "Newsreader", serif;
+    font-style: normal;
+    text-transform: none;
+    font-size: 28px;
+    color: var(--paper);
+    font-weight: 500;
+    letter-spacing: -0.01em;
+  }
+  .doc-foot .brand-foot .alt { color: #E6A87A; font-style: italic; font-weight: 400; }
+
+  @media (max-width: 1000px) {
+    .cover h1 { font-size: 64px; }
+    .cover-stats, .cover-meta-grid { grid-template-columns: 1fr 1fr; }
+    .pillars { grid-template-columns: 1fr 1fr; }
+    .two-col, .three-col, .impact-grid, .team-grid { grid-template-columns: 1fr; }
+    .wp { grid-template-columns: 1fr; gap: 24px; }
+    .chapter-head { grid-template-columns: 1fr; gap: 16px; }
+    .toc-list { grid-template-columns: 1fr; gap: 0; }
+    section.chapter { padding: 60px 28px; }
+    .doc-meta-bar, .cover, .doc-foot { padding-left: 28px; padding-right: 28px; }
+  }
+
+  /* ============================================================
+     PRINT STYLES
+     ============================================================ */
+  @page {
+    size: A4 portrait;
+    margin: 14mm 14mm 16mm;
+  }
+
+  @media print {
+    html, body {
+      background: #fff !important;
+      font-size: 11pt;
+    }
+    body {
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+      color-adjust: exact;
+    }
+    *, *::before, *::after {
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+    }
+    .doc { max-width: none; margin: 0; }
+
+    a { color: inherit; text-decoration: none; }
+
+    /* ---- DOC META BAR ---- */
+    .doc-meta-bar {
+      padding: 6mm 0 4mm;
+      background: transparent !important;
+      color: var(--muted) !important;
+      border-bottom: 1px solid var(--rule);
+      font-size: 8pt;
+    }
+    .doc-meta-bar .left,
+    .doc-meta-bar .right { gap: 16pt; }
+
+    /* ---- COVER ---- */
+    .cover {
+      padding: 12mm 0 8mm;
+      page-break-after: always;
+      break-after: page;
+      border-bottom: none;
+      min-height: calc(100vh - 30mm);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .cover h1 {
+      font-size: 48pt;
+      margin-bottom: 14pt;
+    }
+    .cover .deck {
+      font-size: 14pt;
+      margin-bottom: 24pt;
+    }
+    .cover-eyebrow { font-size: 8pt; margin-bottom: 18pt; }
+    .cover-stats { margin-top: auto; }
+    .cover-stat { padding: 12pt 10pt 12pt 0 !important; }
+    .cover-stat:not(:first-child) { padding-left: 10pt !important; }
+    .cover-stat .num { font-size: 30pt; }
+    .cover-stat .num .sub { font-size: 9pt; }
+    .cover-stat .lbl { font-size: 7pt; margin-top: 6pt; }
+    .cover-meta-grid { margin-top: 18pt; }
+    .cover-meta-grid h4 { font-size: 7pt; margin-bottom: 6pt; }
+    .cover-meta-grid p { font-size: 11pt; }
+
+    /* ---- TOC ---- */
+    .toc {
+      padding: 14mm 0 10mm;
+      page-break-after: always;
+      break-after: page;
+      background: transparent !important;
+    }
+    .toc-head h2 { font-size: 28pt; }
+    .toc-head .meta { font-size: 8pt; }
+    .toc-list { gap: 0 36pt; }
+    .toc-item { padding: 8pt 0; }
+    .toc-item .num { font-size: 8pt; }
+    .toc-item .title { font-size: 11pt; }
+    .toc-item .pg { font-size: 8pt; }
+
+    /* ---- CHAPTERS ---- */
+    section.chapter {
+      padding: 10mm 0 8mm;
+      page-break-before: always;
+      break-before: page;
+      border-bottom: none;
+    }
+    section.chapter.dark {
+      background: var(--ink) !important;
+      color: var(--paper) !important;
+      padding-left: 8mm;
+      padding-right: 8mm;
+      margin-left: -8mm;
+      margin-right: -8mm;
+    }
+    section.chapter.cream {
+      background: var(--paper-3) !important;
+      padding-left: 6mm;
+      padding-right: 6mm;
+      margin-left: -6mm;
+      margin-right: -6mm;
+    }
+
+    .chapter-head {
+      grid-template-columns: 110pt 1fr;
+      gap: 24pt;
+      padding-bottom: 14pt;
+      margin-bottom: 20pt;
+      page-break-after: avoid;
+      break-after: avoid;
+    }
+    .chapter-head .chap-marker { font-size: 8pt; }
+    .chapter-head .chap-marker .big { font-size: 32pt; margin-bottom: 4pt; }
+    .chapter-head h2 { font-size: 30pt; margin-bottom: 10pt; }
+    .chapter-head .lede { font-size: 13pt; }
+
+    /* ---- PROSE ---- */
+    .prose, .prose.wide { max-width: none; }
+    .prose p { font-size: 11pt; margin-bottom: 9pt; }
+    .prose p.lede { font-size: 13pt; margin-bottom: 14pt; }
+    .prose h3 { font-size: 18pt; margin: 18pt 0 8pt; page-break-after: avoid; break-after: avoid; }
+    .prose h4 { font-size: 9pt; margin: 12pt 0 6pt; page-break-after: avoid; break-after: avoid; }
+    .prose ul li { font-size: 11pt; padding: 3pt 0 3pt 18pt; }
+    .prose blockquote { font-size: 14pt; margin: 14pt 0; padding-left: 16pt; page-break-inside: avoid; break-inside: avoid; }
+
+    .two-col, .three-col { gap: 24pt; }
+
+    /* ---- KEEP-TOGETHER BLOCKS ---- */
+    .callout,
+    .pillar,
+    .pstat,
+    .wp,
+    .team-card,
+    .risk-row,
+    .impact-card,
+    .obj-row,
+    .kpi,
+    .cover-stat {
+      page-break-inside: avoid;
+      break-inside: avoid;
+    }
+    .pillars,
+    .problem-stats,
+    .kpi-grid,
+    .impact-grid {
+      page-break-inside: avoid;
+      break-inside: avoid;
+    }
+
+    .callout {
+      padding: 16pt 18pt;
+      margin: 18pt 0;
+      background: var(--ink) !important;
+      color: var(--paper) !important;
+    }
+    .callout p { font-size: 13pt; }
+    .callout .label { font-size: 8pt; margin-bottom: 6pt; }
+
+    /* ---- PILLARS ---- */
+    .pillar { padding: 12pt 10pt 12pt 0; }
+    .pillar:not(:first-child) { padding-left: 10pt; }
+    .pillar .pill-num { font-size: 24pt; }
+    .pillar h5 { font-size: 13pt; }
+    .pillar p { font-size: 9pt; }
+
+    /* ---- PROBLEM STATS ---- */
+    .problem-stats { margin: 18pt 0; }
+    .pstat { padding: 14pt 12pt 14pt 0; }
+    .pstat:not(:first-child) { padding-left: 12pt; }
+    .pstat .v { font-size: 36pt; }
+    .pstat .v .unit { font-size: 12pt; }
+    .pstat .desc { font-size: 10pt; margin-top: 8pt; }
+    .pstat .src { font-size: 7pt; margin-top: 6pt; }
+
+    /* ---- OBJECTIVE TABLE ---- */
+    .obj-row { padding: 12pt 0; gap: 16pt; grid-template-columns: 50pt 1fr 180pt; }
+    .obj-row .obj-num { font-size: 20pt; }
+    .obj-row .obj-title { font-size: 12pt; }
+    .obj-row .obj-tag { font-size: 8pt; }
+
+    /* ---- WP CARDS ---- */
+    .wp-grid { border-top: 1pt solid var(--ink); }
+    .wp {
+      grid-template-columns: 110pt 1fr 180pt;
+      gap: 18pt;
+      padding: 14pt 0;
+    }
+    .wp-id .code { font-size: 8pt; }
+    .wp-id .wp-num { font-size: 44pt; }
+    .wp-id .product { font-size: 7pt; padding: 3pt 6pt; }
+    .wp-body h3 { font-size: 17pt; margin-bottom: 8pt; }
+    .wp-body .wp-objective { font-size: 11pt; margin-bottom: 10pt; }
+    .wp-body h4 { font-size: 8pt; margin: 10pt 0 4pt; }
+    .wp-body ul li { font-size: 9pt; padding: 2pt 0 2pt 14pt; }
+    .wp-meta { padding: 10pt 12pt; gap: 8pt; }
+    .wp-meta-row { padding-bottom: 6pt; }
+    .wp-meta-row .k { font-size: 7pt; }
+    .wp-meta-row .v { font-size: 10pt; }
+    .wp-meta-deliv { font-size: 8pt; padding-top: 6pt; }
+    .wp-meta-deliv .label { font-size: 7pt; margin-bottom: 3pt; }
+
+    /* ---- GANTT ---- */
+    .gantt-wrap {
+      padding: 12pt;
+      margin: 14pt 0;
+      page-break-inside: avoid;
+      break-inside: avoid;
+      overflow: visible;
+    }
+    .gantt { min-width: 0; grid-template-columns: 90pt repeat(20, 1fr); }
+    .gantt-cell { height: 16pt; font-size: 6pt; padding: 0 3pt; }
+    .gantt-cell.wp-label { font-size: 9pt; height: 22pt; }
+    .gantt-cell.bar { height: 22pt; }
+    .gantt-bar-fill { font-size: 6pt; top: 3pt; bottom: 3pt; padding: 0 4pt; }
+
+    /* ---- BUDGET ---- */
+    .budget-table { margin: 14pt 0; }
+    .budget-head, .budget-row {
+      gap: 8pt;
+      padding: 8pt 0;
+    }
+    .budget-head { font-size: 7pt; }
+    .budget-row .b-code { font-size: 9pt; }
+    .budget-row .b-cat { font-size: 11pt; }
+    .budget-row .b-val { font-size: 10pt; }
+    .budget-row .b-total { font-size: 14pt; }
+    .budget-row.total .b-total { font-size: 16pt; }
+    .budget-bar { height: 3pt; margin-top: 4pt; }
+
+    /* ---- TEAM ---- */
+    .team-grid { border-color: var(--rule); }
+    .team-card { padding: 14pt 12pt 14pt 0; }
+    .team-card:not(:first-child) { padding-left: 12pt; }
+    .team-card .role { font-size: 7pt; margin-bottom: 6pt; }
+    .team-card h5 { font-size: 16pt; }
+    .team-card .inst { font-size: 10pt; margin-bottom: 6pt; }
+    .team-card .bio { font-size: 9pt; }
+
+    /* ---- IMPACT ---- */
+    .impact-grid { gap: 12pt; margin: 14pt 0; }
+    .impact-card { padding: 14pt 14pt; border-top-width: 3pt; }
+    .impact-card .pill { font-size: 7pt; }
+    .impact-card h4 { font-size: 17pt; margin-bottom: 8pt; }
+    .impact-card ul li { font-size: 9pt; padding: 3pt 0 3pt 12pt; }
+
+    /* ---- KPI ---- */
+    .kpi-grid { border-color: rgba(244,239,227,0.3); }
+    .kpi { padding: 14pt 10pt 14pt 0; gap: 6pt; }
+    .kpi:not(:first-child) { padding-left: 10pt; }
+    .kpi .v { font-size: 28pt; }
+    .kpi .lbl { font-size: 9pt; }
+    .kpi .sub { font-size: 7pt; }
+
+    /* ---- RISK ---- */
+    .risk-matrix { grid-template-columns: 1.4fr 60pt 60pt 2fr; }
+    .risk-header div { font-size: 7pt; padding: 8pt 10pt; }
+    .risk-row > div { padding: 10pt; font-size: 10pt; }
+    .risk-row .risk-title { font-size: 11pt; }
+    .risk-lvl { font-size: 7pt; margin-top: 8pt; margin-left: 10pt; padding: 2pt 6pt; }
+
+    /* ---- DOC FOOT ---- */
+    .doc-foot {
+      padding: 8mm 0 4mm;
+      background: transparent !important;
+      color: var(--muted) !important;
+      border-top: 1px solid var(--rule);
+      page-break-before: avoid;
+    }
+    .doc-foot .brand-foot { color: var(--ink) !important; font-size: 18pt; }
+    .doc-foot .brand-foot .alt { color: var(--accent) !important; }
+    .doc-foot div span { color: var(--muted) !important; font-size: 8pt; }
+  }
+</style>
+</head>
+<body>
+
+<div class="doc">
+
+<!-- ============ DOC META BAR ============ -->
+<div class="doc-meta-bar">
+  <div class="left">
+    <span>climaSUS · Proposta de financiamento</span>
+    <span>Versão 1.0 · 23 mai 2026</span>
+  </div>
+  <div class="right">
+    <span>Confidencial</span>
+    <span>Ref · climaSUS / 2026 / 001</span>
+  </div>
+</div>
+
+<!-- ============ COVER ============ -->
+<section class="cover">
+  <div class="cover-eyebrow"><span class="bar"></span>Proposta de pesquisa · 2026–2030</div>
+  <h1>
+    Antecipar para <span class="it">proteger</span>:<br/>
+    ciência do clima e<br/>
+    saúde pública na Amazônia.
+  </h1>
+  <p class="deck">
+    Programa quinquenal de pesquisa, desenvolvimento e implementação do ecossistema climaSUS — infraestrutura científica aberta para antecipar, dimensionar e responder aos impactos do clima sobre a saúde da população brasileira.
+  </p>
+
+  <div class="cover-stats">
+    <div class="cover-stat">
+      <div class="num">12,8<span class="sub">M USD</span></div>
+      <div class="lbl">Orçamento total · 5 anos</div>
+    </div>
+    <div class="cover-stat">
+      <div class="num">60<span class="sub">meses</span></div>
+      <div class="lbl">Set 2026 → Ago 2031</div>
+    </div>
+    <div class="cover-stat">
+      <div class="num">8<span class="sub">WPs</span></div>
+      <div class="lbl">Pacotes de trabalho</div>
+    </div>
+    <div class="cover-stat">
+      <div class="num">28<span class="sub">M</span></div>
+      <div class="lbl">População alcançada<br/>Amazônia Legal</div>
+    </div>
+  </div>
+
+  <div class="cover-meta-grid">
+    <div class="col">
+      <h4>Instituição proponente</h4>
+      <p>Universidade Federal do Rio Grande do Norte<br/>
+      <span style="font-family:'IBM Plex Mono', monospace; font-size:13px; letter-spacing:0.1em; color:var(--muted);">CNPJ · 24.365.710/0001‑73</span></p>
+    </div>
+    <div class="col">
+      <h4>Coordenação geral</h4>
+      <p>Prof. Dr. [PI Principal Investigator]<br/>
+      <span style="font-family:'IBM Plex Mono', monospace; font-size:13px; letter-spacing:0.1em; color:var(--muted);">DSC · UFRN · ORCID 0000‑…</span></p>
+    </div>
+    <div class="col">
+      <h4>Consórcio</h4>
+      <p>UFRN · Fiocruz · INMET · CEMADEN · 14 SES Amazônia Legal · 3 parceiros internacionais</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TOC ============ -->
+<section class="toc">
+  <div class="toc-head">
+    <h2>Índice <span class="it">geral</span></h2>
+    <div class="meta">
+      8 capítulos<br/>
+      8 pacotes de trabalho<br/>
+      32 entregáveis-chave
+    </div>
+  </div>
+  <div class="toc-list">
+    <a class="toc-item" href="#cap-01"><span class="num">§ 01</span><span class="title">Sumário executivo · <span class="em">vision statement</span></span><span class="pg">p. 04</span></a>
+    <a class="toc-item" href="#cap-02"><span class="num">§ 02</span><span class="title">Problema e justificativa científica</span><span class="pg">p. 06</span></a>
+    <a class="toc-item" href="#cap-03"><span class="num">§ 03</span><span class="title">Estado da arte e inovação</span><span class="pg">p. 10</span></a>
+    <a class="toc-item" href="#cap-04"><span class="num">§ 04</span><span class="title">Objetivos · <span class="em">geral e específicos</span></span><span class="pg">p. 14</span></a>
+    <a class="toc-item" href="#cap-05"><span class="num">§ 05</span><span class="title">Metodologia · pacotes de trabalho</span><span class="pg">p. 18</span></a>
+    <a class="toc-item" href="#cap-06"><span class="num">§ 06</span><span class="title">Cronograma quinquenal</span><span class="pg">p. 36</span></a>
+    <a class="toc-item" href="#cap-07"><span class="num">§ 07</span><span class="title">Orçamento e governança</span><span class="pg">p. 40</span></a>
+    <a class="toc-item" href="#cap-08"><span class="num">§ 08</span><span class="title">Impacto, riscos e sustentabilidade</span><span class="pg">p. 46</span></a>
+  </div>
+</section>
+
+<!-- ============ § 01 — SUMÁRIO EXECUTIVO ============ -->
+<section id="cap-01" class="chapter">
+  <div class="chapter-head">
+    <div class="chap-marker"><span class="big">§ 01</span>Sumário<br/>executivo</div>
+    <div>
+      <h2>Da estação <br/>de coleta à <span class="it">decisão clínica</span>.</h2>
+      <p class="lede">
+        O climaSUS é uma infraestrutura científica nacional, aberta, voltada à transformação de dados climáticos e ambientais em decisões oportunas no Sistema Único de Saúde.
+      </p>
+    </div>
+  </div>
+
+  <div class="two-col">
+    <div class="prose">
+      <p class="lede">
+        Esta proposta articula <span class="em">cinco produtos integrados</span> — climasus4r, climasus4py, climasus+, climasusEduca e climasusAlerta — em um programa de pesquisa, desenvolvimento e implementação de cinco anos, com foco prioritário na Amazônia Brasileira.
+      </p>
+      <p>
+        A iniciativa responde a uma lacuna estrutural: a literatura sobre clima e saúde no Brasil é abundante em diagnósticos, mas escassa em sistemas operacionais reprodutíveis, validados em campo e capazes de chegar à ponta do SUS. A maior parte dos estudos publicados utiliza limiares calibrados para zonas temperadas e dados subnacionais agregados — invisibilizando justamente as populações de maior vulnerabilidade, em particular ribeirinhos e indígenas amazônicos.
+      </p>
+      <p>
+        Nossa proposta inverte essa lógica: parte do território, da unidade básica de saúde e do gestor municipal, e constrói para cima a infraestrutura científica que sustenta seus alertas. Cada componente do ecossistema climaSUS preenche uma camada distinta dessa pirâmide invertida — da biblioteca científica em código aberto ao boletim no rádio comunitário.
+      </p>
+      <p>
+        Solicitamos USD 12,8 milhões para um consórcio nacional liderado pela UFRN, em parceria com Fiocruz, INMET, CEMADEN, quatorze Secretarias Estaduais de Saúde e três centros internacionais — Wellcome Trust, LSHTM e WMO.
+      </p>
+    </div>
+
+    <div>
+      <div class="callout">
+        <div class="label">Proposição central</div>
+        <p>
+          Construir, validar e implementar a primeira plataforma operacional aberta, multi‑perigo e multi‑canal de alerta clima‑saúde da América Latina — com cobertura completa da Amazônia Legal até 2031.
+        </p>
+      </div>
+
+      <h4 style="font-family:'IBM Plex Mono', monospace; font-size:12px; letter-spacing:0.18em; text-transform:uppercase; color:var(--accent); margin: 32px 0 16px;">Resultados projetados ao fim de 60 meses</h4>
+      <ul style="list-style:none; padding:0; margin:0;">
+        <li style="font-family:'Newsreader', serif; font-size:18px; line-height:1.45; padding:10px 0 10px 28px; position:relative; border-bottom:1px solid var(--rule);">
+          <span style="position:absolute; left:0; color:var(--accent); font-style:italic;">→</span>
+          Três sistemas operacionais (SACS, SAQS, SASS) cobrindo a Amazônia Legal — <em style="font-style:italic; color:var(--accent);">772 municípios</em>.
+        </li>
+        <li style="font-family:'Newsreader', serif; font-size:18px; line-height:1.45; padding:10px 0 10px 28px; position:relative; border-bottom:1px solid var(--rule);">
+          <span style="position:absolute; left:0; color:var(--accent); font-style:italic;">→</span>
+          Quinze canais de disseminação validados — <em style="font-style:italic; color:var(--accent);">gestores, UBS, Defesa Civil, cidadão, mídia</em>.
+        </li>
+        <li style="font-family:'Newsreader', serif; font-size:18px; line-height:1.45; padding:10px 0 10px 28px; position:relative; border-bottom:1px solid var(--rule);">
+          <span style="position:absolute; left:0; color:var(--accent); font-style:italic;">→</span>
+          Duas bibliotecas científicas (R e Python) com <em style="font-style:italic; color:var(--accent);">≥ 10 000 downloads</em>.
+        </li>
+        <li style="font-family:'Newsreader', serif; font-size:18px; line-height:1.45; padding:10px 0 10px 28px; position:relative;">
+          <span style="position:absolute; left:0; color:var(--accent); font-style:italic;">→</span>
+          Rede de capacitação climasusEduca com <em style="font-style:italic; color:var(--accent);">2 400 profissionais</em> de saúde.
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ============ § 02 — PROBLEMA ============ -->
+<section id="cap-02" class="chapter cream">
+  <div class="chapter-head">
+    <div class="chap-marker"><span class="big">§ 02</span>Problema<br/>científico</div>
+    <div>
+      <h2>A Amazônia é o <br/>laboratório do <span class="it">colapso climático</span> — <br/>e da nossa <span class="it">resposta</span>.</h2>
+      <p class="lede">
+        Eventos extremos no bioma amazônico cresceram em frequência, magnitude e simultaneidade. A vigilância em saúde, baseada em séries históricas estacionárias, não dá conta.
+      </p>
+    </div>
+  </div>
+
+  <div class="prose">
+    <p class="lede">
+      Entre 2010 e 2024, a Amazônia Brasileira viveu três das cinco maiores secas registradas, uma sequência inédita de ondas de calor e episódios de fumaça de queimadas que atingiram níveis de PM 2.5 acima de 400 μg/m³ — mais de oito vezes o limite da OMS.
+    </p>
+
+    <div class="problem-stats">
+      <div class="pstat">
+        <div class="v">+38<span class="unit">%</span></div>
+        <p class="desc">Aumento da mortalidade por causas cardiovasculares em dias com HI &gt; 41 °C na Amazônia, 2015–2024.</p>
+        <div class="src">Cad. Saúde Pública · 2025</div>
+      </div>
+      <div class="pstat">
+        <div class="v">772</div>
+        <p class="desc">Municípios da Amazônia Legal sem qualquer sistema operacional de alerta de calor calibrado localmente.</p>
+        <div class="src">Mapeamento climaSUS · 2025</div>
+      </div>
+      <div class="pstat">
+        <div class="v">3,6<span class="unit">×</span></div>
+        <p class="desc">Subnotificação estimada de óbitos atribuíveis ao calor em populações ribeirinhas, frente à média nacional.</p>
+        <div class="src">SIM/DATASUS · FUNAI · 2024</div>
+      </div>
+    </div>
+
+    <h3>Três falhas estruturais a serem <span class="it">corrigidas</span></h3>
+
+    <p><strong>Falha 1 · Limiares inadequados.</strong> A maioria dos estudos brasileiros aplica thresholds calibrados para zonas temperadas (≥ 32 °C), subestimando o estresse térmico em climas tropicais úmidos onde a umidade relativa elevada amplifica a sensação térmica e a sobrecarga cardiopulmonar mesmo a temperaturas absolutas inferiores.</p>
+
+    <p><strong>Falha 2 · Dados sem decisão.</strong> Existe uma cadeia rica de dados — INMET, DATASUS, CEMADEN, INPE — mas inexiste um pipeline operacional que os integre, modele e devolva ao gestor municipal um alerta acionável, em tempo útil, com protocolo clínico anexo.</p>
+
+    <p><strong>Falha 3 · Alertas sem alcance.</strong> Painéis web em portais governamentais não chegam ao agente comunitário de saúde, ao ribeirinho, ao gestor de escola pública. <span class="em">Um alerta sem o canal adequado é apenas um arquivo no servidor.</span> A disseminação multi‑canal é frequentemente tratada como afterthought, não como design.</p>
+
+    <blockquote>
+      "Heat‑health early warning systems remain rare in tropical low‑ and middle‑income countries, where vulnerability is highest. The gap between scientific capacity and operational implementation is the central bottleneck."
+      <span class="cite">— Lancet Countdown on Health and Climate Change · 2024</span>
+    </blockquote>
+  </div>
+</section>
+
+<!-- ============ § 03 — ESTADO DA ARTE ============ -->
+<section id="cap-03" class="chapter">
+  <div class="chapter-head">
+    <div class="chap-marker"><span class="big">§ 03</span>Estado da arte<br/>e inovação</div>
+    <div>
+      <h2>O que existe, <br/>o que falta, <br/>o que <span class="it">propomos</span>.</h2>
+      <p class="lede">
+        O climaSUS se posiciona na fronteira de quatro literaturas convergentes — e propõe a primeira integração operacional entre elas no contexto sul‑americano.
+      </p>
+    </div>
+  </div>
+
+  <div class="prose wide">
+    <div class="three-col" style="margin: 32px 0 48px;">
+      <div>
+        <h4>Heat‑Health Warning Systems</h4>
+        <p style="font-size: 16px; line-height: 1.5;">
+          Sistemas estabelecidos em França, Reino Unido, Canadá e Austrália desde os anos 2000. Brasil: nenhum sistema operacional nacionalmente coordenado. <em>Lacuna: tropicalização e calibração local.</em>
+        </p>
+      </div>
+      <div>
+        <h4>Vigilância em saúde ambiental</h4>
+        <p style="font-size: 16px; line-height: 1.5;">
+          VIGIAR, VIGIDESASTRES, RESPCLIMA. Bem estabelecidos, mas operam com defasagem semanal a mensal e baixa granularidade municipal. <em>Lacuna: latência operacional.</em>
+        </p>
+      </div>
+      <div>
+        <h4>Sensoriamento ambiental denso</h4>
+        <p style="font-size: 16px; line-height: 1.5;">
+          Crescimento das redes IoT de baixo custo (PurpleAir, Sensor.Community). Brasil: experimentos pontuais, sem integração à vigilância. <em>Lacuna: ponte com saúde pública.</em>
+        </p>
+      </div>
+    </div>
+
+    <h3>Cinco frentes de <span class="it">inovação</span> climaSUS</h3>
+
+    <div class="obj-table">
+      <div class="obj-row">
+        <div class="obj-num">i.</div>
+        <div>
+          <p class="obj-title">Primeiro sistema de alerta de calor‑saúde calibrado por <em class="em">percentil climatológico local</em> para 5 565 municípios brasileiros, com revisão deslizante de 5 anos.</p>
+        </div>
+        <div class="obj-tag">Inovação metodológica</div>
+      </div>
+      <div class="obj-row">
+        <div class="obj-num">ii.</div>
+        <div>
+          <p class="obj-title">Arquitetura multi‑perigo e multi‑canal: <em class="em">15 extensões especializadas</em> distribuídas entre SACS, SAQS e SASS, cada uma desenhada para um pilar do MHEWS.</p>
+        </div>
+        <div class="obj-tag">Inovação arquitetural</div>
+      </div>
+      <div class="obj-row">
+        <div class="obj-num">iii.</div>
+        <div>
+          <p class="obj-title">Integração de dados de <em class="em">SIM/SIH/SINASC com fontes complementares</em> da FUNAI, ACS, UBS e SESAI — para corrigir subnotificação em populações ribeirinhas e indígenas.</p>
+        </div>
+        <div class="obj-tag">Inovação de equidade</div>
+      </div>
+      <div class="obj-row">
+        <div class="obj-num">iv.</div>
+        <div>
+          <p class="obj-title">Bibliotecas R e Python espelhadas (climasus4r / climasus4py) que expõem o motor científico como <em class="em">infraestrutura aberta reusável</em>, e não apenas dashboard.</p>
+        </div>
+        <div class="obj-tag">Inovação de governança</div>
+      </div>
+      <div class="obj-row">
+        <div class="obj-num">v.</div>
+        <div>
+          <p class="obj-title">Avaliação retrospectiva contínua com indicadores HHWS validados (<em class="em">sensibilidade, especificidade, PSS</em>) publicados trimestralmente em painel público.</p>
+        </div>
+        <div class="obj-tag">Inovação de transparência</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ § 04 — OBJETIVOS ============ -->
+<section id="cap-04" class="chapter dark">
+  <div class="chapter-head">
+    <div class="chap-marker"><span class="big">§ 04</span>Objetivos<br/>do programa</div>
+    <div>
+      <h2>Um objetivo geral. <br/>Seis específicos. <br/><span class="it">Mensuráveis</span>.</h2>
+      <p class="lede">
+        Estruturados na lógica do framework Multi‑Hazard Early Warning System (MHEWS) da Organização Meteorológica Mundial.
+      </p>
+    </div>
+  </div>
+
+  <div class="prose wide">
+    <div class="callout">
+      <div class="label">Objetivo geral</div>
+      <p>
+        Desenvolver, validar e implementar o ecossistema climaSUS como infraestrutura científica nacional de antecipação de impactos climáticos sobre a saúde — operacional, aberta, multi‑perigo e capaz de chegar ao gestor municipal e à comunidade vulnerável do SUS na Amazônia Brasileira até agosto de 2031.
+      </p>
+    </div>
+
+    <h3>Objetivos <span class="it">específicos</span></h3>
+
+    <div class="obj-table">
+      <div class="obj-row">
+        <div class="obj-num">OE 1</div>
+        <div>
+          <p class="obj-title">Consolidar as bibliotecas <em class="em">climasus4r e climasus4py</em> como referência científica nacional, com 15 índices bioclimáticos, integração nativa a INMET, DATASUS e CEMADEN, e cobertura em testes ≥ 90%.</p>
+        </div>
+        <div class="obj-tag">Pilar MHEWS · Risco</div>
+      </div>
+      <div class="obj-row">
+        <div class="obj-num">OE 2</div>
+        <div>
+          <p class="obj-title">Desenvolver e disponibilizar <em class="em">climasus+</em> como plataforma interativa para gestores e técnicos do SUS sem requerer programação, integrada ao acesso institucional Gov.br.</p>
+        </div>
+        <div class="obj-tag">Pilar MHEWS · Risco</div>
+      </div>
+      <div class="obj-row">
+        <div class="obj-num">OE 3</div>
+        <div>
+          <p class="obj-title">Implantar operacionalmente <em class="em">SACS, SAQS e SASS‑Amazônia</em>, com cobertura total dos 772 municípios da Amazônia Legal e 15 canais de disseminação especializados.</p>
+        </div>
+        <div class="obj-tag">Pilar MHEWS · Monitor + Disseminação</div>
+      </div>
+      <div class="obj-row">
+        <div class="obj-num">OE 4</div>
+        <div>
+          <p class="obj-title">Co‑desenhar protocolos de resposta da Atenção Básica, da Defesa Civil e da Assistência Social a alertas climáticos, com <em class="em">avaliação randomizada por cluster</em> em 60 municípios pilotos.</p>
+        </div>
+        <div class="obj-tag">Pilar MHEWS · Resposta</div>
+      </div>
+      <div class="obj-row">
+        <div class="obj-num">OE 5</div>
+        <div>
+          <p class="obj-title">Formar uma rede de <em class="em">2 400 profissionais de saúde, gestores e cientistas</em> via climasusEduca, com módulos presenciais, EAD e residência técnica.</p>
+        </div>
+        <div class="obj-tag">Pilar MHEWS · Capacidade</div>
+      </div>
+      <div class="obj-row">
+        <div class="obj-num">OE 6</div>
+        <div>
+          <p class="obj-title">Estabelecer mecanismos de <em class="em">sustentabilidade institucional</em> e governança de longo prazo do climaSUS, com integração formal ao Ministério da Saúde via portaria e instrumento de financiamento federal pós‑grant.</p>
+        </div>
+        <div class="obj-tag">Pilar MHEWS · Governança</div>
+      </div>
+    </div>
+
+    <h3 style="margin-top: 64px;">Quatro pilares <span class="it">técnicos</span> orientadores</h3>
+
+    <div class="pillars" style="margin-top: 32px;">
+      <div class="pillar">
+        <div class="pill-num">01</div>
+        <h5>Conhecimento <br/>do risco</h5>
+        <p>Mapeamento contínuo de exposição, vulnerabilidade e capacidade adaptativa nos territórios.</p>
+      </div>
+      <div class="pillar">
+        <div class="pill-num">02</div>
+        <h5>Monitoramento <br/>e previsão</h5>
+        <p>Detecção e modelagem antecipatória em alta resolução espacial e temporal.</p>
+      </div>
+      <div class="pillar">
+        <div class="pill-num">03</div>
+        <h5>Disseminação <br/>de alertas</h5>
+        <p>Mensagens chegando no canal certo, na linguagem certa, em tempo útil.</p>
+      </div>
+      <div class="pillar">
+        <div class="pill-num">04</div>
+        <h5>Capacidade <br/>de resposta</h5>
+        <p>Resposta do SUS, da Defesa Civil e da comunidade preparada e coordenada.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ § 05 — METODOLOGIA / WORK PACKAGES ============ -->
+<section id="cap-05" class="chapter">
+  <div class="chapter-head">
+    <div class="chap-marker"><span class="big">§ 05</span>Metodologia<br/>WP × 8</div>
+    <div>
+      <h2>Oito pacotes <br/>de trabalho <br/><span class="it">integrados</span>.</h2>
+      <p class="lede">
+        Cada produto climaSUS é um WP, mais três WPs transversais — governança, implementação territorial e avaliação de impacto.
+      </p>
+    </div>
+  </div>
+
+  <div class="prose wide">
+    <p class="lede">
+      A arquitetura de WPs segue o princípio de <span class="em">acoplamento fraco e alta coesão</span>: cada pacote tem entregáveis próprios e pode evoluir em ritmo independente, mas todos compartilham o motor científico unificado (climasus4r/4py) e o protocolo MHEWS comum.
+    </p>
+
+    <div class="wp-grid">
+
+      <!-- WP1 -->
+      <div class="wp">
+        <div class="wp-id">
+          <span class="code">WP · 01</span>
+          <span class="wp-num">01</span>
+          <span class="product">Transversal · Governança</span>
+        </div>
+        <div class="wp-body">
+          <h3>Coordenação geral, <span class="it">governança</span> e gestão de consórcio</h3>
+          <p class="wp-objective">
+            Garantir execução articulada do programa, gestão financeira, ética em pesquisa, integração entre nós institucionais e relação com o Ministério da Saúde.
+          </p>
+          <h4>Tarefas</h4>
+          <ul>
+            <li>T1.1 — Estabelecer Conselho Diretor (4 reuniões/ano)</li>
+            <li>T1.2 — Constituir Comitê Científico Internacional (CCI)</li>
+            <li>T1.3 — Plano de gestão de dados (FAIR · GDPR · LGPD)</li>
+            <li>T1.4 — Aprovação ética CONEP e CEPs locais</li>
+            <li>T1.5 — Relatórios anuais e prestação de contas</li>
+          </ul>
+        </div>
+        <div class="wp-meta">
+          <div class="wp-meta-row"><span class="k">Líder</span><span class="v">UFRN <span class="em">· PI</span></span></div>
+          <div class="wp-meta-row"><span class="k">Duração</span><span class="v">M01 → M60</span></div>
+          <div class="wp-meta-row"><span class="k">Person‑months</span><span class="v">120 PM</span></div>
+          <div class="wp-meta-row"><span class="k">Orçamento</span><span class="v"><span class="em">USD 980 K</span></span></div>
+          <div class="wp-meta-deliv">
+            <span class="label">Entregáveis‑chave</span>
+            D1.1 Plano de Gestão · D1.2 5 Relatórios anuais · D1.3 Portaria de integração ao MS
+          </div>
+        </div>
+      </div>
+
+      <!-- WP2 -->
+      <div class="wp">
+        <div class="wp-id">
+          <span class="code">WP · 02</span>
+          <span class="wp-num">02</span>
+          <span class="product">climasus4r · climasus4py</span>
+        </div>
+        <div class="wp-body">
+          <h3>Bibliotecas científicas <span class="it">abertas</span> em R e Python</h3>
+          <p class="wp-objective">
+            Consolidar a infraestrutura científica de código aberto que sustenta todo o ecossistema — 15 índices bioclimáticos, conectores de dados, modelos epidemiológicos.
+          </p>
+          <h4>Tarefas</h4>
+          <ul>
+            <li>T2.1 — Refatoração e versionamento semântico (v1.0 → v3.0)</li>
+            <li>T2.2 — Conectores: INMET, ERA5, MERRA‑2, DATASUS, CEMADEN, INPE</li>
+            <li>T2.3 — Implementação dos 15 índices (WBGT, HI, UTCI, PET, THI, ET…)</li>
+            <li>T2.4 — Cobertura de testes ≥ 90%, CI/CD em GitHub Actions</li>
+            <li>T2.5 — Documentação trilíngue (PT · EN · ES) + tutoriais reprodutíveis</li>
+            <li>T2.6 — Publicação CRAN (R) e PyPI (Python)</li>
+          </ul>
+        </div>
+        <div class="wp-meta">
+          <div class="wp-meta-row"><span class="k">Líder</span><span class="v">Fiocruz <span class="em">+ UFRN</span></span></div>
+          <div class="wp-meta-row"><span class="k">Duração</span><span class="v">M01 → M48</span></div>
+          <div class="wp-meta-row"><span class="k">Person‑months</span><span class="v">220 PM</span></div>
+          <div class="wp-meta-row"><span class="k">Orçamento</span><span class="v"><span class="em">USD 1,42 M</span></span></div>
+          <div class="wp-meta-deliv">
+            <span class="label">Entregáveis‑chave</span>
+            D2.1 climasus4r v3.0 CRAN · D2.2 climasus4py v3.0 PyPI · D2.3 Paper JOSS · D2.4 ≥ 10 000 downloads
+          </div>
+        </div>
+      </div>
+
+      <!-- WP3 -->
+      <div class="wp">
+        <div class="wp-id">
+          <span class="code">WP · 03</span>
+          <span class="wp-num">03</span>
+          <span class="product">climasus+</span>
+        </div>
+        <div class="wp-body">
+          <h3>Plataforma <span class="it">interativa</span> para gestores</h3>
+          <p class="wp-objective">
+            Transformar as funções científicas das bibliotecas em interface ponto‑e‑clique para gestores e técnicos do SUS, sem barreira de programação.
+          </p>
+          <h4>Tarefas</h4>
+          <ul>
+            <li>T3.1 — UX research com 40 gestores municipais (Discovery)</li>
+            <li>T3.2 — Arquitetura web (Shiny + React + FastAPI)</li>
+            <li>T3.3 — Integração SSO com Gov.br e DATASUS</li>
+            <li>T3.4 — Mapas, séries temporais, geração de relatórios PDF</li>
+            <li>T3.5 — Testes de usabilidade (4 ciclos · n=120)</li>
+            <li>T3.6 — Acessibilidade WCAG 2.2 AA</li>
+          </ul>
+        </div>
+        <div class="wp-meta">
+          <div class="wp-meta-row"><span class="k">Líder</span><span class="v">UFRN <span class="em">· DSC</span></span></div>
+          <div class="wp-meta-row"><span class="k">Duração</span><span class="v">M06 → M54</span></div>
+          <div class="wp-meta-row"><span class="k">Person‑months</span><span class="v">260 PM</span></div>
+          <div class="wp-meta-row"><span class="k">Orçamento</span><span class="v"><span class="em">USD 1,68 M</span></span></div>
+          <div class="wp-meta-deliv">
+            <span class="label">Entregáveis‑chave</span>
+            D3.1 climasus+ MVP · D3.2 v1.0 produção · D3.3 800 usuários ativos
+          </div>
+        </div>
+      </div>
+
+      <!-- WP4 -->
+      <div class="wp">
+        <div class="wp-id">
+          <span class="code">WP · 04</span>
+          <span class="wp-num">04</span>
+          <span class="product">climasusAlerta · SACS</span>
+        </div>
+        <div class="wp-body">
+          <h3>SACS‑Amazônia — alertas de <span class="it">calor</span> e saúde</h3>
+          <p class="wp-objective">
+            Implantar operacionalmente o Sistema de Monitoramento e Alerta de Calor para a Amazônia Brasileira, alinhado às diretrizes HHWS da OMS/OMM, com 5 canais de disseminação.
+          </p>
+          <h4>Tarefas</h4>
+          <ul>
+            <li>T4.1 — Calibração percentílica P90 para 772 municípios</li>
+            <li>T4.2 — Pipeline INMET → Parquet → Watcher (30s)</li>
+            <li>T4.3 — Taxonomia de 4 níveis (N1‑N4) + protocolos de gatilho</li>
+            <li>T4.4 — Extensões: gestores · cidadão · Defesa Civil · UBS · mídia</li>
+            <li>T4.5 — Integração com CEMADEN e Sala de Situação Nacional</li>
+            <li>T4.6 — Validação retrospectiva 2018–2025 (sensibilidade · PSS)</li>
+          </ul>
+        </div>
+        <div class="wp-meta">
+          <div class="wp-meta-row"><span class="k">Líder</span><span class="v">UFRN <span class="em">+ Fiocruz</span></span></div>
+          <div class="wp-meta-row"><span class="k">Duração</span><span class="v">M01 → M60</span></div>
+          <div class="wp-meta-row"><span class="k">Person‑months</span><span class="v">340 PM</span></div>
+          <div class="wp-meta-row"><span class="k">Orçamento</span><span class="v"><span class="em">USD 2,15 M</span></span></div>
+          <div class="wp-meta-deliv">
+            <span class="label">Entregáveis‑chave</span>
+            D4.1 SACS v1.0 · D4.2 772 municípios cobertos · D4.3 5 canais ativos · D4.4 Validação publicada
+          </div>
+        </div>
+      </div>
+
+      <!-- WP5 -->
+      <div class="wp">
+        <div class="wp-id">
+          <span class="code">WP · 05</span>
+          <span class="wp-num">05</span>
+          <span class="product">climasusAlerta · SAQS</span>
+        </div>
+        <div class="wp-body">
+          <h3>SAQS‑Amazônia — qualidade do <span class="it">ar</span> hiperlocal</h3>
+          <p class="wp-objective">
+            Implantar uma rede densa de sensores IoT de baixo custo para vigilância de PM 2.5 e gases tóxicos em escala de bairro, com algoritmo NowCast e 5 canais especializados.
+          </p>
+          <h4>Tarefas</h4>
+          <ul>
+            <li>T5.1 — Instalação de 240 sensores em 12 cidades amazônicas</li>
+            <li>T5.2 — Algoritmo NowCast brasileiro (calibrado por queimadas)</li>
+            <li>T5.3 — Co‑localização com 18 estações de referência (validação)</li>
+            <li>T5.4 — Extensões: vigilância · cidadão · escolas · UBS · mídia</li>
+            <li>T5.5 — Integração com BDQAr e VIGIAR</li>
+            <li>T5.6 — Protocolo de suspensão de atividades escolares</li>
+          </ul>
+        </div>
+        <div class="wp-meta">
+          <div class="wp-meta-row"><span class="k">Líder</span><span class="v">INPE <span class="em">+ UFRN</span></span></div>
+          <div class="wp-meta-row"><span class="k">Duração</span><span class="v">M06 → M60</span></div>
+          <div class="wp-meta-row"><span class="k">Person‑months</span><span class="v">280 PM</span></div>
+          <div class="wp-meta-row"><span class="k">Orçamento</span><span class="v"><span class="em">USD 1,95 M</span></span></div>
+          <div class="wp-meta-deliv">
+            <span class="label">Entregáveis‑chave</span>
+            D5.1 240 sensores instalados · D5.2 SAQS v1.0 · D5.3 12 cidades · D5.4 Paper Atmos. Environ.
+          </div>
+        </div>
+      </div>
+
+      <!-- WP6 -->
+      <div class="wp">
+        <div class="wp-id">
+          <span class="code">WP · 06</span>
+          <span class="wp-num">06</span>
+          <span class="product">climasusAlerta · SASS</span>
+        </div>
+        <div class="wp-body">
+          <h3>SASS‑Amazônia — alertas de <span class="it">seca</span> protraída</h3>
+          <p class="wp-objective">
+            Desenvolver sistema de monitoramento e alerta para perigos de início lento — secas — integrando previsões em escala sub‑sazonal e sazonal (S2S) a indicadores de segurança alimentar e doenças hídricas.
+          </p>
+          <h4>Tarefas</h4>
+          <ul>
+            <li>T6.1 — Integração de previsões S2S (ECMWF · NCEP · CPTEC)</li>
+            <li>T6.2 — Índice composto de seca para saúde (SPI · SPEI · vazão)</li>
+            <li>T6.3 — Cadeia de impacto: seca → queimadas → ar → doença</li>
+            <li>T6.4 — Extensões: gestores · comunidades · Defesa Civil · UBS · mídia</li>
+            <li>T6.5 — Validação retrospectiva 2015–2024 (secas históricas)</li>
+            <li>T6.6 — Co‑desenvolvimento com SESAI para populações indígenas</li>
+          </ul>
+        </div>
+        <div class="wp-meta">
+          <div class="wp-meta-row"><span class="k">Líder</span><span class="v">CEMADEN <span class="em">+ UFRN</span></span></div>
+          <div class="wp-meta-row"><span class="k">Duração</span><span class="v">M12 → M60</span></div>
+          <div class="wp-meta-row"><span class="k">Person‑months</span><span class="v">240 PM</span></div>
+          <div class="wp-meta-row"><span class="k">Orçamento</span><span class="v"><span class="em">USD 1,38 M</span></span></div>
+          <div class="wp-meta-deliv">
+            <span class="label">Entregáveis‑chave</span>
+            D6.1 SASS v1.0 · D6.2 Cadeia de impacto modelada · D6.3 Paper Lancet Planet. Health
+          </div>
+        </div>
+      </div>
+
+      <!-- WP7 -->
+      <div class="wp">
+        <div class="wp-id">
+          <span class="code">WP · 07</span>
+          <span class="wp-num">07</span>
+          <span class="product">climasusEduca</span>
+        </div>
+        <div class="wp-body">
+          <h3>Capacitação, <span class="it">capilaridade</span> e formação de rede</h3>
+          <p class="wp-objective">
+            Tecnologia sem capilaridade institucional não vira política pública. Construir rede formativa que sustente o uso do ecossistema em todas as escalas do SUS.
+          </p>
+          <h4>Tarefas</h4>
+          <ul>
+            <li>T7.1 — Currículo modular: básico (40h) · técnico (80h) · avançado (160h)</li>
+            <li>T7.2 — Plataforma EAD com microcredenciais reconhecidas pelo MS</li>
+            <li>T7.3 — Residência técnica em clima‑saúde (12 vagas/ano)</li>
+            <li>T7.4 — Formação de multiplicadores em 14 SES da Amazônia</li>
+            <li>T7.5 — Material didático aberto (CC BY 4.0)</li>
+            <li>T7.6 — Avaliação de aprendizado e mudança de prática profissional</li>
+          </ul>
+        </div>
+        <div class="wp-meta">
+          <div class="wp-meta-row"><span class="k">Líder</span><span class="v">Fiocruz <span class="em">+ ENSP</span></span></div>
+          <div class="wp-meta-row"><span class="k">Duração</span><span class="v">M06 → M60</span></div>
+          <div class="wp-meta-row"><span class="k">Person‑months</span><span class="v">260 PM</span></div>
+          <div class="wp-meta-row"><span class="k">Orçamento</span><span class="v"><span class="em">USD 1,48 M</span></span></div>
+          <div class="wp-meta-deliv">
+            <span class="label">Entregáveis‑chave</span>
+            D7.1 2 400 profissionais formados · D7.2 60 residentes · D7.3 Currículo MS reconhecido
+          </div>
+        </div>
+      </div>
+
+      <!-- WP8 -->
+      <div class="wp">
+        <div class="wp-id">
+          <span class="code">WP · 08</span>
+          <span class="wp-num">08</span>
+          <span class="product">Transversal · Implementação + Avaliação</span>
+        </div>
+        <div class="wp-body">
+          <h3>Implementação territorial e <span class="it">avaliação de impacto</span></h3>
+          <p class="wp-objective">
+            Validar empiricamente, em 60 municípios, o efeito da implantação do climaSUS sobre indicadores de saúde — via ensaio randomizado por cluster e síntese de evidência.
+          </p>
+          <h4>Tarefas</h4>
+          <ul>
+            <li>T8.1 — Desenho do cluster RCT (30 municípios tratamento + 30 controle)</li>
+            <li>T8.2 — Linha de base — mortalidade, internação, custo</li>
+            <li>T8.3 — Implementação faseada por estado (cohort stepped wedge)</li>
+            <li>T8.4 — Endpoints primários: mortalidade por calor, AVAI ar</li>
+            <li>T8.5 — Avaliação econômica (custo‑utilidade · ICER)</li>
+            <li>T8.6 — Síntese para tomada de decisão (policy briefs)</li>
+          </ul>
+        </div>
+        <div class="wp-meta">
+          <div class="wp-meta-row"><span class="k">Líder</span><span class="v">Fiocruz <span class="em">+ LSHTM</span></span></div>
+          <div class="wp-meta-row"><span class="k">Duração</span><span class="v">M12 → M60</span></div>
+          <div class="wp-meta-row"><span class="k">Person‑months</span><span class="v">200 PM</span></div>
+          <div class="wp-meta-row"><span class="k">Orçamento</span><span class="v"><span class="em">USD 1,76 M</span></span></div>
+          <div class="wp-meta-deliv">
+            <span class="label">Entregáveis‑chave</span>
+            D8.1 Trial registrado · D8.2 Resultados primários · D8.3 Análise econômica · D8.4 4 policy briefs
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============ § 06 — TIMELINE ============ -->
+<section id="cap-06" class="chapter cream">
+  <div class="chapter-head">
+    <div class="chap-marker"><span class="big">§ 06</span>Cronograma<br/>quinquenal</div>
+    <div>
+      <h2>Cinco anos. <br/>Vinte trimestres. <br/><span class="it">Quatro fases</span>.</h2>
+      <p class="lede">
+        Fundação (Ano 1) · Desenvolvimento (Anos 2–3) · Implementação em escala (Ano 4) · Avaliação e transição (Ano 5).
+      </p>
+    </div>
+  </div>
+
+  <div class="prose wide">
+    <div class="gantt-wrap">
+      <div class="gantt">
+        <!-- Year header row -->
+        <div class="gantt-cell"></div>
+        <div class="gantt-cell year-head" style="grid-column: span 4;">Ano 1 · 2026‑27</div>
+        <div class="gantt-cell year-head" style="grid-column: span 4;">Ano 2 · 2027‑28</div>
+        <div class="gantt-cell year-head" style="grid-column: span 4;">Ano 3 · 2028‑29</div>
+        <div class="gantt-cell year-head" style="grid-column: span 4;">Ano 4 · 2029‑30</div>
+        <div class="gantt-cell year-head" style="grid-column: span 4;">Ano 5 · 2030‑31</div>
+
+        <!-- Quarter header row -->
+        <div class="gantt-cell"></div>
+        <div class="gantt-cell q-head">Q1</div><div class="gantt-cell q-head">Q2</div><div class="gantt-cell q-head">Q3</div><div class="gantt-cell q-head">Q4</div>
+        <div class="gantt-cell q-head">Q1</div><div class="gantt-cell q-head">Q2</div><div class="gantt-cell q-head">Q3</div><div class="gantt-cell q-head">Q4</div>
+        <div class="gantt-cell q-head">Q1</div><div class="gantt-cell q-head">Q2</div><div class="gantt-cell q-head">Q3</div><div class="gantt-cell q-head">Q4</div>
+        <div class="gantt-cell q-head">Q1</div><div class="gantt-cell q-head">Q2</div><div class="gantt-cell q-head">Q3</div><div class="gantt-cell q-head">Q4</div>
+        <div class="gantt-cell q-head">Q1</div><div class="gantt-cell q-head">Q2</div><div class="gantt-cell q-head">Q3</div><div class="gantt-cell q-head">Q4</div>
+
+        <!-- WP1 -->
+        <div class="gantt-cell wp-label">WP1 · Coordenação</div>
+        <div class="gantt-cell bar" style="grid-column: span 20;"><div class="gantt-bar-fill alt" style="left:0; right:0;">M01 → M60 · governança contínua</div></div>
+
+        <!-- WP2 -->
+        <div class="gantt-cell wp-label">WP2 · 4r / 4py</div>
+        <div class="gantt-cell bar" style="grid-column: span 16;"><div class="gantt-bar-fill" style="left:0; right:0;">refatoração · v1 · v2 · v3</div></div>
+        <div class="gantt-cell bar" style="grid-column: span 4;"></div>
+
+        <!-- WP3 -->
+        <div class="gantt-cell wp-label">WP3 · climasus+</div>
+        <div class="gantt-cell bar" style="grid-column: span 2;"></div>
+        <div class="gantt-cell bar" style="grid-column: span 16;"><div class="gantt-bar-fill teal" style="left:0; right:0;">UX → MVP → v1.0</div></div>
+        <div class="gantt-cell bar" style="grid-column: span 2;"></div>
+
+        <!-- WP4 -->
+        <div class="gantt-cell wp-label">WP4 · SACS calor</div>
+        <div class="gantt-cell bar" style="grid-column: span 20;"><div class="gantt-bar-fill" style="left:0; right:0;">calibração · pipeline · canais · validação</div></div>
+
+        <!-- WP5 -->
+        <div class="gantt-cell wp-label">WP5 · SAQS ar</div>
+        <div class="gantt-cell bar" style="grid-column: span 2;"></div>
+        <div class="gantt-cell bar" style="grid-column: span 18;"><div class="gantt-bar-fill green" style="left:0; right:0;">sensores · NowCast · canais · escala</div></div>
+
+        <!-- WP6 -->
+        <div class="gantt-cell wp-label">WP6 · SASS seca</div>
+        <div class="gantt-cell bar" style="grid-column: span 4;"></div>
+        <div class="gantt-cell bar" style="grid-column: span 16;"><div class="gantt-bar-fill gold" style="left:0; right:0;">S2S · índices · cadeia · validação</div></div>
+
+        <!-- WP7 -->
+        <div class="gantt-cell wp-label">WP7 · Educa</div>
+        <div class="gantt-cell bar" style="grid-column: span 2;"></div>
+        <div class="gantt-cell bar" style="grid-column: span 18;"><div class="gantt-bar-fill teal" style="left:0; right:0;">currículo · EAD · residência · multiplicadores</div></div>
+
+        <!-- WP8 -->
+        <div class="gantt-cell wp-label">WP8 · Impacto</div>
+        <div class="gantt-cell bar" style="grid-column: span 4;"></div>
+        <div class="gantt-cell bar" style="grid-column: span 16;"><div class="gantt-bar-fill alt" style="left:0; right:0;">trial · linha base · análise · policy</div></div>
+
+      </div>
+    </div>
+
+    <h3>Marcos <span class="it">críticos</span></h3>
+    <div class="three-col" style="margin-top:24px;">
+      <div>
+        <h4>Ano 1 · Fundação</h4>
+        <p style="font-size:16px; line-height:1.5;">M3 — Consórcio constituído. M6 — climasus4r v2 publicado no CRAN. M12 — SACS calibrado para 100 municípios piloto.</p>
+      </div>
+      <div>
+        <h4>Anos 2‑3 · Desenvolvimento</h4>
+        <p style="font-size:16px; line-height:1.5;">M18 — climasus+ MVP. M24 — SAQS rede inicial 60 sensores. M30 — SASS protótipo. M36 — Trial RCT lançado.</p>
+      </div>
+      <div>
+        <h4>Anos 4‑5 · Escala e transição</h4>
+        <p style="font-size:16px; line-height:1.5;">M48 — Cobertura total dos 772 municípios. M54 — Resultados primários do trial. M60 — Portaria MS de integração permanente.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ § 07 — ORÇAMENTO E GOVERNANÇA ============ -->
+<section id="cap-07" class="chapter">
+  <div class="chapter-head">
+    <div class="chap-marker"><span class="big">§ 07</span>Orçamento<br/>governança<br/>equipe</div>
+    <div>
+      <h2>USD 12,8 M, <br/>distribuídos com <span class="it">disciplina</span>.</h2>
+      <p class="lede">
+        Recursos humanos ≈ 58% · infraestrutura científica ≈ 18% · implementação territorial ≈ 14% · gestão e disseminação ≈ 10%.
+      </p>
+    </div>
+  </div>
+
+  <div class="prose wide">
+    <h3>Orçamento <span class="it">consolidado</span> por categoria</h3>
+
+    <div class="budget-table">
+      <div class="budget-head">
+        <div>Cat</div>
+        <div>Categoria</div>
+        <div style="text-align:right;">Ano 1</div>
+        <div style="text-align:right;">Ano 2</div>
+        <div style="text-align:right;">Ano 3</div>
+        <div style="text-align:right;">Ano 4</div>
+        <div style="text-align:right;">Ano 5</div>
+        <div style="text-align:right;">Total</div>
+      </div>
+
+      <div class="budget-row">
+        <div class="b-code">B.01</div>
+        <div class="b-cat">Equipe permanente <span class="em">· pesquisadores, técnicos</span><div class="budget-bar"><div class="budget-bar-fill" style="width:42%;"></div></div></div>
+        <div class="b-val">980</div>
+        <div class="b-val">1 120</div>
+        <div class="b-val">1 180</div>
+        <div class="b-val">1 060</div>
+        <div class="b-val">980</div>
+        <div class="b-total">5,32 M</div>
+      </div>
+
+      <div class="budget-row">
+        <div class="b-code">B.02</div>
+        <div class="b-cat">Bolsas <span class="em">· doutorado, pós‑doc, residência</span><div class="budget-bar"><div class="budget-bar-fill" style="width:16%;"></div></div></div>
+        <div class="b-val">320</div>
+        <div class="b-val">420</div>
+        <div class="b-val">460</div>
+        <div class="b-val">440</div>
+        <div class="b-val">410</div>
+        <div class="b-total">2,05 M</div>
+      </div>
+
+      <div class="budget-row">
+        <div class="b-code">B.03</div>
+        <div class="b-cat">Infraestrutura computacional <span class="em">· cloud, storage</span><div class="budget-bar"><div class="budget-bar-fill" style="width:11%;"></div></div></div>
+        <div class="b-val">280</div>
+        <div class="b-val">320</div>
+        <div class="b-val">340</div>
+        <div class="b-val">300</div>
+        <div class="b-val">240</div>
+        <div class="b-total">1,48 M</div>
+      </div>
+
+      <div class="budget-row">
+        <div class="b-code">B.04</div>
+        <div class="b-cat">Sensores e instrumentação <span class="em">· 240 sensores SAQS</span><div class="budget-bar"><div class="budget-bar-fill" style="width:7%;"></div></div></div>
+        <div class="b-val">80</div>
+        <div class="b-val">280</div>
+        <div class="b-val">260</div>
+        <div class="b-val">160</div>
+        <div class="b-val">100</div>
+        <div class="b-total">880 K</div>
+      </div>
+
+      <div class="budget-row">
+        <div class="b-code">B.05</div>
+        <div class="b-cat">Trabalho de campo <span class="em">· municípios piloto, deslocamentos</span><div class="budget-bar"><div class="budget-bar-fill" style="width:9%;"></div></div></div>
+        <div class="b-val">120</div>
+        <div class="b-val">240</div>
+        <div class="b-val">280</div>
+        <div class="b-val">260</div>
+        <div class="b-val">220</div>
+        <div class="b-total">1,12 M</div>
+      </div>
+
+      <div class="budget-row">
+        <div class="b-code">B.06</div>
+        <div class="b-cat">Capacitação <span class="em">· climasusEduca</span><div class="budget-bar"><div class="budget-bar-fill" style="width:6%;"></div></div></div>
+        <div class="b-val">80</div>
+        <div class="b-val">160</div>
+        <div class="b-val">180</div>
+        <div class="b-val">180</div>
+        <div class="b-val">160</div>
+        <div class="b-total">760 K</div>
+      </div>
+
+      <div class="budget-row">
+        <div class="b-code">B.07</div>
+        <div class="b-cat">Disseminação científica <span class="em">· APCs, eventos</span><div class="budget-bar"><div class="budget-bar-fill" style="width:4%;"></div></div></div>
+        <div class="b-val">60</div>
+        <div class="b-val">100</div>
+        <div class="b-val">120</div>
+        <div class="b-val">120</div>
+        <div class="b-val">100</div>
+        <div class="b-total">500 K</div>
+      </div>
+
+      <div class="budget-row">
+        <div class="b-code">B.08</div>
+        <div class="b-cat">Gestão e overhead <span class="em">· 6% institucional</span><div class="budget-bar"><div class="budget-bar-fill" style="width:5%;"></div></div></div>
+        <div class="b-val">120</div>
+        <div class="b-val">160</div>
+        <div class="b-val">160</div>
+        <div class="b-val">140</div>
+        <div class="b-val">120</div>
+        <div class="b-total">700 K</div>
+      </div>
+
+      <div class="budget-row total">
+        <div class="b-code"></div>
+        <div class="b-cat">Total anual <span class="em">· USD mil</span></div>
+        <div class="b-val">2 040</div>
+        <div class="b-val">2 800</div>
+        <div class="b-val">2 980</div>
+        <div class="b-val">2 660</div>
+        <div class="b-val">2 330</div>
+        <div class="b-total">12,81 M</div>
+      </div>
+    </div>
+
+    <h3 style="margin-top:64px;">Equipe e <span class="it">governança</span></h3>
+
+    <p class="lede">
+      Consórcio nacional de 6 instituições brasileiras e 3 parceiros internacionais, com Conselho Diretor (decisão), Comitê Científico Internacional (CCI) e Conselho Consultivo de Usuários (gestores e comunidades).
+    </p>
+
+    <h4>Liderança científica</h4>
+    <div class="team-grid">
+      <div class="team-card">
+        <div class="role">PI · Coordenação geral</div>
+        <h5>[Nome a indicar]</h5>
+        <p class="inst">Departamento de Saúde Coletiva — UFRN</p>
+        <p class="bio">Doutorado em Saúde Pública. 18 anos em sistemas de informação em saúde. H‑index 32. Coordena climaSUS desde 2023.</p>
+      </div>
+      <div class="team-card">
+        <div class="role">Co‑PI · Epidemiologia</div>
+        <h5>[Nome a indicar]</h5>
+        <p class="inst">ENSP/Fiocruz — Rio de Janeiro</p>
+        <p class="bio">Doutorado em Epidemiologia. Coordenou estudos de mortalidade por calor no Brasil. Membro do GT WMO‑WHO.</p>
+      </div>
+      <div class="team-card">
+        <div class="role">Co‑PI · Climatologia</div>
+        <h5>[Nome a indicar]</h5>
+        <p class="inst">CCST/INPE — São José dos Campos</p>
+        <p class="bio">Doutorado em Meteorologia. Co‑autor do AR6 IPCC. Especialista em previsões S2S e índices bioclimáticos tropicais.</p>
+      </div>
+      <div class="team-card">
+        <div class="role">Líder · WP Implementação</div>
+        <h5>[Nome a indicar]</h5>
+        <p class="inst">ILMD/Fiocruz Amazônia</p>
+        <p class="bio">Saúde coletiva amazônica. Experiência em RCTs comunitários com populações ribeirinhas. Parceria histórica com SESAI.</p>
+      </div>
+      <div class="team-card">
+        <div class="role">Líder · WP Tecnologia</div>
+        <h5>[Nome a indicar]</h5>
+        <p class="inst">DCA‑UFRN · Ciência de Dados</p>
+        <p class="bio">Engenharia de software para ciência. Mantenedor de pacotes CRAN e PyPI. Líder técnico da plataforma climasus+.</p>
+      </div>
+      <div class="team-card">
+        <div class="role">Conselheiro internacional</div>
+        <h5>[Nome a indicar]</h5>
+        <p class="inst">LSHTM — Londres</p>
+        <p class="bio">Líder global em HHWS de baixa e média renda. Member do Lancet Countdown. Coordenará o CCI internacional.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ § 08 — IMPACTO, RISCOS, SUSTENTABILIDADE ============ -->
+<section id="cap-08" class="chapter dark">
+  <div class="chapter-head">
+    <div class="chap-marker"><span class="big">§ 08</span>Impacto<br/>riscos<br/>sustentabilidade</div>
+    <div>
+      <h2>O que muda <br/>quando o programa <br/><span class="it">termina</span>.</h2>
+      <p class="lede">
+        Impacto científico, impacto em política pública, impacto social — três frentes mensuráveis com metas explícitas e plano de sustentabilidade pós‑grant.
+      </p>
+    </div>
+  </div>
+
+  <div class="prose wide">
+
+    <h3>Três frentes de <span class="it">impacto</span></h3>
+
+    <div class="impact-grid">
+      <div class="impact-card scientific">
+        <div class="icon-row">
+          <span class="pill">Impacto · Científico</span>
+          <span style="font-family:'Newsreader', serif; font-style:italic; color:var(--teal); font-size:36px; line-height:1;">i</span>
+        </div>
+        <h4>Conhecimento <span class="it">aberto</span></h4>
+        <ul>
+          <li>≥ 24 artigos em revistas indexadas (Q1/Q2)</li>
+          <li>2 bibliotecas publicadas em CRAN e PyPI</li>
+          <li>Datasets FAIR no Zenodo · 5 565 municípios</li>
+          <li>1 paper marcador em Lancet Planetary Health</li>
+          <li>4 teses de doutorado · 12 mestrados defendidos</li>
+        </ul>
+      </div>
+
+      <div class="impact-card policy">
+        <div class="icon-row">
+          <span class="pill">Impacto · Política</span>
+          <span style="font-family:'Newsreader', serif; font-style:italic; color:var(--accent); font-size:36px; line-height:1;">p</span>
+        </div>
+        <h4>Política <span class="it">pública</span></h4>
+        <ul>
+          <li>Portaria do MS regulamentando alertas clima‑saúde</li>
+          <li>Inclusão na Carteira de Serviços do SUS</li>
+          <li>Integração formal com Defesa Civil (PNPDEC)</li>
+          <li>4 policy briefs com adoção comprovada</li>
+          <li>Linha de financiamento federal pós‑projeto</li>
+        </ul>
+      </div>
+
+      <div class="impact-card social">
+        <div class="icon-row">
+          <span class="pill">Impacto · Social</span>
+          <span style="font-family:'Newsreader', serif; font-style:italic; color:var(--accent-2); font-size:36px; line-height:1;">s</span>
+        </div>
+        <h4>Saúde da <span class="it">população</span></h4>
+        <ul>
+          <li>28 milhões de pessoas alcançadas</li>
+          <li>Redução ≥ 12% mortalidade calor (cluster RCT)</li>
+          <li>2 400 profissionais formados</li>
+          <li>Cobertura especial: ribeirinhos, indígenas, idosos</li>
+          <li>Custo evitado estimado: ≥ USD 60 M / ano</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3 style="margin-top:64px;">Indicadores‑chave de <span class="it">desempenho</span></h3>
+
+    <div class="kpi-grid">
+      <div class="kpi">
+        <div class="v">772</div>
+        <div class="lbl">Municípios da Amazônia Legal cobertos pelo SACS</div>
+        <div class="sub">Meta M48</div>
+      </div>
+      <div class="kpi">
+        <div class="v">≥ 0,84</div>
+        <div class="lbl">Sensibilidade do alerta de calor (validação retrospectiva)</div>
+        <div class="sub">OMS · HHWS</div>
+      </div>
+      <div class="kpi">
+        <div class="v">10 K</div>
+        <div class="lbl">Downloads CRAN + PyPI das bibliotecas climasus</div>
+        <div class="sub">Meta M60</div>
+      </div>
+      <div class="kpi">
+        <div class="v">2 400</div>
+        <div class="lbl">Profissionais formados via climasusEduca</div>
+        <div class="sub">14 SES Amazônia</div>
+      </div>
+      <div class="kpi">
+        <div class="v">30 s</div>
+        <div class="lbl">Latência da detecção de novo dado climático</div>
+        <div class="sub">Pipeline INMET</div>
+      </div>
+      <div class="kpi">
+        <div class="v">15</div>
+        <div class="lbl">Canais de disseminação especializados implementados</div>
+        <div class="sub">5 por sistema</div>
+      </div>
+      <div class="kpi">
+        <div class="v">60</div>
+        <div class="lbl">Municípios participantes do cluster RCT de avaliação</div>
+        <div class="sub">Tratamento + controle</div>
+      </div>
+      <div class="kpi">
+        <div class="v">≥ 12%</div>
+        <div class="lbl">Redução projetada na mortalidade atribuível a calor</div>
+        <div class="sub">Endpoint primário</div>
+      </div>
+    </div>
+
+    <h3 style="margin-top:64px;">Matriz de <span class="it">riscos</span></h3>
+
+    <div class="risk-matrix">
+      <div class="risk-header">
+        <div>Risco identificado</div>
+        <div>Probabilidade</div>
+        <div>Impacto</div>
+        <div>Estratégia de mitigação</div>
+      </div>
+
+      <div class="risk-row">
+        <div class="risk-title">Descontinuidade de financiamento federal pós‑grant</div>
+        <div><span class="risk-lvl med">Média</span></div>
+        <div><span class="risk-lvl high">Alto</span></div>
+        <div class="risk-mit">Portaria MS desde Ano 2 · diversificação de fontes (MCTI, BNDES, BIRD) · 4 acordos de cooperação técnica</div>
+      </div>
+
+      <div class="risk-row">
+        <div class="risk-title">Indisponibilidade ou degradação de dados INMET / DATASUS</div>
+        <div><span class="risk-lvl med">Média</span></div>
+        <div><span class="risk-lvl high">Alto</span></div>
+        <div class="risk-mit">Acordos formais com fontes · redundância via ERA5 e MERRA‑2 · cache local de 24 meses · contrato SLA com gestores</div>
+      </div>
+
+      <div class="risk-row">
+        <div class="risk-title">Baixa adesão de gestores municipais aos protocolos</div>
+        <div><span class="risk-lvl high">Alta</span></div>
+        <div><span class="risk-lvl med">Médio</span></div>
+        <div class="risk-mit">Co‑desenho com 40 gestores no Ano 1 · climasusEduca como pré‑requisito · incentivos via PMAQ‑AB · advocacy CONASS/CONASEMS</div>
+      </div>
+
+      <div class="risk-row">
+        <div class="risk-title">Eventos climáticos extremos afetando o trabalho de campo</div>
+        <div><span class="risk-lvl high">Alta</span></div>
+        <div><span class="risk-lvl med">Médio</span></div>
+        <div class="risk-mit">Janelas de campo na estação seca · equipe local em cada município · protocolos de contingência</div>
+      </div>
+
+      <div class="risk-row">
+        <div class="risk-title">Subnotificação persistente em populações ribeirinhas/indígenas</div>
+        <div><span class="risk-lvl med">Média</span></div>
+        <div><span class="risk-lvl high">Alto</span></div>
+        <div class="risk-mit">Parceria formal SESAI e FUNAI · ACS treinados · pesquisa qualitativa complementar · validação por verbal autopsy</div>
+      </div>
+
+      <div class="risk-row">
+        <div class="risk-title">Vandalismo ou perda dos sensores IoT</div>
+        <div><span class="risk-lvl med">Média</span></div>
+        <div><span class="risk-lvl low">Baixo</span></div>
+        <div class="risk-mit">Instalação em UBS, escolas e órgãos públicos · acordos com prefeituras · sensores redundantes · monitoramento remoto</div>
+      </div>
+    </div>
+
+    <h3 style="margin-top:64px;">Plano de <span class="it">sustentabilidade</span></h3>
+
+    <p class="lede">
+      A pergunta correta não é se o climaSUS sobrevive ao fim do grant, mas se já é, ao fim dos 60 meses, uma infraestrutura nacional não mais dependente desse grant.
+    </p>
+
+    <div class="three-col" style="margin-top:32px;">
+      <div>
+        <h4>Sustentabilidade institucional</h4>
+        <p style="font-size:16px; line-height:1.5;">Integração formal ao Ministério da Saúde via portaria, com linha orçamentária permanente na LOA. Posto formal na Sala de Situação Nacional.</p>
+      </div>
+      <div>
+        <h4>Sustentabilidade científica</h4>
+        <p style="font-size:16px; line-height:1.5;">Comunidade de mantenedores de climasus4r/4py em ≥ 3 universidades. Programa de pós‑graduação interinstitucional em Clima e Saúde.</p>
+      </div>
+      <div>
+        <h4>Sustentabilidade tecnológica</h4>
+        <p style="font-size:16px; line-height:1.5;">Código aberto sob licença MIT, infraestrutura em RNP/Lapesina, contratos plurianuais de cloud com SLA de continuidade.</p>
+      </div>
+    </div>
+
+    <div class="callout">
+      <div class="label">Conclusão</div>
+      <p>
+        O climaSUS é, ao mesmo tempo, infraestrutura científica, política pública e ação clínica concreta. Esta proposta pede recursos não para produzir mais um relatório sobre clima e saúde — mas para entregar, em cinco anos, um sistema operacional, validado e adotado, que proteja vidas amazônicas antes que o próximo evento extremo chegue.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ DOC FOOTER ============ -->
+<div class="doc-foot">
+  <span class="brand-foot">clima<span class="alt">SUS</span></span>
+  <div style="display:flex; flex-direction:column; align-items:flex-end; gap:6px;">
+    <span>climaSUS · Proposta de pesquisa 2026–2030</span>
+    <span style="color:rgba(244,239,227,0.4);">Documento confidencial · v 1.0 · 23 maio 2026</span>
+  </div>
+</div>
+
+</div>
+
+<script>
+  // Auto-print once fonts and layout are ready
+  (async function () {
+    try {
+      if (document.fonts && document.fonts.ready) {
+        await document.fonts.ready;
+      }
+      await new Promise(function (r) {
+        if (document.readyState === 'complete') return r();
+        window.addEventListener('load', r, { once: true });
+      });
+      // small settle for grid/gantt rendering
+      await new Promise(function (r) { setTimeout(r, 500); });
+      window.print();
+    } catch (e) {
+      console.warn('Auto-print failed', e);
+    }
+  })();
+</script>
+
+</body>
+</html>

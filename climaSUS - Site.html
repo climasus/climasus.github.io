@@ -1,0 +1,528 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>climaSUS — Ciência do clima e saúde pública</title>
+<link rel="icon" href="favicon.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,500&family=IBM+Plex+Sans:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="site-app.css">
+<script>document.documentElement.className += ' preload';</script>
+</head>
+<body>
+
+<template id="__bundler_thumbnail" data-bg-color="#07140F">
+  <svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+    <rect width="1200" height="800" fill="#07140F"/>
+    <circle cx="380" cy="300" r="190" fill="#C2410C" opacity="0.55"/>
+    <circle cx="780" cy="360" r="200" fill="#2F7D4F" opacity="0.5"/>
+    <circle cx="560" cy="560" r="170" fill="#B8860B" opacity="0.45"/>
+    <text x="600" y="430" text-anchor="middle" font-family="Georgia, serif" font-size="150" font-weight="600" letter-spacing="-4" fill="#F4EFE3">clima<tspan fill="#E68A4E" font-style="italic">SUS</tspan></text>
+  </svg>
+</template>
+
+<div class="top-progress" data-top-progress></div>
+
+<!-- ============ NAV ============ -->
+<nav class="nav" data-nav>
+  <a class="nav__brand" href="#top">clima<span class="alt">SUS</span></a>
+  <div class="nav__links">
+    <a href="#ecossistema">Ecossistema</a>
+    <a href="#alerta">Alertas</a>
+    <a href="#ciencia">Ciência aberta</a>
+    <a href="#plataforma">Plataforma</a>
+    <a href="#numeros">Impacto</a>
+    <a href="#cta" class="nav__cta">Acessar painel</a>
+  </div>
+</nav>
+
+<!-- ============ HERO ============ -->
+<header class="hero" id="top" data-hero>
+  <div class="hero__bg">
+    <span class="blob b1" data-hero-layer data-depth="26"></span>
+    <span class="blob b2" data-hero-layer data-depth="-18"></span>
+    <span class="blob b3" data-hero-layer data-depth="14"></span>
+    <span class="grid"></span>
+    <span class="grain"></span>
+  </div>
+  <div class="hero__vignette"></div>
+
+  <div class="hero__content" data-hero-content>
+    <span class="eyebrow hero__eyebrow"><span class="bar"></span>Plataforma de clima e saúde · Amazônia Brasileira</span>
+    <h1 class="hero__title">
+      <span class="ch" style="animation-delay:.05s">c</span><span class="ch" style="animation-delay:.10s">l</span><span class="ch" style="animation-delay:.15s">i</span><span class="ch" style="animation-delay:.20s">m</span><span class="ch" style="animation-delay:.25s">a</span><span class="ch alt" style="animation-delay:.32s">S</span><span class="ch alt" style="animation-delay:.38s">U</span><span class="ch alt" style="animation-delay:.44s">S</span>
+    </h1>
+    <p class="hero__sub">
+      Ciência do clima, dados ambientais e saúde pública — em código aberto, para antecipar os impactos do clima sobre quem mais precisa.
+    </p>
+    <div class="hero__cta">
+      <a href="#ecossistema" class="btn btn--primary">Conhecer o ecossistema <span class="arrow">→</span></a>
+      <a href="#alerta" class="btn btn--ghost">Ver os alertas</a>
+    </div>
+  </div>
+
+  <div class="hero__scroll">
+    <span class="mouse"></span>
+    Role para explorar
+  </div>
+</header>
+
+<!-- ============ STATEMENT ============ -->
+<section class="statement">
+  <div class="statement__inner">
+    <span class="eyebrow statement__eyebrow"><span class="bar"></span>A premissa</span>
+    <p class="statement__text" data-words>
+      O clima já mudou. A vigilância em saúde, <span class="accent"><em>ainda não</em></span>. O climaSUS existe para fechar essa distância — transformando dados em decisões que chegam ao gestor, à UBS e à comunidade antes do próximo evento extremo.
+    </p>
+  </div>
+</section>
+
+<!-- ============ ECOSSISTEMA ============ -->
+<section class="section section--cream" id="ecossistema">
+  <div class="section-head" data-reveal>
+    <span class="eyebrow"><span class="bar"></span>O ecossistema</span>
+    <h2 class="section-title">Cinco produtos, <span class="it">uma arquitetura aberta</span>.</h2>
+    <p class="section-lede">Da biblioteca científica ao alerta no rádio comunitário — cada componente preenche uma camada da mesma infraestrutura.</p>
+  </div>
+
+  <div class="wrap">
+    <div class="eco-grid">
+      <article class="eco-card lib-r" data-reveal style="--i:0">
+        <div>
+          <div class="eco-card__num">01 · Biblioteca R</div>
+          <h3 class="eco-card__name">climasus<span class="alt">4r</span></h3>
+          <p class="eco-card__desc">Pipeline completo de análise clima‑saúde em R: importação do DATASUS, integração climática, DLNM, meta‑análise e síntese estratégica.</p>
+        </div>
+        <div class="eco-card__tag">Pesquisa · Vigilância</div>
+      </article>
+
+      <article class="eco-card lib-py" data-reveal style="--i:1">
+        <div>
+          <div class="eco-card__num">02 · Biblioteca Python</div>
+          <h3 class="eco-card__name">climasus<span class="alt">4py</span></h3>
+          <p class="eco-card__desc">Mesmo arcabouço científico em Python, voltado a pipelines de dados e aprendizado de máquina.</p>
+        </div>
+        <div class="eco-card__tag">Modelagem · ML</div>
+      </article>
+
+      <article class="eco-card plus" data-reveal style="--i:2">
+        <div>
+          <div class="eco-card__num">03 · Plataforma</div>
+          <h3 class="eco-card__name">climasus<span class="alt">+</span></h3>
+          <p class="eco-card__desc">As mesmas funções científicas em ponto‑e‑clique, para gestores e técnicos do SUS sem programação.</p>
+        </div>
+        <div class="eco-card__tag">Gestores · SUS</div>
+      </article>
+
+      <article class="eco-card educa" data-reveal style="--i:0">
+        <div>
+          <div class="eco-card__num">04 · Capacitação</div>
+          <h3 class="eco-card__name">climasus<span class="alt">Educa</span></h3>
+          <p class="eco-card__desc">Formação de gestores, técnicos e pesquisadores em clima e saúde — porque tecnologia sem capilaridade institucional não vira política pública.</p>
+        </div>
+        <div class="eco-card__tag">Formação · Rede</div>
+      </article>
+
+      <article class="eco-card alerta" data-reveal style="--i:1">
+        <div>
+          <div class="eco-card__num">05 · Plataforma operacional</div>
+          <h3 class="eco-card__name">climasus<span class="alt">Alerta</span></h3>
+          <p class="eco-card__desc">Onde os sistemas de alerta precoce multi‑perigo são executados: calor, cheias, qualidade do ar e secas, cada um com seus canais.</p>
+        </div>
+        <div class="eco-card__tag">SACS · SACES · SAQS · SASS</div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PINNED COLOR-SCRUB — 3 SISTEMAS ============ -->
+<section class="scrub" id="alerta"
+         data-scrub
+         data-stops="#C2410C,#2F7D4F,#B8860B,#1B6B8F"
+         data-ink="#ffffff,#ffffff,#ffffff,#ffffff">
+  <div class="scrub__stage" data-scrub-stage>
+    <div class="scrub__head">
+      <div class="scrub__kicker">climasusAlerta · quatro sistemas</div>
+      <h2 class="scrub__title">Um perigo, um sistema, uma cor.</h2>
+    </div>
+
+    <div class="scrub__viewport">
+      <div class="scrub__track" data-scrub-track>
+
+        <!-- SACS -->
+        <article class="scrub-card active" data-scrub-card>
+          <div class="scrub-card__text">
+            <div class="scrub-card__code">Sistema 01 · em operação</div>
+            <h3 class="scrub-card__name">SACS<span class="it">·Amazônia</span></h3>
+            <p class="scrub-card__tag">Calor extremo &amp; saúde</p>
+            <p class="scrub-card__desc">Heat‑Health Warning System tropicalizado, com limiar percentílico P90 calibrado município a município — alinhado às diretrizes da OMS e da OMM.</p>
+            <div class="scrub-card__attrs">
+              <div class="row"><span class="k">Fonte</span><span class="v">INMET · horária</span></div>
+              <div class="row"><span class="k">Níveis</span><span class="v">N1 → N4</span></div>
+              <div class="row"><span class="k">Canais</span><span class="v">Gestores · UBS · Defesa Civil · App · Mídia</span></div>
+            </div>
+          </div>
+          <div class="scrub-card__visual">
+            <svg viewBox="0 0 320 400" fill="none">
+              <g stroke="rgba(255,255,255,0.85)" stroke-width="2" fill="none">
+                <path d="M30 320 Q90 300 160 312 T300 318"/>
+                <path d="M30 280 Q90 250 160 264 T300 286"/>
+                <path d="M30 240 Q90 190 160 206 T300 250"/>
+                <path d="M40 200 Q100 130 160 148 T290 210"/>
+              </g>
+              <g fill="#fff">
+                <circle cx="90" cy="252" r="4"/><circle cx="160" cy="206" r="6"/><circle cx="230" cy="240" r="4"/>
+              </g>
+              <text x="160" y="200" text-anchor="middle" font-family="IBM Plex Mono" font-size="13" fill="#fff" letter-spacing="2">42.8°C</text>
+            </svg>
+          </div>
+        </article>
+
+        <!-- SAQS -->
+        <article class="scrub-card" data-scrub-card>
+          <div class="scrub-card__text">
+            <div class="scrub-card__code">Sistema 02 · piloto</div>
+            <h3 class="scrub-card__name">SAQS<span class="it">·Amazônia</span></h3>
+            <p class="scrub-card__tag">Qualidade do ar · PM 2.5</p>
+            <p class="scrub-card__desc">Vigilância hiperlocal com redes densas de sensores IoT de baixo custo. Alertas bairro‑a‑bairro durante incêndios florestais, via algoritmo NowCast.</p>
+            <div class="scrub-card__attrs">
+              <div class="row"><span class="k">Sensores</span><span class="v">240 · 12 cidades</span></div>
+              <div class="row"><span class="k">Método</span><span class="v">NowCast</span></div>
+              <div class="row"><span class="k">Canais</span><span class="v">Vigilância · Escolas · UBS · App · Mídia</span></div>
+            </div>
+          </div>
+          <div class="scrub-card__visual">
+            <svg viewBox="0 0 320 400" fill="none">
+              <g>
+                <circle cx="70" cy="120" r="6" fill="rgba(255,255,255,0.6)"/>
+                <circle cx="120" cy="160" r="9" fill="rgba(255,255,255,0.8)"/>
+                <circle cx="175" cy="120" r="13" fill="#fff"/>
+                <circle cx="230" cy="170" r="10" fill="rgba(255,255,255,0.8)"/>
+                <circle cx="90" cy="220" r="7" fill="rgba(255,255,255,0.6)"/>
+                <circle cx="160" cy="250" r="11" fill="#fff"/>
+                <circle cx="235" cy="245" r="7" fill="rgba(255,255,255,0.55)"/>
+                <circle cx="120" cy="310" r="6" fill="rgba(255,255,255,0.5)"/>
+                <circle cx="200" cy="315" r="8" fill="rgba(255,255,255,0.7)"/>
+              </g>
+              <text x="160" y="375" text-anchor="middle" font-family="IBM Plex Mono" font-size="12" fill="#fff" letter-spacing="2">REDE HIPERLOCAL</text>
+            </svg>
+          </div>
+        </article>
+
+        <!-- SASS -->
+        <article class="scrub-card" data-scrub-card>
+          <div class="scrub-card__text">
+            <div class="scrub-card__code">Sistema 03 · em desenvolvimento</div>
+            <h3 class="scrub-card__name">SASS<span class="it">·Amazônia</span></h3>
+            <p class="scrub-card__tag">Secas · escala S2S</p>
+            <p class="scrub-card__desc">Perigos de início lento, com previsões sub‑sazonais e sazonais — semanas a meses de antecedência. Integra segurança alimentar, doenças hídricas e saneamento.</p>
+            <div class="scrub-card__attrs">
+              <div class="row"><span class="k">Horizonte</span><span class="v">Semanas → meses</span></div>
+              <div class="row"><span class="k">Índices</span><span class="v">SPI · SPEI · vazão</span></div>
+              <div class="row"><span class="k">Canais</span><span class="v">Gestores · Comunidades · Defesa Civil · UBS · Mídia</span></div>
+            </div>
+          </div>
+          <div class="scrub-card__visual">
+            <svg viewBox="0 0 320 400" fill="none">
+              <line x1="100" y1="60" x2="100" y2="340" stroke="rgba(255,255,255,0.5)" stroke-width="2"/>
+              <circle cx="100" cy="90" r="7" fill="#fff"/>
+              <text x="122" y="95" font-family="Newsreader" font-style="italic" font-size="20" fill="#fff">hoje</text>
+              <circle cx="100" cy="180" r="6" fill="rgba(255,255,255,0.85)"/>
+              <text x="122" y="185" font-family="Newsreader" font-size="18" fill="#fff">semanas</text>
+              <circle cx="100" cy="280" r="9" fill="#fff"/>
+              <text x="122" y="285" font-family="Newsreader" font-size="18" fill="#fff">meses</text>
+              <text x="160" y="375" text-anchor="middle" font-family="IBM Plex Mono" font-size="12" fill="#fff" letter-spacing="2">HORIZONTE S2S</text>
+            </svg>
+          </div>
+        </article>
+
+        <!-- SACES -->
+        <article class="scrub-card" data-scrub-card>
+          <div class="scrub-card__text">
+            <div class="scrub-card__code">Sistema 04 · em concepção</div>
+            <h3 class="scrub-card__name">SACES<span class="it">·Amazônia</span></h3>
+            <p class="scrub-card__tag">Cheias &amp; enchentes</p>
+            <p class="scrub-card__desc">Monitoramento e alerta de cheias fluviais — cotas dos rios da bacia amazônica e previsão hidrológica para antecipar desastres e impactos à saúde: doenças de veiculação hídrica e deslocamento de populações.</p>
+            <div class="scrub-card__attrs">
+              <div class="row"><span class="k">Fonte</span><span class="v">ANA · CPRM · cotas fluviais</span></div>
+              <div class="row"><span class="k">Horizonte</span><span class="v">Dias → semanas</span></div>
+              <div class="row"><span class="k">Canais</span><span class="v">Defesa Civil · Comunidades · UBS · App · Mídia</span></div>
+            </div>
+          </div>
+          <div class="scrub-card__visual">
+            <svg viewBox="0 0 320 400" fill="none">
+              <g stroke="rgba(255,255,255,0.35)" stroke-width="1.4">
+                <line x1="60" y1="110" x2="260" y2="110"/>
+                <line x1="60" y1="160" x2="260" y2="160"/>
+                <line x1="60" y1="210" x2="260" y2="210"/>
+                <line x1="60" y1="260" x2="260" y2="260"/>
+              </g>
+              <path d="M40 250 Q90 234 140 250 T240 250 T320 250 L320 400 L40 400 Z" fill="rgba(255,255,255,0.18)"/>
+              <path d="M40 210 Q90 194 140 210 T240 210 T320 210 L320 400 L40 400 Z" fill="rgba(255,255,255,0.32)"/>
+              <path d="M40 168 Q90 152 140 168 T240 168 T320 168 L320 400 L40 400 Z" fill="rgba(255,255,255,0.5)"/>
+              <g stroke="#fff" stroke-width="2">
+                <line x1="272" y1="96" x2="272" y2="300"/>
+                <line x1="266" y1="110" x2="278" y2="110"/>
+                <line x1="266" y1="160" x2="278" y2="160"/>
+                <line x1="266" y1="210" x2="278" y2="210"/>
+              </g>
+              <text x="150" y="96" text-anchor="middle" font-family="IBM Plex Mono" font-size="13" fill="#fff" letter-spacing="2">COTA DE ALERTA</text>
+              <text x="160" y="378" text-anchor="middle" font-family="IBM Plex Mono" font-size="12" fill="#fff" letter-spacing="2">NÍVEL DO RIO</text>
+            </svg>
+          </div>
+        </article>
+
+      </div>
+    </div>
+
+    <div class="scrub__foot">
+      <div class="scrub__dots">
+        <span class="scrub__dot active" data-scrub-dot></span>
+        <span class="scrub__dot" data-scrub-dot></span>
+        <span class="scrub__dot" data-scrub-dot></span>
+        <span class="scrub__dot" data-scrub-dot></span>
+      </div>
+      <div class="scrub__progress"><span class="scrub__progress-fill" data-scrub-progress></span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FEATURE — climasus4r / 4py (ciência aberta) ============ -->
+<section class="feature section--cream" id="ciencia">
+  <div class="feature__inner">
+    <div class="feature__text" data-reveal="left">
+      <span class="eyebrow feature__eyebrow"><span class="bar"></span>climasus4r · climasus4py</span>
+      <h2 class="feature__title">Da importação <span class="it">à decisão</span>, em uma só linha.</h2>
+      <div class="feature__body">
+        <p>As bibliotecas científicas são o motor de todo o ecossistema. Importam dados brutos do SUS, integram clima e território, e chegam à modelagem causal — tudo reprodutível e em código aberto.</p>
+      </div>
+      <ul class="feature__list">
+        <li><span class="k">Pipeline</span><span>Import → clean → standardize → filter → derive → aggregate</span></li>
+        <li><span class="k">Clima</span><span>INMET, normais 1991–2020, anomalias e ondas de calor</span></li>
+        <li><span class="k">Modelagem</span><span>DLNM, meta‑análise, fração atribuível, carga e vulnerabilidade</span></li>
+        <li><span class="k">Backends</span><span>Tibble · Arrow/Parquet · DuckDB — metadados que sobrevivem</span></li>
+      </ul>
+    </div>
+    <div class="feature__media" data-reveal="right">
+      <div class="codewin">
+        <div class="codewin__bar">
+          <span class="d"></span><span class="d"></span><span class="d"></span>
+          <span class="t">R · climasus4r</span>
+        </div>
+        <div class="codewin__body">
+<span class="cm"># pipeline clima‑saúde completo</span><br>
+df &lt;- <span class="fn">sus_data_import</span>(<span class="st">"SIM"</span>, uf = <span class="st">"AM"</span>) |&gt;<br>
+&nbsp;&nbsp;<span class="fn">sus_data_clean_encoding</span>() |&gt;<br>
+&nbsp;&nbsp;<span class="fn">sus_data_aggregate</span>(by = <span class="st">"municipio"</span>) |&gt;<br>
+&nbsp;&nbsp;<span class="fn">sus_climate_inmet</span>(var = <span class="st">"tmax"</span>) |&gt;<br>
+&nbsp;&nbsp;<span class="fn">sus_climate_compute_heatwaves</span>()<br>
+<br>
+modelo &lt;- <span class="fn">sus_mod_dlnm</span>(df, lang = <span class="st">"pt"</span>)<br>
+<span class="fn">sus_mod_vulnerability_index</span>(modelo)<br>
+<span class="out">#&gt; índice de vulnerabilidade: 0–100 · SWOT</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FEATURE — climasus+ (plataforma) ============ -->
+<section class="feature" id="plataforma">
+  <div class="feature__inner feature--reverse">
+    <div class="feature__media" data-reveal="left">
+      <div class="platwin">
+        <div class="platwin__bar">
+          <span class="dot" style="background:#C2410C"></span>
+          <span class="dot" style="background:#B8860B"></span>
+          <span class="dot" style="background:#2F7D4F"></span>
+          <span class="platwin__chip">climasus+ · painel</span>
+        </div>
+        <div class="platwin__body">
+          <div class="platwin__panel"><span class="lbl">Alertas ativos</span><span class="big">3</span></div>
+          <div class="platwin__panel"><span class="lbl">Municípios</span><span class="big">772</span></div>
+          <div class="platwin__panel wide"><span class="lbl">Mortalidade excessiva · 7d</span><span class="big">+11,4%</span></div>
+          <div class="platwin__panel wide"><span class="lbl">Heat Index máx · hoje</span><span class="big">48 °C</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="feature__text" data-reveal="right">
+      <span class="eyebrow feature__eyebrow"><span class="bar"></span>climasus+</span>
+      <h2 class="feature__title">Toda a ciência, <span class="it">sem uma linha de código</span>.</h2>
+      <div class="feature__body">
+        <p>A plataforma interativa traz as funções das bibliotecas para gestores e técnicos do SUS em ponto‑e‑clique: mapas, séries temporais, relatórios — sobre o mesmo motor científico.</p>
+      </div>
+      <ul class="feature__list">
+        <li><span class="k">Acesso</span><span>Integração Gov.br e DATASUS · SSO institucional</span></li>
+        <li><span class="k">Saída</span><span>Mapas, séries, relatórios PDF prontos para gestão</span></li>
+        <li><span class="k">Multilíngue</span><span>Português · English · Español em toda a interface</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FEATURE — climasusEduca ============ -->
+<section class="feature section--cream">
+  <div class="feature__inner">
+    <div class="feature__text" data-reveal="left">
+      <span class="eyebrow feature__eyebrow"><span class="bar"></span>climasusEduca</span>
+      <h2 class="feature__title">Capilaridade é <span class="it">o que vira política</span>.</h2>
+      <div class="feature__body">
+        <p>Tecnologia sem rede institucional não chega à ponta. O climasusEduca forma profissionais de saúde, gestores e pesquisadores para usar — e sustentar — o ecossistema em todas as escalas do SUS.</p>
+      </div>
+      <ul class="feature__list">
+        <li><span class="k">Trilhas</span><span>Básico 40h · Técnico 80h · Avançado 160h</span></li>
+        <li><span class="k">EAD</span><span>Microcredenciais reconhecidas pelo Ministério da Saúde</span></li>
+        <li><span class="k">Residência</span><span>Programa técnico em clima e saúde · 12 vagas/ano</span></li>
+      </ul>
+    </div>
+    <div class="feature__media" data-reveal="right">
+      <div class="educawin">
+        <svg viewBox="0 0 520 420" width="100%" height="100%" preserveAspectRatio="xMidYMid slice">
+          <g fill="none" stroke="rgba(244,239,227,0.5)" stroke-width="1.4">
+            <circle cx="260" cy="210" r="50"/>
+            <circle cx="260" cy="210" r="110"/>
+            <circle cx="260" cy="210" r="170"/>
+          </g>
+          <g fill="rgba(244,239,227,0.92)">
+            <circle cx="260" cy="100" r="6"/><circle cx="370" cy="210" r="6"/>
+            <circle cx="260" cy="320" r="6"/><circle cx="150" cy="210" r="6"/>
+            <circle cx="335" cy="135" r="5"/><circle cx="185" cy="285" r="5"/>
+            <circle cx="335" cy="285" r="5"/><circle cx="185" cy="135" r="5"/>
+          </g>
+          <circle cx="260" cy="210" r="14" fill="#fff"/>
+          <text x="260" y="404" text-anchor="middle" font-family="IBM Plex Mono" font-size="13" fill="rgba(244,239,227,0.75)" letter-spacing="3">REDE DE 2.400 PROFISSIONAIS</text>
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ NUMBERS ============ -->
+<section class="numbers" id="numeros">
+  <div class="section-head" data-reveal>
+    <span class="eyebrow"><span class="bar"></span>Impacto projetado</span>
+    <h2 class="section-title">Cinco anos, <span class="it">resultados mensuráveis</span>.</h2>
+  </div>
+  <div class="numbers__grid">
+    <div class="num-cell" data-reveal style="--i:0">
+      <div class="v"><span data-count="772">0</span></div>
+      <div class="l">Municípios da Amazônia Legal cobertos pelo SACS</div>
+      <div class="s">Meta · M48</div>
+    </div>
+    <div class="num-cell" data-reveal style="--i:1">
+      <div class="v"><span data-count="28">0</span> M</div>
+      <div class="l">Pessoas alcançadas pelos sistemas de alerta</div>
+      <div class="s">População · região</div>
+    </div>
+    <div class="num-cell" data-reveal style="--i:2">
+      <div class="v"><span data-count="2400">0</span></div>
+      <div class="l">Profissionais formados via climasusEduca</div>
+      <div class="s">14 SES · Amazônia</div>
+    </div>
+    <div class="num-cell" data-reveal style="--i:3">
+      <div class="v"><span data-count="30">0</span> s</div>
+      <div class="l">Latência da detecção de novo dado climático</div>
+      <div class="s">Pipeline · INMET</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ WHY GRID ============ -->
+<section class="section" id="porque">
+  <div class="section-head" data-reveal>
+    <span class="eyebrow"><span class="bar"></span>Por que o climaSUS</span>
+    <h2 class="section-title">Aberto. Tropical. <span class="it">Acionável</span>.</h2>
+    <p class="section-lede">Três princípios que separam o climaSUS de mais um relatório sobre clima e saúde.</p>
+  </div>
+  <div class="why-grid">
+    <article class="why-card" data-reveal style="--i:0">
+      <div class="icon">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3 L21 19 H3 Z"/><path d="M12 11 v4"/><circle cx="12" cy="17" r=".6" fill="currentColor"/></svg>
+      </div>
+      <h4>Calibração tropical</h4>
+      <p>Limiares no percentil 90 da climatologia local, não importados de zonas temperadas. 32 °C não significa o mesmo em Berlim e em Tefé.</p>
+    </article>
+    <article class="why-card" data-reveal style="--i:1">
+      <div class="icon">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 18 V18 a8 8 0 0 1 16 0"/><path d="M4 18 H20"/><circle cx="12" cy="6" r="2.4"/></svg>
+      </div>
+      <h4>Equidade no centro</h4>
+      <p>Integra fontes da FUNAI, SESAI e UBS para corrigir a subnotificação em populações ribeirinhas e indígenas — quem está mais exposto.</p>
+    </article>
+    <article class="why-card" data-reveal style="--i:2">
+      <div class="icon">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 7 h16 M4 12 h16 M4 17 h10"/></svg>
+      </div>
+      <h4>Código aberto, de verdade</h4>
+      <p>Bibliotecas em CRAN e PyPI, dados FAIR no Zenodo, licença MIT. Qualquer pesquisador pode usar, contribuir e auditar.</p>
+    </article>
+  </div>
+</section>
+
+<!-- ============ FINALE / CTA ============ -->
+<section class="finale" id="cta">
+  <div class="finale__bg">
+    <span class="ring" style="width:420px;height:420px"></span>
+    <span class="ring" style="width:720px;height:720px"></span>
+    <span class="ring" style="width:1040px;height:1040px"></span>
+    <span class="ring" style="width:1360px;height:1360px"></span>
+  </div>
+  <div class="finale__inner" data-reveal="scale">
+    <span class="eyebrow finale__eyebrow"><span class="bar"></span>climaSUS</span>
+    <h2 class="finale__title">Antecipar para <span class="it">proteger</span>.</h2>
+    <p class="finale__sub">Infraestrutura científica, política pública e ação clínica concreta — para proteger vidas amazônicas antes que o próximo evento extremo chegue.</p>
+    <div class="finale__cta">
+      <a href="#" class="btn btn--primary">Acessar o painel ao vivo <span class="arrow">→</span></a>
+      <a href="#" class="btn btn--ghost">Ver no GitHub</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="footer">
+  <div class="footer__top">
+    <div class="footer__brand">
+      <div class="bw">clima<span class="alt">SUS</span></div>
+      <p>Ecossistema brasileiro de código aberto que conecta ciência atmosférica, dados ambientais e saúde pública. Desenvolvido por uma rede de pesquisadores e gestores comprometidos com o SUS.</p>
+    </div>
+    <div class="footer__col">
+      <h5>Produtos</h5>
+      <ul>
+        <li><a href="#ciencia">climasus4r</a></li>
+        <li><a href="#ciencia">climasus4py</a></li>
+        <li><a href="#plataforma">climasus+</a></li>
+        <li><a href="#">climasusEduca</a></li>
+        <li><a href="#alerta">climasusAlerta</a></li>
+      </ul>
+    </div>
+    <div class="footer__col">
+      <h5>Sistemas</h5>
+      <ul>
+        <li><a href="#alerta">SACS — Calor</a></li>
+        <li><a href="#alerta">SACES — Cheias</a></li>
+        <li><a href="#alerta">SAQS — Ar</a></li>
+        <li><a href="#alerta">SASS — Secas</a></li>
+        <li><a href="#numeros">Impacto</a></li>
+      </ul>
+    </div>
+    <div class="footer__col">
+      <h5>Aberto</h5>
+      <ul>
+        <li><a href="#">GitHub</a></li>
+        <li><a href="#">Documentação</a></li>
+        <li><a href="#">Dados · Zenodo</a></li>
+        <li><a href="#">Citar climaSUS</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer__bottom">
+    <span>© 2026 climaSUS · Universidade Federal do Rio Grande do Norte</span>
+    <span>Licença MIT · CC BY 4.0</span>
+  </div>
+</footer>
+
+<script src="site-app.js"></script>
+</body>
+</html>

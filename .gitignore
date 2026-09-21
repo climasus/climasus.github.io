@@ -1,9 +1,7 @@
-# Caches e artefatos de CI
-assets/i18n/
-assets/data/
-
-# macOS
+.thumbnail
+scraps/
+screenshots/
+*Standalone.html
+*standalone*.html
+uploads/climaSUS-Site-aurora-climatica.html
 .DS_Store
-
-# Windows
-Thumbs.db
